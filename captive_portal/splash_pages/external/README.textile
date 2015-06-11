@@ -2,9 +2,9 @@ h1. UAM Splash Pages with Authentication Server
 
 _This is preliminary documentation. It applies only to networks running under CloudTrax 4._
 
-UAM splash pages are used to allow customers to host their own splash pages. This replaces the splash pages which are directly provided by each Open-Mesh router. The authentication is still done using the normal authentication backends. See "Authentication Services":(../../authentication/README.md).
+UAM splash pages are used to allow customers to host their own splash pages. This replaces the splash pages which are directly provided by each Open-Mesh router. The authentication is still done using the normal authentication backends. See  <a href='../../authentication/README.md'>Authentication Services</a>
 
-You'll need to use the CloudTrax Dashboard to configure the "Splash Page URL" of your splash page ("UAM_SERVER" + "/" + "UAM_URL" in the Example Values table below), as well as its "Splash Page Secret" ( "UAM_SECRET").
+You'll need to use the CloudTrax Dashboard to configure the "Splash Page URL" of your splash page ("UAM_SERVER" + "/" + "UAM_URL" in the Example Values table below), as well as its "Splash Page Secret" ("UAM_SECRET").
 
 !images/External_splash-page_configuration.png!
 
