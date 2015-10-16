@@ -1,0 +1,527 @@
+{
+  "network": {
+    "general": {
+      "location": "Hollywood, Canada",
+      "network_name": "hk_network",
+      "display_name": "Howards Test Network 1",
+      "notes": "12may15 9:30am\nunable to change network password (dialog says matching passwords aren't matching)",
+      "timezone": "America\/Vancouver",
+      "disable_public_access": false,
+      "enable_12h_display": false,
+      "disable_internet_check": false,
+      "enable_alerts": true,
+      "notification_email_addresses": "howard~iphone@fatdog.com"
+    },
+    "maintenance": {
+      "start": "00:00:00",
+      "duration": "00:00:00",
+      "days": [
+        "su",
+        "mo",
+        "tu",
+        "we",
+        "th",
+        "fr",
+        "sa"
+      ]
+    },
+    "radio": {
+      "country_code": "US",
+      "tx_power": 0,
+      "enable_autorf": false,
+      "autorf_scan_hour": 4,
+      "channel": {
+        "2_4GHz": 5,
+        "5GHz": 44
+      },
+      "ht_mode": {
+        "2_4GHz": "HT20",
+        "5GHz": "HT40+"
+      }
+    },
+    "firmware_upgrade": {
+      "disable": false,
+      "firmware_release": "testing"
+    },
+    "advanced": {
+      "enable_share_voucher": false,
+      "node_root_password": "qzcJkQpa",
+      "enable_mesh_encryption": false,
+      "dns_server_addresses": [
+        
+      ],
+      "dns_domain_name": "",
+      "cloud_ap_host": "",
+      "custom_script_url": "",
+      "wired_bridge_ssid": 1,
+      "wireless_bridge_ssid": 0
+    },
+    "paypal": {
+      "max_user_count": 0,
+      "upload_limit": 2500,
+      "download_limit": 5000,
+      "pdt_key": ""
+    }
+  },
+  "ssids": {
+    "1": {
+      "general": {
+        "ssid_num": 1,
+        "ssid_name": "CloudTrax",
+        "wifi_name": "CloudTrax",
+        "enable": true,
+        "enable_use_node_name": false,
+        "wifi_auth_type": "open",
+        "wpa_password": "",
+        "enable_hidden_network": false,
+        "gateway_name": "Howards Test Network 1"
+      },
+      "captive_portal": {
+        "splashpage": "none",
+        "enable_traffic_shaping": true,
+        "per_client_download_speed": 1000,
+        "per_client_upload_speed": 1000,
+        "client_force_timeout": 5,
+        "enable_block_pre_auth_clients": false,
+        "enable_require_valid_login": false,
+        "login_method": "none",
+        "after_splashpage_redirect_url": "",
+        "whitelist": [
+          
+        ],
+        "blocklist": [
+          
+        ],
+        "walled_garden": [
+          
+        ],
+        "block_message": "",
+        "enable_include_userdata_on_redirect": false,
+        "enable_redirect_client_track": false,
+        "remote_splashpage": {
+          "server_address": "",
+          "enable_server_ssl": false,
+          "server_secret": "",
+          "server_path": "",
+          "nas_id": ""
+        },
+        "radius_auth": {
+          "server_addresses": [
+            
+          ],
+          "server_secret": "",
+          "nas_id": "",
+          "enable_swapoctets": false
+        },
+        "http_auth": {
+          "url": "",
+          "secret": ""
+        },
+        "ldap_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": "",
+          "base_dn": "",
+          "attribute": "",
+          "user_filter": ""
+        },
+        "active_directory_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": ""
+        },
+        "cloudtrax_splashpage": {
+          "base_url": "https:\/\/s3.amazonaws.com\/my-cloudtrax-files\/ct4\/135587\/splashpage\/1\/",
+          "files": {
+            "564": {
+              "role": "file",
+              "name": "responsive.css"
+            },
+            "563": {
+              "role": "file",
+              "name": "stylesheet.css"
+            }
+          }
+        }
+      },
+      "advanced": {
+        "wpa_e_server_address": "",
+        "wpa_e_server_port": 1812,
+        "wpa_e_server_secret": "",
+        "enable_ap_isolation": false,
+        "enable_lan_block": false,
+        "smtp_redirect_server_address": "",
+        "wifi_whitelist": [
+          
+        ],
+        "vlan_tag": -1,
+        "dns_server_addresses": [
+          
+        ],
+        "login_attempts": 3,
+        "login_attempt_timeout": 1800
+      }
+    },
+    "2": {
+      "general": {
+        "ssid_num": 2,
+        "ssid_name": "howardck 2",
+        "wifi_name": "howardck 2",
+        "enable": false,
+        "enable_use_node_name": false,
+        "wifi_auth_type": "open",
+        "wpa_password": "",
+        "enable_hidden_network": false,
+        "gateway_name": "Howards Test Network 1"
+      },
+      "captive_portal": {
+        "splashpage": "none",
+        "enable_traffic_shaping": false,
+        "per_client_download_speed": 5000,
+        "per_client_upload_speed": 2500,
+        "client_force_timeout": 5,
+        "enable_block_pre_auth_clients": false,
+        "enable_require_valid_login": false,
+        "login_method": "none",
+        "after_splashpage_redirect_url": "",
+        "whitelist": [
+          
+        ],
+        "blocklist": [
+          
+        ],
+        "walled_garden": [
+          
+        ],
+        "block_message": "",
+        "enable_include_userdata_on_redirect": false,
+        "enable_redirect_client_track": false,
+        "remote_splashpage": {
+          "server_address": "",
+          "enable_server_ssl": false,
+          "server_secret": "",
+          "server_path": "",
+          "nas_id": ""
+        },
+        "radius_auth": {
+          "server_addresses": [
+            
+          ],
+          "server_secret": "",
+          "nas_id": "",
+          "enable_swapoctets": false
+        },
+        "http_auth": {
+          "url": "",
+          "secret": ""
+        },
+        "ldap_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": "",
+          "base_dn": "",
+          "attribute": "",
+          "user_filter": ""
+        },
+        "active_directory_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": ""
+        }
+      },
+      "advanced": {
+        "wpa_e_server_address": "",
+        "wpa_e_server_port": 1812,
+        "wpa_e_server_secret": "",
+        "enable_ap_isolation": false,
+        "enable_lan_block": false,
+        "smtp_redirect_server_address": "",
+        "wifi_whitelist": [
+          
+        ],
+        "vlan_tag": -1,
+        "dns_server_addresses": [
+          
+        ],
+        "login_attempts": 3,
+        "login_attempt_timeout": 1800
+      }
+    },
+    "3": {
+      "general": {
+        "ssid_num": 3,
+        "ssid_name": "howardck 3",
+        "wifi_name": "howardck 3",
+        "enable": false,
+        "enable_use_node_name": false,
+        "wifi_auth_type": "wpa-2only-psk",
+        "wpa_password": "2aUImstv",
+        "enable_hidden_network": false,
+        "gateway_name": "Howards Test Network 1"
+      },
+      "captive_portal": {
+        "splashpage": "cloudtrax",
+        "enable_traffic_shaping": false,
+        "per_client_download_speed": 5000,
+        "per_client_upload_speed": 2500,
+        "client_force_timeout": 2880,
+        "enable_block_pre_auth_clients": false,
+        "enable_require_valid_login": false,
+        "login_method": "http",
+        "after_splashpage_redirect_url": "http:\/\/www.fatdog.com",
+        "whitelist": [
+          
+        ],
+        "blocklist": [
+          
+        ],
+        "walled_garden": [
+          
+        ],
+        "block_message": "This device has been blocked. Contact your network administrator.",
+        "enable_include_userdata_on_redirect": false,
+        "enable_redirect_client_track": false,
+        "remote_splashpage": {
+          "server_address": "",
+          "enable_server_ssl": false,
+          "server_secret": "",
+          "server_path": "",
+          "nas_id": ""
+        },
+        "radius_auth": {
+          "server_addresses": [
+            
+          ],
+          "server_secret": "",
+          "nas_id": "",
+          "enable_swapoctets": false
+        },
+        "http_auth": {
+          "url": "http:\/\/10.255.233.138",
+          "secret": "deadbeef"
+        },
+        "ldap_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": "",
+          "base_dn": "",
+          "attribute": "",
+          "user_filter": ""
+        },
+        "active_directory_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": ""
+        },
+        "cloudtrax_splashpage": {
+          "base_url": "https:\/\/s3.amazonaws.com\/my-cloudtrax-files\/ct4\/135587\/splashpage\/3\/",
+          "files": {
+            "585": {
+              "role": "image",
+              "name": "header-default.jpg"
+            },
+            "581": {
+              "role": "file",
+              "name": "responsive.css"
+            },
+            "584": {
+              "role": "image",
+              "name": "cloudtraxsplash.png"
+            },
+            "583": {
+              "role": "image",
+              "name": "backgroundsplash-default.jpg"
+            },
+            "582": {
+              "role": "file",
+              "name": "stylesheet.css"
+            },
+            "580": {
+              "role": "page",
+              "name": "splash.html"
+            }
+          }
+        }
+      },
+      "advanced": {
+        "wpa_e_server_address": "",
+        "wpa_e_server_port": 1812,
+        "wpa_e_server_secret": "",
+        "enable_ap_isolation": false,
+        "enable_lan_block": false,
+        "smtp_redirect_server_address": "",
+        "wifi_whitelist": [
+          
+        ],
+        "vlan_tag": -1,
+        "dns_server_addresses": [
+          
+        ],
+        "login_attempts": 3,
+        "login_attempt_timeout": 1800
+      }
+    },
+    "4": {
+      "general": {
+        "ssid_num": 4,
+        "ssid_name": "howardck 4",
+        "wifi_name": "howardck 4",
+        "enable": true,
+        "enable_use_node_name": false,
+        "wifi_auth_type": "wpa-mixed-psk",
+        "wpa_password": "calpurnia-1",
+        "enable_hidden_network": false,
+        "gateway_name": "Howards Test Network 1"
+      },
+      "captive_portal": {
+        "splashpage": "cloudtrax",
+        "enable_traffic_shaping": false,
+        "per_client_download_speed": 5000,
+        "per_client_upload_speed": 2500,
+        "client_force_timeout": 2880,
+        "enable_block_pre_auth_clients": false,
+        "enable_require_valid_login": false,
+        "login_method": "http",
+        "after_splashpage_redirect_url": "http:\/\/google.ca",
+        "whitelist": [
+          
+        ],
+        "blocklist": [
+          
+        ],
+        "walled_garden": [
+          
+        ],
+        "block_message": "This device has been blocked. Contact your network administrator.",
+        "enable_include_userdata_on_redirect": false,
+        "enable_redirect_client_track": false,
+        "remote_splashpage": {
+          "server_address": "",
+          "enable_server_ssl": false,
+          "server_secret": "",
+          "server_path": "",
+          "nas_id": ""
+        },
+        "radius_auth": {
+          "server_addresses": [
+            
+          ],
+          "server_secret": "",
+          "nas_id": "",
+          "enable_swapoctets": false
+        },
+        "http_auth": {
+          "url": "http:\/\/10.255.221.138\/example_server.php",
+          "secret": "verysecretstring"
+        },
+        "ldap_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": "",
+          "base_dn": "",
+          "attribute": "",
+          "user_filter": ""
+        },
+        "active_directory_auth": {
+          "servers": [
+            
+          ],
+          "ports": [
+            
+          ],
+          "bind_username": "",
+          "bind_password": "",
+          "bind_shortdomain": ""
+        },
+        "cloudtrax_splashpage": {
+          "base_url": "https:\/\/s3.amazonaws.com\/my-cloudtrax-files\/ct4\/135587\/splashpage\/4\/",
+          "files": {
+            "576": {
+              "role": "image",
+              "name": "header-default.jpg"
+            },
+            "575": {
+              "role": "image",
+              "name": "cloudtraxsplash.png"
+            },
+            "574": {
+              "role": "image",
+              "name": "backgroundsplash-default.jpg"
+            },
+            "573": {
+              "role": "file",
+              "name": "stylesheet.css"
+            },
+            "572": {
+              "role": "file",
+              "name": "responsive.css"
+            },
+            "571": {
+              "role": "page",
+              "name": "splash.html"
+            }
+          }
+        }
+      },
+      "advanced": {
+        "wpa_e_server_address": "",
+        "wpa_e_server_port": 1812,
+        "wpa_e_server_secret": "",
+        "enable_ap_isolation": false,
+        "enable_lan_block": false,
+        "smtp_redirect_server_address": "",
+        "wifi_whitelist": [
+          
+        ],
+        "vlan_tag": -1,
+        "dns_server_addresses": [
+          
+        ],
+        "login_attempts": 3,
+        "login_attempt_timeout": 1800
+      }
+    }
+  }
+}

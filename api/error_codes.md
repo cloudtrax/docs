@@ -1,0 +1,97 @@
+# API Error codes
+
+This table shows error codes and their associated descriptions. Strings enclosed by '$'  are replaced during error processing. Note that code "1009" is a special "non-error" error code that is used to indicate "success" when an API call returns a 200 Response without any accompanying JSON output of its own. "14001" is one other example of a "non-error" error.
+
+(See [Errors](README.md#errors) for furtherdetails.)
+
+domain | error code | message
+---- | ---- | ---
+**miscellaneous** | -------  | -----------------------------------------
+misc | 1000 |  "Exception: $reason$"
+misc | 1001 |  "Key is not master."
+misc | 1002 |  "Request unknown or not implemented."
+misc | 1003 |  "Id is invalid.";
+misc | 1004 |  "No network found."
+misc | 1005 |  "Name cannot be empty."
+misc | 1006 |  "Missing parameter."
+misc | 1007 |  "Access point ($mac$) not found."
+misc | 1008 |  "Mac address ($mac$) is in the wrong format.  Must match regx $regx$."
+misc | 1009 | "Success"
+**general info** | -------  | -------
+general | 10000 |  "You have one or more access points that are not upgradeable.  These may include generic_ap51, OM1P, MR500 or older OM2P APs. Please try again once these are removed from your network."
+general | 10001 |  "Your current captive portal is CoovaChilli, which is not available in the upgraded firmware. Please select a different captive portal configuration and try again."
+general | 10002 |  "Some access points are running an older firmware version that requires them to be online before the upgrade can start. Please bring them online or remove them from the network."
+**history** | -------  |  -------
+history | 11000 |  "Client list cannot be empty."
+history | 11001 |  "Client id cannot be 0."
+history | 11002 |  "Client name cannot be empty."
+**network managment** | -------  | -------
+network | 12000 |  "Network not found, create or migrate first."
+network | 12001 |  "String length ($length$) out of range ($min$ - $max$)."
+network | 12002 |  "Invalid characters.  Used regx: $regx$."
+network | 12003 |  "Unknown timezone."
+network | 12004 |  "Int value ($value$) out of range ($min$ - $max$)."
+network | 12005 |  "Unknown country code."
+network | 12006 |  "Unknown ht_mode, expect (HT20/HT40+/HT40-/HT80+/HT80-/HT160+/HT160-)."
+network | 12007 |  "Invalid channel."
+network | 12008 |  "Unknown firmware release."
+network | 12009 |  "More than 4 ssids are not allowed."
+network | 12010 |  "Invalid day(s), use su|mo|tu|we|th|fr|sa."
+network | 12011 |  "No id given."
+network | 12012 |  "Id not found, use 0 to create a new entry."
+network | 12013 |  "Too many elements or elements too large.  Max is $max$."
+network | 12014 |  "Unknown login method."
+network | 12015 |  "Unknown splash page."
+network | 12016 |  "Unknown auth type."
+network | 12017 |  "Vlan tag \"$tag$\" is already in use."
+network | 12018 |  "Too many entries. Maximum is $max."
+network | 12019 |  "No entry. Minimum is 1."
+network | 12020 |  "SSID ($id$) does not exist."
+network | 12021 |  "Facebook gateway registration error (id: $id$)."
+network | 12022 |  "Name already exists."
+network | 12023 |  "Bcrypt error."
+network | 12024 |  "Role should be 'image', 'page', or 'file'."
+network | 12025 |  "File size ($size$) is too large. Max is $max$."
+network | 12026 |  "Upload failure"
+network | 12027 |  "Bad ssid id"
+network | 12028 |  "Bad file id"
+network | 12029 |  "Error during the delete process"
+network | 12030 |  "File missing."
+**authentication** | -------  |  -------
+auth | 13000 |  "Signature wrong."
+auth | 13001 |  "No nonce or timestamp in header."
+auth | 13002 |  "Timestamp too old or in the future."
+auth | 13003 |  "Nonce already exists."
+auth | 13004 |  "Version is not valid."
+auth | 13005 |  "Unauthorized access from key $key$."
+auth | 13006 |  "Read-only key does not have access to all components."
+auth | 13007 |  "Expired key"
+auth | 13008 |  "Master is not allowed access."
+auth | 13009 |  "Network id doesn't match key."
+auth | 13010 |  "No network id or master given."
+auth | 13011 |  "Unknown key."
+auth | 13012 |  "Nonce length ($length$) too long.  Max is $max$."
+**account management** | ------- | -------
+accounts | 14000 |  "User name cannot be empty."
+accounts | 14001 |  "Deletion of key/secret succeeded."
+accounts | 14002 |  "Deletion of key/secret failed."
+accounts | 14003 |  "Method $method$ is unknown."
+**cloud AP's** | -------  |  -------
+cloud | 16000 |  "Id invalid or pairing disabled."
+cloud | 16001 |  "Mis-match of mac addresses: mac: 1. $auth_mac$ 2. $primary_mac$ 3. $node_mac$."
+cloud | 16002 |  "No old settings."
+cloud | 16003 |  "Key mac ($auth_mac$) doesn't match AP mac ($node_mac$)."
+cloud | 16004 |  "Voucher string length ($len$) is too long.  Max is $max$."
+cloud | 16005 |  "Failure getting access point data."
+cloud | 16006 |  "Failure getting health care data."
+cloud | 16007 |  "Failure storing remote log."
+**node management** | -------  |  -------
+nodes | 17000 |  "Mac ($mac$) already exists in your network."
+nodes | 17001 |  "Mac ($mac$) already exists in another of your networks, but you have not set 'confirm_transfer' true."
+nodes | 17002 |  "Mac ($mac$) already exists in another network."
+nodes | 17003 |  "Could not delete access point (id $id$)."
+nodes | 17004 |  "Could not reboot access point (id $id$)."
+nodes | 17005 |  "Could not reset encrypt key access point (id $id$)."
+nodes | 17006 |  "Could not enable pairing for access point (id $id$)."
+nodes | 17007 |  "Could not expedite upgrade for access point (id $id$)."
+

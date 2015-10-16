@@ -1,0 +1,1 @@
+The file [simple_api_server_test_harness.php](simple_api_server_test_harness.php) in the directory above is a PHP script that shows how to make a variety of calls to assorted endpoints in the API. See  [An API Server test harness](../../api_server_test_harness.md) for details.

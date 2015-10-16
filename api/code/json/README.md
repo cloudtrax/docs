@@ -1,0 +1,1 @@
+The JSON in [network_settings_example.json](network_settings_example.json) is a result of calling the [`GET /network/<network-id>/settings`](../../network_settings.md#get-settings) endpoint that is detailed in [Network Settings endponts](../../network_settings.md).
