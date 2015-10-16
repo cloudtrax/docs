@@ -1,6 +1,6 @@
-# Custom splash pages
+# Internally Hosted splash pages
 
-CloudTrax custom splash pages allow you to host your own splash pages, choosing from a number of templates provided by CloudTrax. These templates can be customized, using the  full-featured HTML web-page editor that's built into the CloudTrax Dashboard, to provide graphic and textual information about your organization and its WiFi network to your clients. 
+CloudTrax internally hosted splash pages (sometimes referred to as "custom splash pages" in the documentation) allow you to host your own splash pages, choosing from a number of templates provided by CloudTrax. These templates can be customized, using the  full-featured HTML web-page editor that's built into the CloudTrax Dashboard, to provide graphic and textual information about your organization and its WiFi network to your clients. 
 
 One of the special features that's provided is the ability to add or customize an HTML form on your splash page that lets your users log into the particular type of authentication service you've selected. 
 
@@ -10,7 +10,7 @@ One of the key things you'll need to understand in order to be able to do this i
 
 ### Interpolated variables
 
-All CloudTrax-hosted splash pages contain interpolated-variable "placeholders" in the form  `$<variable-name>`,  where the placeholder string is replaced at runtime on the Access Point with the string contents of the variable `variable-name`.
+All CloudTrax-hosted splash pages contain interpolated-variable "placeholders" in the form  `$<variable-name>`,  where the placeholder string is replaced at runtime on the Access Point with the string contents of the variable `variable-name`. Interpolated variables are only used with custom splash pages hosted by CloudTrax; they are not used if your splash pages are hosted externally.
 
 Some interpolated-variable placeholders are used to display information to users who will be viewing your splash page. For example, all CloudTrax splash pages contain a small header element near the top of the document:
 

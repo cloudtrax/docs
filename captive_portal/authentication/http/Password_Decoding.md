@@ -16,15 +16,15 @@ The first character is escaped in this sequence, since there's no ASCII represen
 
 A piece of Python doing this decoding would look something like this:
 
-````
+````python
 p = passworde = encoded passwordra = request authenticatores[] = e' split in substrings of 16 characters eachc[-1] = rares = []for i in len(ps):    b[i] = md5(s + c[i - 1])    c[i] = es[i]    res += es[i] xor b[i]return res
 ````
 
 Note the use of the MD5 cryptographic hash function ([RFC 1321](https://www.ietf.org/rfc/rfc1321.txt)), as well as an exclusive-or operation. 
 
-Here's a piece of PHP code that does the same thing. This is taken from a code snippet, [decode_password.php](./example_code/php/decode_password.php), that was in turn part of a larger example:  [example_server.php](./example_code/php/example_server.php), which implements much of the core functionality of an Authentication Server backend.
+Here's a piece of PHP code that does the same thing.
 
-````
+````php
 $bincoded = hex2bin($encoded);
 $password = "";
 $last_result = $ra;
@@ -37,16 +37,18 @@ for ($i = 0; $i < strlen($bincoded); $i += 16) {
 }
 ````
 
+This is taken from a piece of code, [decode_password.php](./example_code/php/decode_password.php), (in turn taken from a larger example,  [example_server.php](./example_code/php/example_server.php)), which provides a fairly full-featured example of much of the core functionality of an Authentication Server backend.
+
+The line
+
+```` php
+$password .= $key[$j] ^ $bincoded[$i + $j]
+````
+in this snippet shows an example of PHP's bitwise [exclusive-or operator](http://php.net/manual/en/language.operators.bitwise.php) (as opposed to logical), comparable to Python's "xor" operator in the Python code above.
+ 
+ <a name="test-decoding"></a>
 #### Testing your decoding routine ####
-As mentioned above, the password is encoded on the CloudTrax side using an MD5 hashing of the original password along with the Request Authenticator (RA) and the shared secret (SECRET), to produce an encoded password (ENCODED). The same RA and secret are also used on the Authentication Server side to decode the encrypted password. You can test the correctness of your decoding algorithm against the following inputs:
+The function `test_decode_password()` at the bottom of  [decode_password.php](./example_code/php/decode_password.php) provides an example of successfully decoding and testing for an expected output (the password "123456abcdefghijklmnopqrs"), given a particular RA and encoded password passed via the Login Request, as well as a specific shared secret. Your own decoding routine needs to be able to recapitulate this particular result, given the same inputs.
 
-RA: `[0x25, 0x90, 0xcc, 0x8a, 0x39, 0x30, 0xdb, 0x22, 0x27, 0x81, 0x92, 0x1a, 0x8f, 0x8b, 0x88, 0xb1]`
-SECRET: `verysecretstring`<br/>
-ENCODED: `[0xbd, 0xfd, 0xea, 0xa3, 0xda, 0x57, 0x1f, 0x79, 0x76, 0x68, 0x42, 0x55, 0xfc, 0x73, 0xd0, 0x36, 0xf2, 0x79, 0x07, 0xe2, 0xe8, 0x5c, 0x2d, 0x93, 0x82, 0xd2, 0x96, 0xdb, 0xb6, 0xdf, 0x0a, 0x4c]`
 
-The expected output is:
-
-`ThisIsThePassword`
-
-The [decode_password.php](./example_code/php/decode_password.php) file mentioned above shows a test of decoding against these inputs.
 

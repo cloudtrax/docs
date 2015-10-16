@@ -13,8 +13,8 @@
 * [Configuration](#config)
 	* [Providing a login panel](#login-panel)
 	* [Other configuration parameters](#other-config-params)
-* [Password decoding](#password)
 * [Request Authenticator](#ra)
+* [Password decoding](#password)
 * [API functions](#api-operations)
     * [status](#status)
     * [login](#login)
@@ -119,13 +119,9 @@ Full URL:`GET http://exampleauthserver.com/auth.php?type=login&username=TEST.USE
 ##### secret #####
 On entry here, this secret is shared between CloudTrax and the backend Authentication Server. Both sides maintain identical copies; it is *never* transmitted in either direction between them during handshaking, encoded or otherwise.
 
-<a name="password"></a>
-## Password decoding ##
-The password that is passed to the backend Authentication Server via a Login Request (see [Logging in](#login) for details) is encoded and needs to be decoded by the Authentication Server before it can be used to determine that this is a known user with valid credentials. See the document [Password decoding](Password_Decoding.md) for details.
-
 <a name="ra"></a>
 ## Request Authenticator ##
-All Authorization Requests contain an `ra` parameter. "ra" stands for **Request Authenticator**, an arbitrary 128-bit (16-byte) string, which is used to help protect against so-called Man-in-the-Middle attacks. The Request Authenticator that is passed by CloudTrax to the Authentication Server needs to be converted to a new RA by the algorithm discussed below and returned as part of the HTTP Response so that CloudTrax can determine that the Response is in accord with the original Request.
+All Authorization Requests contain an `ra` parameter. "ra" stands for **Request Authenticator**, a unique 128-bit (16-byte) string, which is used to help protect against so-called Man-in-the-Middle attacks. The Request Authenticator that is passed by CloudTrax to the Authentication Server needs to be transformed to a new RA by the algorithm discussed below and returned as part of the HTTP Response so that CloudTrax can determine that the Response is in accord with the original Request.
 The RA of the Response packet is produced by calculating the `md5` hash of the concatenated string consisting of the Authentication Response's `CODE` value, followed by the original RA and finally by the  **secret** shared between CloudTrax and the Authentication Server, which was provided to CloudTrax during [Configuration](#config). In pseudocode, it would look something like this:
 
 ````
@@ -139,6 +135,11 @@ $response_ra = hash('md5', $code . $ra . $secret);
 ````
 
 ----
+
+<a name="password"></a>
+## Password decoding ##
+The password that is passed to the backend Authentication Server via a Login Request (see [Logging in](#login) for details) is encoded by the AP and needs to be decoded by the Authentication Server before it can be used to determine that this is a known user with valid credentials. In other words, you'll need to write the code so that your Authentication Server can take the encoded password it receives and reconstruct the original password from it.  See the document [Password decoding](Password_Decoding.md) for details.
+
 
 <a name="api-operations"></a>
 ## API functions ##
@@ -173,7 +174,7 @@ param-name | param-value | requirement
 `ipv4` | IPv4 address of the  device | may include
 `session` |a string unique to this node identifying the session | may include
 
-NOTE: Entries in "code block" format ` like this ` are literals and entered exactly as shown.
+*NOTE*: Entries in this and following tables in "code-block" format (` like this `) are literals to be entered exactly as shown, including quotes when present.
 
 ##### Status Response parameters #####
 
@@ -192,8 +193,6 @@ param-name | param-value | requirement
 `"DOWNLOAD"` | maximum throughput in kbits/sec from node to device | must include (iff `"ACCEPT"`)
 `"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (iff `"ACCEPT"`)
 `"BLOCKED_MSG"` | a human-readable message why the pre-authentication request was rejected | should include (iff `"REJECT"`)
-
-NOTE: Entries in “code block” format `like this` are literals and to be entered exactly as shown, including quotes.
 
 ---
 
@@ -227,8 +226,6 @@ param-name | param-value | requirement
 `ipv4` | IPv4 address of the  device | may include
 `session` |a string unique to this node identifying the session | may include
 
-NOTE: Entries in "code block" format ` like this ` are literals and to be entered exactly as shown.
-
 ##### Login Response parameters #####
 
 param-name | param-value | requirement
@@ -240,7 +237,6 @@ param-name | param-value | requirement
 `"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (iff `"ACCEPT"`)
 `"BLOCKED_MSG"` | a human-readable message why the login was rejected | should include (iff `"REJECT"`)
 
-NOTE: Entries in “code block” format `like this` are literals and to be entered exactly as shown, including quotes.
 
 ---
 
@@ -268,8 +264,7 @@ param-name | param-value | requirement
 `ipv4` | IPv4 address of the device | may include
 `session` | a string unique to this node during this session identifying the session | may include
 
-NOTE: Entries in "code block" format ` like this ` are literals and to be entered exactly as shown.<br/>
-NOTE: A device roaming between Access Points may cause additional Accounting Requests to be sent.
+*NOTE*: A device roaming between Access Points may cause additional Accounting Requests to be sent.
 
 ##### Accounting Response parameters #####
 
@@ -278,6 +273,5 @@ param-name | param-value | requirement
 `"CODE"` | `"OK"` | must include
 `"RA"`    |  the computed  [Request Authenticator](#ra)  to be returned to the AP.  | must include
 
-NOTE: Entries in “code block” format `like this` are literals and to be entered exactly as shown, including quotes.
 
 

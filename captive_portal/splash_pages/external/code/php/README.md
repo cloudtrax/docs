@@ -1,0 +1,1 @@
+Files shown here demonstrate two slightly different ways of implementing a simple, externally-hosted splash page implementation using the UAM protocol. See [Externally Hosted Splash Pages](../../README.md).
