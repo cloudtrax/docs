@@ -17,7 +17,17 @@ The first character is escaped in this sequence, since there's no ASCII represen
 A piece of Python doing this decoding would look something like this:
 
 ````python
-p = passworde = encoded passwordra = request authenticatores[] = e' split in substrings of 16 characters eachc[-1] = rares = []for i in len(ps):    b[i] = md5(s + c[i - 1])    c[i] = es[i]    res += es[i] xor b[i]return res
+p = password
+e = encoded password
+ra = request authenticator
+es[] = e' split in substrings of 16 characters each
+c[-1] = ra
+res = []
+for i in len(ps):
+    b[i] = md5(s + c[i - 1])
+    c[i] = es[i]
+    res += es[i] xor b[i]
+return res
 ````
 
 Note the use of the MD5 cryptographic hash function ([RFC 1321](https://www.ietf.org/rfc/rfc1321.txt)), as well as an exclusive-or operation. 
@@ -37,7 +47,7 @@ for ($i = 0; $i < strlen($bincoded); $i += 16) {
 }
 ````
 
-This is taken from a piece of code, [decode_password.php](./example_code/php/decode_password.php), (in turn taken from a larger example,  [example_server.php](./example_code/php/example_server.php)), which provides a fairly full-featured example of much of the core functionality of an Authentication Server backend.
+This is taken from a piece of code, [decode_password.php](./code/php/decode_password.php), (in turn taken from a larger example,  [example_server.php](./code/php/example_server.php)), which provides a fairly full-featured example of much of the core functionality of an Authentication Server backend.
 
 The line
 
@@ -48,7 +58,7 @@ in this snippet shows an example of PHP's bitwise [exclusive-or operator](http:/
  
  <a name="test-decoding"></a>
 #### Testing your decoding routine ####
-The function `test_decode_password()` at the bottom of  [decode_password.php](./example_code/php/decode_password.php) provides an example of successfully decoding and testing for an expected output (the password "123456abcdefghijklmnopqrs"), given a particular RA and encoded password passed via the Login Request, as well as a specific shared secret. Your own decoding routine needs to be able to recapitulate this particular result, given the same inputs.
+The function `test_decode_password()` at the bottom of  [decode_password.php](./code/php/decode_password.php) provides an example of successfully decoding and testing for an expected output (the password "123456abcdefghijklmnopqrs"), given a particular RA and encoded password passed via the Login Request, as well as a specific shared secret. Your own decoding routine needs to be able to recapitulate this particular result, given the same inputs.
 
 
 

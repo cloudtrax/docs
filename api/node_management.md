@@ -13,8 +13,8 @@ functionality | method | endpoint
 [get allowed channels for node](#get-allowed-channels-for-node) | GET | `/node/<node-id>/allowed-channels`
 [reset encryption key for node](#reset-encryption-key-for-node) | GET | `/node/<node-id>/reset_encrypt_key`
 [enable pairing for node](#enable-pairing-for-node) | GET | `/node/<node-id>/enable_pairing`
-[expedite upgrade for node](#expedite-upgrade-for-node) | GET | `node/<node-id>/expedite_upgrade`
-[does an AP with address MAC already exist?](#does-ap-mac-already-exist) | GET |  `node/does_mac_exist?mac=<mac>`
+[expedite upgrade for node](#expedite-upgrade-for-node) | GET | `/node/<node-id>/expedite_upgrade`
+[does an AP with address MAC already exist?](#does-ap-mac-already-exist) | GET |  `/node/does_mac_exist?mac=<mac>`
 
 
  <a name="list-nodes"></a>
@@ -384,7 +384,7 @@ Assuming that firmware upgrades are enabled for a network, CloudTrax will attemp
 
 <a name="does-ap-mac-already-exist"></a>
 ### does an AP with address MAC already exist?
-`GET node/does_mac_exist?mac=<mac>`
+`GET /node/does_mac_exist?mac=<mac>`
 
 Call this endpoint as a double-check when a user is entering the MAC of an Access Point into the system, prior to the node actually being physically attached and checked in.
 

@@ -138,7 +138,7 @@ $response_ra = hash('md5', $code . $ra . $secret);
 
 <a name="password"></a>
 ## Password decoding ##
-The password that is passed to the backend Authentication Server via a Login Request (see [Logging in](#login) for details) is encoded by the AP and needs to be decoded by the Authentication Server before it can be used to determine that this is a known user with valid credentials. In other words, you'll need to write the code so that your Authentication Server can take the encoded password it receives and reconstruct the original password from it.  See the document [Password decoding](Password_Decoding.md) for details.
+The password that is passed to the backend Authentication Server via a Login Request (see [Logging in](#login) for details) is encoded by the AP and needs to be decoded by the Authentication Server before it can be used to determine that this is a known user with valid credentials. In other words, you'll need to write the code so that your Authentication Server can take the encoded password it receives and reconstruct the original password from it.  See the document [Password decoding](password_decoding.md) for details.
 
 
 <a name="api-operations"></a>
