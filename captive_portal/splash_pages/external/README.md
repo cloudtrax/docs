@@ -23,7 +23,7 @@ Here's a sample of what the Dashboard settings might look like for a typical set
 
 <a name="overview"></a>
 ## Overview
-If you're using an externally hosted splash page, code running on the AP (Access Point) makes use of HTTP's *redirection capability* to invoke your splash server's code at several points during the Access Point's log-in/authentication process so that your sever can take appropropriate action. Redirection is the mechanism by which a web server can request a client to redirect its addressing attempt to a different URL than the one it used originally. 
+If you're using an externally hosted splash page, code running on the AP (Access Point) makes use of HTTP's *redirection capability* to invoke your splash server's code at several points during the Access Point's log-in/authentication process so that your sever can take appropropriate action. Redirection is the mechanism by which a web server can request a client to redirect its addressing attempt to a different URL than the one it used originally.
 
 One such use is when an AP recognizes that a client device is attempting to access a web page using an SSID on the AP for the first time. The AP intercepts the initial page request and returns an HTTP `302 Redirect` instruction to the web browser, causing it to redirect itself to the splash page instead. The special [redirect URL](#redir-url) that the AP constructs and provides as part of the Redirect has a query-string containing parameters of interest to the splash page server. In particular, a `'res'` parameter specifies the particular operation the server is being asked to carry out.
 
@@ -42,12 +42,12 @@ Here's an example of the initial redirect URL constructed by the AP and redirect
 http://example_server.com/uam_simple_server.php?res=notyet&uamip=10.255.224.1&uamport=8082&mac=64-76-BA-8A-D3-58&called=AC-86-74-3B-7A-C0&ssid=Howards%20Test%20Network%201&nasid=100.101.102.103&userurl=http%3A%2F%2Fwww.mlsite.net%2Fblog%2F%3Fp%3D1409&challenge=ACC28255A7A0122D682AFE0653F7440F0C19E6E9E89FABC03EA2CA82D791B90C
 ````
 
-The URL of the splash page host and its server code, http://example.com/uam_server.php, would have been specified by you in the CloudTrax Dashboard. The `'res'` parameter is set to `'notyet'`, telling the splash page server that the client has not yet been logged in, and that it should build and return a log-in form. 
+The URL of the splash page host and its server code, http://example.com/uam_server.php, would have been specified by you in the CloudTrax Dashboard. The `'res'` parameter is set to `'notyet'`, telling the splash page server that the client has not yet been logged in, and that it should build and return a log-in form.
 
 The key-value pairs present in the redirect URL's query-string are as follows.
 
-parameter | description 
------ | ----- 
+parameter | description
+----- | -----
 `res` | One of `'notyet'`, `'success'`, `'failed'`, or `'logoff'`.
 `uamip` | Internal address of the AP. Used by the splash page server to build a URL to the AP to return an encoded password to it. See [Redirecting the encoded password](#build-redir-url).
 `uamport` |  AP port. Used together with `uamip` above to build a URL to the AP.
@@ -81,7 +81,7 @@ Here's a snippet of code from [uam_simple_server.php](./code/php/uam_simple_serv
 <body>
 
 <?php $res = $_GET["res"];
-	if ($res === "notyet") { 
+	if ($res === "notyet") {
 ?>
 <h2>Please Log in</h2>
 <form method="POST" action="uam_handle_form.php">
@@ -102,11 +102,11 @@ Here's a snippet of code from [uam_simple_server.php](./code/php/uam_simple_serv
 </html>
 ````
 
-Note the use of hidden fields to hold the key-value pairs that were passed to the server in the transport URL's query-string. These will subsequently be POSTed to the "uam_handle_form.php" code that uses the `"challenge"` to encode the password. 
+Note the use of hidden fields to hold the key-value pairs that were passed to the server in the transport URL's query-string. These will subsequently be POSTed to the "uam_handle_form.php" code that uses the `"challenge"` to encode the password.
 
 <a name="userurl"></a>
 #### `'userurl'`
-If you specified a "Redirect URL" landing page in the CloudTrax Dashboard, the AP will redirect the user to the specified URL on conclusion of a successfully authenticated login. In that eventuality, the role of the splash-page server is concluded, and it will *not* be called again with the query-string parameter 'res' = 'success'. The `'userurl'` query-string parameter contains that redirection URL.
+The AP will redirect the user to the requested URL on conclusion of a successfully authenticated login. In that eventuality, the role of the splash-page server is concluded, and it will *not* be called again with the query-string parameter 'res' = 'success'. The `'userurl'` query-string parameter contains that redirection URL.
 
 You might notice by the way that the `action` parameter in our login form above dictates that we're POSTing to a separate PHP script, [uam_handle_form.php](./code/php/uam_handle_form.php), as already noted. It's not necessary to do this, and if in fact you omit the `action` parameter, you end up with the single-file server solution shown in [splash.php](./code/php/splash.php). Doing it the way we're doing it here makes the code a bit easier to follow in our opinion, but you can choose either implementation on which to base your own server.
 
@@ -119,23 +119,23 @@ The first thing that [uam_handle_form.php](./code/php/uam_handle_form.php) needs
 ```` php
 <?php
 	$uam_secret = "verysecretstring";
-	
+
 	function encode_password($plain, $challenge, $secret) {
 		# ...
 	}
-	
+
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 	$uamip = $_POST["uamip"];
 	$uamport = $_POST["uamport"];
 	$challenge = $_POST["challenge"];
-	
+
 	$encoded_password = encode_password($password, $challenge, $uam_secret);
 ````
 
 Note that the `"userurl"` variable hasn't been unpacked at this point. We'll deal with that in a bit.
 
-And here's the function that does the encoding. Cyptographically, the routine encodes the secret using PHP's `md5()` [hash-encoding](http://php.net/manual/en/function.md5.php) functionality . 
+And here's the function that does the encoding. Cyptographically, the routine encodes the secret using PHP's `md5()` [hash-encoding](http://php.net/manual/en/function.md5.php) functionality .
 
 ```` php
 function encode_password($plain, $challenge, $secret) {
@@ -174,14 +174,14 @@ Note also the use of PHP's [bitwise exclusive-or](http://php.net/manual/en/langu
 ```` php
  	$crypted .= $plain[$i] ^ $crypt_secret[$i % $len_secret];
  ````
- 
+
 The full source for [uam_handle_form.php](./code/php/uam_handle_form.php), by the way, contains some additional debugging gear we're not showing here. It might be useful if you want to view the contents of what was POSTed or the composition of the redirection URL it builds to send back to the Access Point. Which coincidentally is our next topic.
 
 
 <a name="build-redir-url"></a>
 #### Redirecting the encoded password
 
-The last thing your server needs to do in responding to `'notyet'` is to build a special URL containing the username and encoded password and return that URL to the AP so it can forward those on to the back-end authentication server. 
+The last thing your server needs to do in responding to `'notyet'` is to build a special URL containing the username and encoded password and return that URL to the AP so it can forward those on to the back-end authentication server.
 
 Since this logging-in process was initially started (what seems to be a very long time ago!) by the user attempting to browse to a new web page, the URL we're constructing would normally be returned back to the user's web browser, which would not be very useful. What we really want to do is return the URL to the AP instead.
 
@@ -208,7 +208,7 @@ Finally, the PHP directive that causes the actual redirection is this:
 ````
 Note this only works correctly if the `Location` header is emitted before any *textual* output. In fact, this is true for *any* HTTP header, as noted in the PHP Manual: ["Send a raw HTTP Header"](http://php.net/manual/en/function.header.php):
 
-> Remember that header() must be called before any actual output is sent, either by normal HTML tags, 
+> Remember that header() must be called before any actual output is sent, either by normal HTML tags,
 > blank lines in a file, or from PHP.
 
 <a name="redir"></a>
@@ -257,13 +257,13 @@ The purpose of this code is to maintain the value of `userurl` across web-server
 	else if ($res === "failed") {
 		echo "<h2>Whoops, failed to authenticate</h2>";
 	}
-	else { 
+	else {
 		# ... logoff case remains
 	}
 ````
-	
+
 The two `if ($res === ...)` statements, for "success" and "failed", deliver the two possible results of the back-end authentication. If authentication was successfull, we use an HTML **&lt;meta&gt;** tag to redirect the web browser to its final landing page, getting the value of `userurl` from our `$_SESSION` dictionary. If authentication failed, our server simply notes the fact. In a more realistic scenario, we would have likely posted a log-in form explaining the failure and allowing the user to attempt to log-in again.
-	
+
 Alternatively, in the event that the splash-page server had determined that the user had made too many attempts to log in at this point, we could have posted a message stating they'd been locked out for a certain amount of time.
 
 
