@@ -6,6 +6,7 @@ functionality | method | endpoint
 --- | --- | ---
 [create network](#create-network) | POST | `/network`
 [delete network](#delete-network) | DELETE | `/network/<network-id>`
+[search networks by name](#search-network) | GET | `/network/search?by_name=<name>`
 [list networks](#list-networks) | GET | `/network/list`
 [get allowed channels](#get-allowed-channels) | GET | `/network/<network-id>/allowed_channels`
 [get network settings](#get-settings) | GET | `/network/<network-id>/settings`
@@ -83,7 +84,43 @@ Note the use of error code 1009 to indicate success.
 }
 ````
 
- <a name="list-networks"></a>
+<a name="search-network"></a>
+### search networks by name
+```` 
+GET /network/search?by_name=<name>
+````
+
+##### example request
+
+````
+GET https://api.cloudtrax.com/network/search?by_name=%25unittest%25
+````
+
+##### output
+
+The output returns an array of networks, with each network identified by name and id.
+
+##### example output
+
+```` json
+{
+	"networks": [
+		{
+			"name": "unittest1",
+			"id": 114338
+		},
+		{
+			"name": "unittest2",
+			"id": 114339
+		},
+		{
+			"name": "unittest3",
+			"id": 17275
+		}	]
+}
+````
+
+<a name="list-networks"></a>
 ### list networks
 ```` 
 GET /network/list
@@ -93,6 +130,7 @@ GET /network/list
 
 ````
 GET https://api.cloudtrax.com/network
+````
 
 ##### output
 
