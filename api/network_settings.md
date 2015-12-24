@@ -13,6 +13,7 @@
 	* [radio](#network-radio)
 	* [firmware upgrade](#network-firmware-upgrade)
 	* [advanced](#network-advanced)
+	* [presence](#network-presence)
 	* [paypal](#network-paypal)
 * [SSID settings in detail](#network-per-ssids)
 	* [general](#ssid-general)
@@ -213,7 +214,7 @@ setting | type | description | default | required
 
 <a name="network-advanced"></a>
 ### network.advanced
- ```` json
+```` json
 {
 	"network" : {
 		"advanced" : {
@@ -237,6 +238,26 @@ setting | type | description | default | required
 `wireless_bridge_ssid` | int | Setting this will bridge the SSID with this id with the LAN, giving your Wi-Fi clients full access to LAN resources and disable NAT.  <br/>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `0-9` | `0` (no SSID) | optional
 `wired_bridge_ssid` | int | Configures which SSID wired clients are bridged into. All corresponding SSID settings apply to all wired clients.  <br/>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `0-9` | `id of the first created SSID` | optional
  
+ 
+<a name="network-presence"></a>
+### network.presence
+```` json
+{
+	"network" : {
+		"presence" : {
+		
+		}
+	}
+}
+````
+
+setting | type | description | default | required
+----- | ----- | ----- | ----- | -----
+`enable` | bool | Enable presence analytics on all nodes.  <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
+`secret` | string | Secret to create a signature of the JSON forwarded by the API.  <br/>:small_orange_diamond:Example value: `secret` <br/>:small_orange_diamond:Allowed entries: `"|"` is not allowed | none | conditional
+`uploads_per_checkin` | int | Number of uploads between two regular checkins.  <br/>:small_orange_diamond:Example value: `5` <br/>:small_orange_diamond:Allowed chars: `0-10` | `0` | optional
+`url` | string | URL to which the JSON will be forwarded.<br/>:small_orange_diamond:Example value: `http://your-server.com/get.php` <br/>:small_orange_diamond:Allowed entry: `a valid URL` | none | conditional
+
      
  <a name="network-paypal"></a>
 ### network.paypal
@@ -315,7 +336,7 @@ setting | type | description | default | required
 ----- | ----- | ----- | ----- | -----
 `splashpage` | string | Refer to [Splash page modes table](#splash-options) for details. <br/>:small_orange_diamond:Example value: `cloudtrax` <br/>:small_orange_diamond:Allowed entries: `none/cloudtrax/facebook/remote` | none | optional
 `enable_traffic_shaping` | bool | Enable per-client traffic throttling on this SSID. <br/>:small_orange_diamond:Example value: `false` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
-`disable_dhcp_fingerprinting` | bool | Disable DHCP fingerprinting for clients of this SSID.. <br/>:small_orange_diamond:Example value: `false` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
+`disable_dhcp_fingerprinting` | bool | Disable DHCP fingerprinting for clients of this SSID. <br/>:small_orange_diamond:Example value: `false` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
 `per_client_download_speed` | int | Default download limit (throttling) per client in Kbits/sec, required if traffic shaping is enabled. Can be overridden by various mechanisms such as vouchers, RADIUS, etc. <br/>:small_orange_diamond:Example value: `10000` <br/>:small_orange_diamond:Allowed chars: `0-9` | `0` | conditional
 `per_client_upload_speed` | int | Default upload limit (throttling) per client in Kbits/sec, required if traffic shaping is enabled. Can be overridden by various mechanisms such as vouchers, RADIUS, etc. <br/>:small_orange_diamond:Example value: `10000` <br/>:small_orange_diamond:Allowed chars: `0-9` | `0` | conditional
 `client_force_timeout` | int | Default time in minutes between splashpage showings, regardless of client activity. Can be overridden by various mechanisms such as vouchers, RADIUS, etc. 1 day = 1440.<br/>:small_orange_diamond:Example value: `2880` <br/>:small_orange_diamond:Allowed chars: `0-9` | `1440` | required
