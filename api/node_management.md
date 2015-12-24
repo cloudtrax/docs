@@ -40,7 +40,16 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"ip": "6.59.122.128",
 			"description": "deleted & re-added",
 			"role": "repeater",
-			"firmware_version": "fw-ng-r573",
+			"firmware_version": "6.0.0",
+			"firmware_version_full": 60000005, 
+			"firmware_version_id": "56b1193bbbb0dd6ce3db169349d00cc412e771fc", 
+			"firmware_version_release": "beta 5", 
+			"custom_sh_errors": [ 
+			"error1" 
+			], 
+			"custom_sh_names": [ 
+			"ng6-0-wifi-upgrade" 
+			],
 			"mesh_version": "batman-adv",
 			"last_checkin": "2015-05-19T16:20:59Z",
 			"uptime": "2h 22m",
