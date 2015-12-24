@@ -222,11 +222,14 @@ setting | type | description | default | required
 	}
 }
 ````
+
 setting | type | description | default | required
 ----- | ----- | ----- | ----- | -----
 `enable_share_voucher` | bool | Allows this network to access vouchers on other networks associated with your master login. If false, only vouchers created on this network will be available.  <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
 `node_root_password` | string | Root password for all AP's on your network accessible via SSH.  <br/>:small_orange_diamond:Example value: `"mysecretpassword"` <br/>:small_orange_diamond:Allowed chars: `unrestricted` | none | required
 `enable_mesh_encryption` | bool | WPA2 encrypts all mesh traffic. nodes not belonging to this network won't be able to join the mesh due to the encryption.  <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
+`disable_accounting` | bool | Disable per client accounting for shaping and per client traffic reports.  <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
+`disable_matching` | bool | Disable matching of layer7 traffic. If this is disabled and accounting is enabled, the traffic will be reported as unclassified.  <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | `false` | optional
 `dns_server_addresses` | array of strings | alternate DNS server IP address(es) for network, eg OpenDNS or local DNS servers.  <br/>:small_orange_diamond:Example value: `"8.8.8.8"` <br/>:small_orange_diamond:Allowed entries: `valid IP address(es)` | none | optional
 `dns_domain_name` | string | Local domain to use for resources w/out fully qualified domain names on the LAN. Requires a configured alternate DNS server in your LAN.  <br/>:small_orange_diamond:Example value: `"example.com"` <br/>:small_orange_diamond:Allowed chars: `a-z, A-Z, 0-9, hyphen, underscore, dot` | none | optional
 `cloud_ap_host` | string | Alternate host implementing the full cloud-AP API for check-ins, voucher authentication, etc.  <br/>:small_orange_diamond:Example value: `my_cloud_ap_host` <br/>:small_orange_diamond:Allowed entries: `valid hostname or IP address` | none | optional
