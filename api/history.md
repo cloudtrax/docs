@@ -264,54 +264,44 @@ argument | allowable values | required | note
 
 ##### example output
 
-This sample output shows two time slices out of 24 for the above example request. The JSON consists of an array of nodes, each element showing the upload and download traffic volume for each ssid on the node.
+This sample output shows two time slices out of 24 for the above example request. The JSON consists of an array of nodes, with each node element displaying data on the upload and download traffic volume for each ssid on the node, as well as time-sliced arrays containing "metrics", "outages", and "checkins" data for each node. Specifically,
 
-In addition, the output contains three time-sliced sub-arrays containing "metrics", "outages", and "checkins" data:
-
+* * "traffic": reports bytes uploaded and downloaded per ssid, aggregated over the preceding 24 hours.
 * "metrics": measure how fast traffic was moving at the timestamped time, sampled over a 5-minute time span. These are aggregated over the preceding 24 hours (independent of `period`).
-* "traffic": reports bytes uploaded and downloaded per ssid, again aggregated over the preceding 24 hours.
-* "checkins": report timestamped instances of the nodes' attempts to report traffic stats and other state back to the CloudTrax servers, and to obtain updated configurations from them.
+* "checkins": report timestamped instances of the nodes' attempts to report traffic statistics and other state back to the CloudTrax servers, and to obtain updated configurations from them.
+* "outages": time and status of each outage, if any.
  
 ````json
 {
-  "nodes": [
-    {
-      "31792": {
-        "traffic": {
-          "ssid1": {
-            "bup": 40,
-            "bdown": 50,
-            "users": 1
-          },
-          "ssid2": {
-            "bup": 28278,
-            "bdown": 90538,
-            "users": 7
-          }
-        },
-        "metrics": [
-          {
-            "time": "2014-07-29T11:20:00Z",
-            "speed": 11476
-          },
-          {
-            "time": "2014-07-29T11:25:00Z",
-            "speed": 11786
-          }
-        ],
-        "outages": [
-          {
-            "time": "2014-07-28T12:20:00Z",
-            "status": "R" 
-          },
-          {
-            "time": "2014-07-28T12:25:00Z",
-            "status": "R" 
-          }
-        ]
-      }
-    }
-  ]
+	"nodes": [{
+		"31792": {
+			"traffic": {
+				"ssid1": {
+					"bup": 40,
+					"bdown": 50,
+					"users": 1
+				},
+				"ssid2": {
+					"bup": 28278,
+					"bdown": 90538,
+					"users": 7
+				}
+			},
+			"metrics": [{
+				"time": "2014-07-29T11:20:00Z",
+				"speed": 11476
+			}, {
+				"time": "2014-07-29T11:25:00Z",
+				"speed": 11786
+			}],
+			"checkins": [{
+				"time": "2014-07-28T12:20:00Z",
+				"status": "repeater"
+			}, {
+				"time": "2014-07-28T12:25:00Z"
+			}]
+		}
+	}]
 }
 ````
 
