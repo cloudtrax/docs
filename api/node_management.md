@@ -175,6 +175,7 @@ Update an existing node, with characteristics defined by the JSON package in the
 ##### example input
 
 Change a single field ("description") for node 54830
+
 ````json
 {
 	"description": "UPDATE: changing description only"
