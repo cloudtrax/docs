@@ -267,9 +267,9 @@ argument | allowable values | required | note
 
 This sample output shows two time slices out of 24 for the above example request. The JSON consists of an array of nodes, with each node element displaying data on the upload and download traffic volume for each ssid on the node, as well as time-sliced arrays containing "metrics", "outages", and "checkins" data for each node. Specifically,
 
-* * "traffic": reports bytes uploaded and downloaded per ssid, aggregated over the preceding 24 hours.
+* "traffic": reports bytes uploaded and downloaded per ssid, aggregated over the preceding 24 hours.
 * "metrics": measure how fast traffic was moving at the timestamped time, sampled over a 5-minute time span. These are aggregated over the preceding 24 hours (independent of `period`).
-* "checkins": report timestamped instances of the nodes' attempts to report traffic statistics and other state back to the CloudTrax servers, and to obtain updated configurations from them.
+* "checkins": timestamped instances of the nodes' attempts to report traffic statistics and other state back to the CloudTrax servers and to obtain updated configurations from them.
 * "outages": time and status of each outage, if any.
 
 ````json
