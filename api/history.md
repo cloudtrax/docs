@@ -7,7 +7,7 @@ These endpoints aggregate traffic-based statistical data for a specified network
 * by client (either singly or per all)
 
 functionality | method | endpoint
---- | --- | --- 
+--- | --- | ---
 [retrieve historical traffic statistics for all ssid's](#network) | GET | `/history/network/<network-id>`
 [retrieve historical traffic statistics for all clients](#clients) | GET | `/history/network/<network-id>/clients`
 [retrieve historical traffic statistics for a single client](#client) | GET | `/history/network/<network-id>/client/<client-id>`
@@ -28,7 +28,7 @@ reporting period | number of samples | sample span
 `week` | 288 | 35 minutes
 `month` | 288 | 155 minutes
 
-	
+
  <a name="network"></a>
 ### network
 `GET /history/network/<network-id>?period=<period>`
@@ -45,7 +45,7 @@ argument | allowable values | required | note
 `GET /history/network/12554?period=2hours`
 
 ##### example output
-Output for the above query. For this endpoint, the sample array is partitioned into "rows" of smaller "time slices" (only two out of 24 being shown here). Each row is a snapshot of both upload and download data sampled over the time span of the sample. 
+Output for the above query. For this endpoint, the sample array is partitioned into "rows" of smaller "time slices" (only two out of 24 being shown here). Each row is a snapshot of both upload and download data sampled over the time span of the sample.
 
 In this and the other API calls below, "bup" and "bdown" stand for bytes up and bytes down, respectively (total bytes uploaded and downloaded during the time slice), while "rup" and "rdown" stand for rate up and rate down, respectively (ie, upload and download throughput during the same time span).
 
@@ -119,7 +119,7 @@ In this and the other API calls below, "bup" and "bdown" stand for bytes up and 
 ### clients
 `GET /history/network/<network-id>/clients?period=<period>`
 
-This endpoint returns a list of all client devices connected to the specified network, with traffic statistics aggregated over the selected time span. 
+This endpoint returns a list of all client devices connected to the specified network, with traffic statistics aggregated over the selected time span.
 
 ##### query-string arguments
 argument | allowable values | required | note
@@ -136,6 +136,7 @@ argument | allowable values | required | note
     {
       "1c:99:4c:7b:ae:fe": {
         "name": "android-77b812edd3097a81",
+        "name_override": "test overwrite",
         "cid": "31792",
         "signal": {
           "antenna1": -75,
@@ -270,7 +271,7 @@ This sample output shows two time slices out of 24 for the above example request
 * "metrics": measure how fast traffic was moving at the timestamped time, sampled over a 5-minute time span. These are aggregated over the preceding 24 hours (independent of `period`).
 * "checkins": report timestamped instances of the nodes' attempts to report traffic statistics and other state back to the CloudTrax servers, and to obtain updated configurations from them.
 * "outages": time and status of each outage, if any.
- 
+
 ````json
 {
 	"nodes": [{
@@ -308,8 +309,8 @@ This sample output shows two time slices out of 24 for the above example request
  <a name="node"></a>
 ### node
  `GET /history/network/<network-id>/node/<node-id>?period=<period>`
- 
-This endpoint returns traffic statistics for the specified node aggregated every 5 minutes over the selected time span. 
+
+This endpoint returns traffic statistics for the specified node aggregated every 5 minutes over the selected time span.
 
 ##### query-string arguments
 argument | allowable values | required | note

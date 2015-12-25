@@ -28,18 +28,19 @@ The API is comprised of the following endpoint collections:
 endpoints | description
 ---- | -----
 [Account Management](account_management.md) | Create new user accounts, log in users with username and password, provide embedded web access to CloudTrax visuals, and manage service agreements
+[Client Management](client_management.md) | Block and edit clients
 [Network Management](network_management.md) | Create, list, and delete networks
 [Node Management](node_management.md) | Create, list, update, delete, and test for characteristics of Access Points (also called nodes)
  [History](history.md) | View traffic statistics in a given domain over a time span
 [Site Survey](site_survey.md) | Scan Access Points in a network for neighboring Access Points
  [Time](time.md) | Synchronize time against the API server
- 
+
 In order to use the facilities of the API, you'll need to have the API keys relevant to your account and/or network(s). See [Retrieving API Keys](#getting_keys) for more information about this.
- 
+
  <a name="intro"></a>
 ### Introduction
 
-The CloudTrax API is [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer). It uses the HTTP methods (or *verbs*), GET, POST, PUT, and DELETE, to retrieve, create, update, and delete,  respectively, CloudTrax-based *resources*. The resources themselves, as well as the operations performed on them, are specified in RESTful fashion by the *path* component of the URL that addresses the CloudTrax API server. 
+The CloudTrax API is [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer). It uses the HTTP methods (or *verbs*), GET, POST, PUT, and DELETE, to retrieve, create, update, and delete,  respectively, CloudTrax-based *resources*. The resources themselves, as well as the operations performed on them, are specified in RESTful fashion by the *path* component of the URL that addresses the CloudTrax API server.
 
 Because the API is RESTful, it's the combination of HTTP method plus path that fully specifies, or describes, an API *endpoint* or call. For example, the endpoint that's described in this documentation as:
 
@@ -53,8 +54,8 @@ with your HTTP client indicating separately that this call is a `PUT`.
 
 *Note:* the word *node* as used in the API and at places in this documentation is a nickname for *Access Point*. The two are equivalent.
 
-The effect of this endpoint is to update the node with id `node-id` with the information contained in the JSON  structure that's passed in as the HTTP *message body*. The same path used in conjunction with the HTTP method `DELETE`: 
- 
+The effect of this endpoint is to update the node with id `node-id` with the information contained in the JSON  structure that's passed in as the HTTP *message body*. The same path used in conjunction with the HTTP method `DELETE`:
+
 `DELETE /node/<node-id>`
 
 has the effect of deleting that node.
@@ -144,7 +145,7 @@ The API expects all HTTP Requests to contain the following headers:
 
 header-name | header-value | notes
 ------ | ------ | -----
-`Host:` | api.cloudtrax.com | most HTTP libraries/clients generate this header automatically for the given URL. all CloudTrax API calls use this hostname 
+`Host:` | api.cloudtrax.com | most HTTP libraries/clients generate this header automatically for the given URL. all CloudTrax API calls use this hostname
 `Content-Length:` | length in bytes of the Request body  | generated automatically by most libraries/clients. length will be 0 for body-less requests
 `Content-Type:` | 'application/json' | PUT and POST requests will be passing JSON structures to the server
 `OpenMesh-API-Version:` | 1 | version of the API to use. 0 assumed if this header is missing. incorrect versioning may cause difficult-to-diagnose errors
@@ -169,7 +170,7 @@ Errors are returned in a consistent fashion throughout the API. A non-200 HTTP s
             "values": {
                 "length": "104",
                 "max": "100",
-                "min": "1" 
+                "min": "1"
             }
         },
         {
@@ -246,7 +247,7 @@ As described above, you must have the relevant key and secret for your account a
  * Your telephone number and email address
  * The name of the account and/or network(s) for which you need keys
  * A short description of why you require API access and how you plan to use the API.
- 
+
 Note that currently there are no access charges associated with use of the CloudTrax API. Open Mesh may at some point institute charges and/or enforce rate limiting for some uses of the API. In order to help constrain resource demands, we ask that you please attempt to design any systems utilizing the API to limit frequency of access to the API.
 
 
@@ -260,7 +261,7 @@ Generating the "Authorization:" header is straightforward. It is formed by the s
 
 An easy-to-fix error here, 13002, is occasioned by providing a timestamp that differs from the server's time by more than 15 minutes. Call the `GET /time` endpoint to retrieve the "correct" time (from the server's perspective), and adjust your own accordingly. Nonces, a cryptographic device used to ensure that older communications cannot be reused in replay attacks, also need to be unique across all API calls during a time window that varies between 15 to 30 minutes (13003). (This error is easily avoided by generating a random nonce on every call.)
 
-As noted above, all CloudTrax API calls are required to be signed by either an application-level or an account- or network-level key. Which is used depends on the particular call being made. 
+As noted above, all CloudTrax API calls are required to be signed by either an application-level or an account- or network-level key. Which is used depends on the particular call being made.
 
 Here's a piece of PHP showing the authentication operation:
 
@@ -271,7 +272,7 @@ $authorization = "key=" . $key . ",timestamp=" . time() . ",nonce=" . $nonce;
 $authorization_header = "Authorization: " . $auth;
 ````
 
-Note that there are no spaces in the concatenated authorization string (though there is one following the colon (":") in the Authorization header itself, as allowed by the HTTP protocol). 
+Note that there are no spaces in the concatenated authorization string (though there is one following the colon (":") in the Authorization header itself, as allowed by the HTTP protocol).
 
 <a name="signature-header"></a>
 #### Generating the Signature header
@@ -291,8 +292,8 @@ $signature = hash_hmac('sha256', $authorization . $path . $jsonbody, $secret);
 
 If you're getting back a 13000 "Signature wrong" error on your calls, check if you're attempting to create a signature on a PUT or POST without concatenating the HTTP message body as well.
 
-Whatever form the signature takes, the authorization and signature headers need to be present for every API request you make. 
- 
+Whatever form the signature takes, the authorization and signature headers need to be present for every API request you make.
+
 <a name="code"></a>
 ### An API Server test harness
 
@@ -311,4 +312,3 @@ endpoints | description
  [History](history.md) | View traffic statistics in a given domain over a time span
 [Site Survey](site_survey.md) | Scan nodes in a network for neighboring Access Points
  [Time](time.md) | Synchronize time against the API server
- 

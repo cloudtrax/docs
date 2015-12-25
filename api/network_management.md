@@ -1,6 +1,6 @@
 # Network Management endpoints
 
-This API component provides a large number of endpoints for creating, listing, and deleting networks, as well as viewing and editing network settings, checking for network existence, determining whether upgrades are necessary, and uploading and deleting splash pages. Finally, this component provides some operations on clients: blocking and unblocking them, as well as editing their names.
+This API component provides a large number of endpoints for creating, listing, and deleting networks, as well as viewing and editing network settings, checking for network existence, determining whether upgrades are necessary, and uploading and deleting splash pages.
 
 functionality | method | endpoint
 --- | --- | ---
@@ -13,7 +13,7 @@ functionality | method | endpoint
 [set network settings](#set-settings) | PUT |`/network/<network-id>/settings`
 [upload splash pages](#upload-splash) | POST | `/network/<network-id>/file`
 [delete splash pages](#delete-splash) | DELETE | `/network/<network-id>/file/<file-id>`
-  
+
  <a name="create-network"></a>
 ### create network
 `POST /network`
@@ -60,7 +60,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 ### delete network
 Delete a network.
 
-```` 
+````
 DELETE /network/<network id>
 ````
 
@@ -86,7 +86,7 @@ Note the use of error code 1009 to indicate success.
 
 <a name="search-network"></a>
 ### search networks by name
-```` 
+````
 GET /network/search?by_name=<name>
 ````
 
@@ -122,7 +122,7 @@ The output returns an array of networks, with each network identified by name an
 
 <a name="list-networks"></a>
 ### list networks
-```` 
+````
 GET /network/list
 ````
 
@@ -342,7 +342,7 @@ Used by CloudTrax to move internally-hosted splash pages (HTML and related files
 POST https://api.cloudtrax.com/network/12345/file
 ````
 
-##### input 
+##### input
 Details of the file to be moved, base64encoded.
 
 ##### example input
@@ -350,7 +350,7 @@ Details of the file to be moved, base64encoded.
   "ssid_id":1,
   "name":"logo1.gif",
   "role":"image",
-  "file":"R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" 
+  "file":"R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
 ````
 
 ##### output
@@ -361,7 +361,7 @@ On success, the api returns the file-id and the S3 location if the transfer was 
 ```` json
 {
     "file_id": 168,
-    "url": "https://s3.amazonaws.com/my-cloudtrax-files/ct4/133314/splashpage/1/image/logo1.gif" 
+    "url": "https://s3.amazonaws.com/my-cloudtrax-files/ct4/133314/splashpage/1/image/logo1.gif"
 }
 ````
 
@@ -385,9 +385,9 @@ On success, the api returns the file-id and the S3 location if the transfer was 
 
 
 
-		
 
-	
-	
+
+
+
 
 
