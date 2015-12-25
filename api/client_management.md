@@ -122,7 +122,7 @@ PUT https://api.cloudtrax.com/client/network/12345/block
 
 ````json
 {
-  "block":1
+  "block":1,
   "client_ids": [
        "_4G6of2NARub8yqm-YJR3RveJYK1SI07uXhLygJSkOs=",
        "V28hO3syPho0szL5dqDeoRDBtdv9_cofjMygMbpmstQ=",
