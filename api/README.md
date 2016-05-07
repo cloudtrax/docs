@@ -21,7 +21,7 @@
 <a name="overview"></a>
 ### Overview
 
-This document describes the CloudTrax API, an Application Programming Interface that allows you to create, access, configure, and manipulate your CloudTrax networks and their  Access Points. The API provides the faciliites to let you recreate, if desired, the functionality of the CloudTrax Dashboard and have it entirely under your own control.
+This document describes the CloudTrax API, an Application Programming Interface that allows you to create, access, configure, and manipulate your CloudTrax networks and their  Access Points. The API provides the facilities to let you recreate, if desired, the functionality of the CloudTrax Dashboard and have it entirely under your own control.
 
 The API is comprised of the following endpoint collections:
 
