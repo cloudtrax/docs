@@ -269,7 +269,7 @@ Here's a piece of PHP showing the authentication operation:
 $key = '1b88730ac5ba6000a1271e0b2a2edb5a163ce77bf9630850f22f8ca3de490a5f';
 $nonce = 'ThisIsANonce';
 $authorization = "key=" . $key . ",timestamp=" . time() . ",nonce=" . $nonce;
-$authorization_header = "Authorization: " . $auth;
+$authorization_header = "Authorization: " . $authorization;
 ````
 
 Note that there are no spaces in the concatenated authorization string (though there is one following the colon (":") in the Authorization header itself, as allowed by the HTTP protocol).
