@@ -268,7 +268,7 @@ argument | allowable values | required | note
 This sample output shows two time slices out of 24 for the above example request. The JSON consists of an array of nodes, with each node element displaying data on the upload and download traffic volume for each ssid on the node, as well as time-sliced arrays containing "metrics" and "checkins" data for each node. The "metrics" part will not be reported if the node is a gateway. Specifically,
 
 * "traffic": reports bytes uploaded and downloaded per ssid, aggregated over the preceding 24 hours.
-* "metrics": measure how fast traffic over the mesh was moving at the timestamped time, sampled over a 5-minute time span. These are aggregated over the last hour.
+* "metrics": measure how fast traffic over the mesh was moving at the timestamped time, sampled over a 5-minute time span. These are aggregated over the last hour. The unit is bytes/s.
 * "checkins": timestamped instances of the nodes' attempts to report traffic statistics and other state back to the CloudTrax servers and to obtain updated configurations from them. Status can be "repeater", "gateway" and "pairing". An outage occured if no status is reported.
 
 
