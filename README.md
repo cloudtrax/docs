@@ -11,4 +11,6 @@ Full technical detail of a [RESTful API](./api) that provides low-level access t
 
 CloudTrax' [Captive Portal](./captive_portal) facilities allow you to host and access splash pages both internally within CloudTrax and externally using UAM. These pages can talk to a variety of authentication services, ranging from a built-in vouchering system, to RADIUS servers, to a backend Authentication Server of your own devising.
 
+### Support/Issues ###
 
+Please contact support@cloudtrax.com or submit a request from https://help.cloudtrax.com in case there are issues or questions.
