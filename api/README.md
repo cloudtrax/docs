@@ -21,7 +21,7 @@
 <a name="overview"></a>
 ### Overview
 
-This document describes the CloudTrax API, an Application Programming Interface that allows you to create, access, configure, and manipulate your CloudTrax networks and their  Access Points. The API provides the faciliites to let you recreate, if desired, the functionality of the CloudTrax Dashboard and have it entirely under your own control.
+This document describes the CloudTrax API, an Application Programming Interface that allows you to create, access, configure, and manipulate your CloudTrax networks and their  Access Points. The API provides the facilities to let you recreate, if desired, the functionality of the CloudTrax Dashboard and have it entirely under your own control.
 
 The API is comprised of the following endpoint collections:
 
@@ -145,12 +145,12 @@ The API expects all HTTP Requests to contain the following headers:
 
 header-name | header-value | notes
 ------ | ------ | -----
-`Host:` | api.cloudtrax.com | most HTTP libraries/clients generate this header automatically for the given URL. all CloudTrax API calls use this hostname
-`Content-Length:` | length in bytes of the Request body  | generated automatically by most libraries/clients. length will be 0 for body-less requests
-`Content-Type:` | 'application/json' | PUT and POST requests will be passing JSON structures to the server
-`OpenMesh-API-Version:` | 1 | version of the API to use. 0 assumed if this header is missing. incorrect versioning may cause difficult-to-diagnose errors
-`Authorization:` | see [Authentication](#authentication) | required on all requests
-`Signature:` | see [Authentication](#authentication) | required on all requests
+`Host:` | api.cloudtrax.com | Most HTTP libraries/clients generate this header automatically for the given URL. All CloudTrax API calls use this hostname.
+`Content-Length:` | length in bytes of the Request body  | Generated automatically by most libraries/clients. Length will be 0 for body-less requests.
+`Content-Type:` | 'application/json' | PUT and POST requests will be passing JSON structures to the server.
+`OpenMesh-API-Version:` | 1 | Version of the API to use. 0 assumed if this header is missing. Incorrect versioning may cause difficult-to-diagnose errors.
+`Authorization:` | see [Authentication](#authentication) | Required on all requests.
+`Signature:` | see [Authentication](#authentication) | Required on all requests.
 
 
 <a name="errors"></a>
