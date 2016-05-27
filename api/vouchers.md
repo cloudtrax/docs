@@ -1,6 +1,6 @@
 # Vouchers endpoints
 
-This API component provides endpoints for creating, listing, and editing vouchers, which provide a mechanism that allow individuals and groups of individuals to access networks with preset restrictions on usage time and bandwidth, both paid and for free.
+This API component provides endpoints for creating, listing, and editing vouchers, which provide a mechanism that allows individuals and groups of individuals to access networks with preset restrictions on usage time and bandwidth, both paid and for free.
 
 functionality | method | endpoint
 --- | --- | ---
