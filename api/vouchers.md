@@ -14,7 +14,7 @@ functionality | method | endpoint
 ### list all vouchers for a given network
 `GET /voucher/network/<network-id>/list`
 
-List all vouchers for the given network, whether partially completed or not. 
+List all vouchers for the given network, with current status and usage information. 
 
 Deleted and expired vouchers remain in the system indefinitely, with their `status` field marked appropriately, and are only expunged completely once the period `purge_days` has expired. Vouchers that have been manually cancelled (i.e., their `cancelled` field has been set to true) similarly remain in the system until expunged.
 
@@ -151,11 +151,15 @@ fields | type | description | required
 ----- | ----- | ----- | ----- 
 `code` | string | Desired voucher code, up to 16 characters if user-entered. System-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and all other ASCII values up through decimal 126 (tilde) ` | optional
 `duration` | int | Number of hours the voucher will be usable once it's been submitted. Between 1 and 8760 (number of hours in one year). <br/>:small_orange_diamond:Example value: `24` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
-`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
+`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 0 and 9. The number 0 has a special significance; see [Note: max_users](#0-special-meaning).<br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 `up_limit` | float | Maximum upload speed for all devices sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `down_limit` | float | Maximum download speed for all devices sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `comment` | string | User comments associated with the voucher(s), 64 characters max. <br>:small_orange_diamond:Example value: `"24 hours free access compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
-`purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 9999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
+`purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
+
+<a name = "0-special-meaning>
+##### Note:  `max_users`
+The number 0 in the `max_users` field has a special meaning to the system, indicating a  voucher that has no limit on the number of users/devices that can use it. When a user enters a 0 in this field via the Dashboard, the system posts a warning: "This voucher is set to allow unlimited devices. CloudTrax does not track individual users when this setting is applied."
 
 <a name="update-individual"></a>
 ### update individual voucher settings
@@ -200,11 +204,11 @@ field | type | description | example value
 --- | --- | --- | ----
 `code` | string | The voucher code, up to 16 characters if user-entered, system-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and all other ASCII values up through decimal 126 (tilde)` | required
 `duration` | int | Number of hours the voucher will be usable once it's been submitted. Between 1 and 8760 (number of hours in one year). <br/>:small_orange_diamond:Example value: `24` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
-`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
+`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 0 and 9. The number 0 has a special significance; see [Note: max_users](#0-special-meaning).<br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 `up_limit` | float | Maximum upload speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `down_limit` | float | Maximum download speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `comment` | string | User comments associated with the voucher(s), 64 characters max. The comment field may be omitted; if it is, the original comment (if any) will be truncated to length zero. <br>:small_orange_diamond:Example value: `"24 hours free access, compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
-`purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 9999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
+`purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 
 <a name="update-multiple"></a>
 ### update multiple vouchers' settings
