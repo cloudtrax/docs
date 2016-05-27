@@ -95,7 +95,7 @@ List the vouchers for the given network specified in the array of voucher codes 
 ##### example request
 
 ````
-GET https://api.cloudtrax.com/voucher/network/123456/
+GET https://api.cloudtrax.com/voucher/network/123456
 ````
 
 ##### example input
