@@ -157,7 +157,7 @@ fields | type | description | required
 `comment` | string | User comments associated with the voucher(s), 64 characters max. <br>:small_orange_diamond:Example value: `"24 hours free access compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
 `purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 
-<a name = "0-special-meaning></a>
+<a name = "0-special-meaning"></a>
 ##### Note:  `max_users`
 The number 0 in the `max_users` field has a special meaning to the system, indicating a  voucher that has no limit on the number of users/devices that can use it. When a user enters a 0 in this field via the Dashboard, the system posts a warning: "This voucher is set to allow unlimited devices. CloudTrax does not track individual users when this setting is applied."
 
