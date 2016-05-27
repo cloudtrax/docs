@@ -15,7 +15,7 @@ functionality | method | endpoint
 
 List all vouchers for the given network, whether partially completed or not. 
 
-Deleted and expired vouchers remain in the system indefinitely, with their `status` field marked appropriately, and are only expunged completely once the period `purge_days` has expired. Vouchers that have been manually cancelled similarly remain in the system until expunged, with their `cancelled` field set to true.
+Deleted and expired vouchers remain in the system indefinitely, with their `status` field marked appropriately, and are only expunged completely once the period `purge_days` has expired. Vouchers that have been manually cancelled (i.e., their `cancelled` field has been set to true) similarly remain in the system until expunged.
 
 ##### example request
 
@@ -28,7 +28,7 @@ GET https://api.cloudtrax.com/voucher/network/123456/list
 The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error. On success, the API returns all vouchers for the given network.
 
 ##### example output
-The following output from this endpoint lists two vouchers that were specified during a "Create Vouchers" session in the CloudTrax Dashboard. For a explanation of the meaning of the individual fields, refer to the table [JSON detail](#json-detail-list) below.
+The following output from this endpoint lists two vouchers that were specified during a "Create Vouchers" session in the CloudTrax Dashboard. For an explanation of the meaning of the individual fields, refer to the table [JSON detail](#json-detail-list) below.
 
 ```` json
 {
@@ -140,7 +140,7 @@ fields | type | description | required
 ### update individual voucher settings
 `PUT /voucher/network/<network-id>/update`
 
-The accompanying JSON body is an array of one or more vouchers, identified by their `code` fields, along with their updated contents. The topmost array object is named "vouchers". All fields are required (but see note under "Comments" below). The order of fields is not significant.
+The accompanying JSON body is an array of one or more vouchers, identified by their `code` fields, along with their updated contents. The topmost array object is named "vouchers". All fields are required except for `"comment"` (see the note below). The order of fields is not significant.
 
 ##### example request
 
@@ -182,7 +182,7 @@ field | type | description | example value
 `max_users` | int | Number of users (i.e., devices) that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
 `up_limit` | float | Maximum upload speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `down_limit` | float | Maximum download speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
-`comment` | string | User comments associated with the voucher(s), 64 characters max. If the comment field is omitted from the updated record, the original comment (if any) will be truncated to length zero. <br>:small_orange_diamond:Example value: `"24 hours free access, compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
+`comment` | string | User comments associated with the voucher(s), 64 characters max. The comment field may be omitted; if it is, the original comment (if any) will be truncated to length zero. <br>:small_orange_diamond:Example value: `"24 hours free access, compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
 `purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 9999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 
 <a name="update-multiple"></a>
@@ -220,4 +220,4 @@ action | description
 `restore` | Undelete (i.e., remove the deleted status) of all vouchers in the "vouchers" array.
 `renew` | Undelete all vouchers in the "vouchers" array, reset their creation dates to `now`, and either set the date of first use to `now` if there are any users, or clear that field entirely if there aren't.
 `reset` | Undelete all vouchers in the "vouchers" array, clear any existing users, reset the creation dates to `now`, and clear the date of first use.
-`delete` | Mark all vouchers in the `"vouchers"` array as deleted.
+`delete` | Mark all vouchers in the "vouchers" array as deleted.
