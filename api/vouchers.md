@@ -5,6 +5,7 @@ This API component provides endpoints for creating, listing, and editing voucher
 functionality | method | endpoint
 --- | --- | ---
 [list all vouchers for a given network](#list-vouchers) | GET | `/voucher/network/<network-id>/list`
+[list specific vouchers for a given network](#list-specific-vouchers) | GET | `/voucher/network/<network-id>`
 [create vouchers](#create-vouchers) | POST | `/voucher/network/<network-id>`
 [update individual voucher settings](#update-individual) | PUT | `/voucher/network/<network-id>/update`
 [update multiple vouchers' settings](#update-multiple) | PUT | `/voucher/network/<network-id>/<actions>`
@@ -84,6 +85,26 @@ field | type | description | example value
 `tx_ids` | array of strings | All the Paypal tx_ids associated with this voucher. |  `"["0000012345ABC","1111154321CBA"]"`
 `remaining` | int | The hours of usage left on the voucher. | `20`
 `status` | string | The current condition of the voucher, one of: `"unused"`, `"deleted"`, `"active"`, or `"expired"` | `"unused"`
+
+<a name="list-specific-vouchers"></a>
+### list specific vouchers for a given network
+`GET /voucher/network/<network-id>/`
+
+List the vouchers for the given network specified in the array of voucher codes in the Request body. The array is named "vouchers". The output, behavior, and description of returned fields is otherwise identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
+
+##### example request
+
+````
+GET https://api.cloudtrax.com/voucher/network/123456/
+````
+
+##### example input
+
+```` json
+{
+    "vouchers" : [ "Room 1", "Room 2", "Room 3", "Room 5" ]
+}
+````
 
 <a name="create-vouchers"></a>
 ### create vouchers
@@ -189,7 +210,7 @@ field | type | description | example value
 ### update multiple vouchers' settings
 `PUT /network/<network-id>/<action>`
 
-The action specified in `<action>` (see [actions table below](#actions)) is applied to all vouchers listed in the array of voucher-code objects in the PUT body. The array of voucher codes is named "vouchers".
+The action specified in `<action>` (see [actions table below](#actions)) is applied to all vouchers listed in the array of voucher-code objects in the PUT body. The array is named "vouchers".
 
 
 ##### example request
