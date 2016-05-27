@@ -13,9 +13,9 @@ functionality | method | endpoint
 ### list all vouchers for a given network
 `GET /voucher/network/<network-id>/list`
 
-List all vouchers for the given network. Includes all created vouchers, whether partially completed or not. 
+List all vouchers for the given network, whether partially completed or not. 
 
-Note that deleted and expired vouchers remain in the system indefinitely, with their `status` field marked appropriately, and are only expunged completely once `purge_days` have expired. Vouchers that have been manually cancelled also remain in the system, with the field `cancelled` marked as `true`, until similarly expunged.
+Deleted and expired vouchers remain in the system indefinitely, with their `status` field marked appropriately, and are only expunged completely once the period `purge_days` has expired. Vouchers that have been manually cancelled similarly remain in the system until expunged, with their `cancelled` field set to true.
 
 ##### example request
 
@@ -28,7 +28,7 @@ GET https://api.cloudtrax.com/voucher/network/123456/list
 The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error. On success, the API returns all vouchers for the given network.
 
 ##### example output
-In the following example, two new vouchers were specified during a "Create Vouchers" session in the CloudTrax Dashboard. The output, an array of vouchers, was returned on calling this endpoint. For the descriptions of individual fields, refer to the table [JSON detail](#json-detail-list).
+The following output from this endpoint lists two vouchers that were specified during a "Create Vouchers" session in the CloudTrax Dashboard. For a explanation of the meaning of the individual fields, refer to the table [JSON detail](#json-detail-list) below.
 
 ```` json
 {
@@ -75,7 +75,7 @@ field | type | description | example value
 `created` | string | The timestamp corresponding to when the voucher was created. | `"2016-05-23T23:05:17Z"`
 `duration` | int | The amount of usage time remaining for the voucher, in hours. | `8`
 `users` | array of strings | An array of the MAC's of all devices that have used this voucher. | `"["00:AA:BB:11:22:33","00:AA:CC:22:33:44"]"`
-`max_users` | int | Number of devices that can share this voucher. | `2`
+`max_users` | int | Number of users (i.e., devices) that can share this voucher. | `2`
 `down_limit` | float | The maximum download speed possible with this voucher, in Mbits/sec. | `10.0`
 `up_limit` | float | The maximum upload speed possible with this voucher, in Mbits/sec. | `10.0`
 `comment` | string | The comment associated with this voucher. | `"Free guest Wi-Fi"`
@@ -128,19 +128,19 @@ As stated, the name of the topmost object is `"desired_vouchers"`. The fields of
 
 fields | type | description | required
 ----- | ----- | ----- | ----- 
-`code` | string | Desired voucher code, up to 16 characters if user-entered. System-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and punctuation` | optional
+`code` | string | Desired voucher code, up to 16 characters if user-entered. System-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and all other ASCII values up through decimal 126 (tilde) ` | optional
 `duration` | int | Number of hours the voucher will be usable once it's been submitted. Between 1 and 8760 (number of hours in one year). <br/>:small_orange_diamond:Example value: `24` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
-`max_users` | int | Number of devices that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
-`up_limit` | float | Maximum upload speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
-`down_limit` | float | Maximum download speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
-`comment` | string | User comments associated with the voucher(s), 64 characters max. <br>:small_orange_diamond:Example value: `"24 hours free access, compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
+`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
+`up_limit` | float | Maximum upload speed for all devices sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
+`down_limit` | float | Maximum download speed for all devices sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
+`comment` | string | User comments associated with the voucher(s), 64 characters max. <br>:small_orange_diamond:Example value: `"24 hours free access compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
 `purge_days` | int | Number of days a voucher will remain in the system until automatically expunged, between 1 and 9999. <br>:small_orange_diamond:Example value: `90` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
 
 <a name="update-individual"></a>
 ### update individual voucher settings
 `PUT /voucher/network/<network-id>/update`
 
-The accompanying JSON body is an array of one or more vouchers, identified by their `code` fields, along with their updated contents. The topmost array object is named "vouchers". All fields are required. The order of fields is not significant.
+The accompanying JSON body is an array of one or more vouchers, identified by their `code` fields, along with their updated contents. The topmost array object is named "vouchers". All fields are required (but see note under "Comments" below). The order of fields is not significant.
 
 ##### example request
 
@@ -152,7 +152,7 @@ PUT https://api.cloudtrax.com/voucher/network/123456/update
 
 ```` json
 {
-  vouchers": [{
+  "vouchers": [{
       "code": "Room 231",
       "duration": 1,
       "max_users": 1,
@@ -173,13 +173,13 @@ On failure the API return a 400 and JSON listing the vouchers that could not be 
 <a name="json-detail-update"></a>
 ##### JSON detail
 
-As stated, the name of the topmost array object is `"vouchers"`. The fields of the individual voucher objects are as follows:
+As stated, the topmost array object is named `"vouchers"`. The fields of the individual voucher objects are as follows:
 
 field | type | description | example value
 --- | --- | --- | ----
-`code` | string | The voucher code, up to 16 characters if user-entered; system-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and any other ASCII character lying between 32 and 126` | optional
+`code` | string | The voucher code, up to 16 characters if user-entered, system-generated if left blank. <br/>:small_orange_diamond:Example value: `"Hotel Ritz"` <br/>:small_orange_diamond:Allowed chars: `0-9, a-z, A-Z, and all other ASCII values up through decimal 126 (tilde)` | required
 `duration` | int | Number of hours the voucher will be usable once it's been submitted. Between 1 and 8760 (number of hours in one year). <br/>:small_orange_diamond:Example value: `24` <br/>:small_orange_diamond:Allowed chars: `0-9` | required
-`max_users` | int | Number of devices that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
+`max_users` | int | Number of users (i.e., devices) that can share this voucher, between 1 and 9. <br>:small_orange_diamond:Example value: `1` <br/>:small_orange_diamond:Allowed chars: `1-9` | required
 `up_limit` | float | Maximum upload speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `10.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `down_limit` | float | Maximum download speed for each device sharing this voucher, between 0.056 and 100 Mbits/sec. <br>:small_orange_diamond:Example value: `24.0` <br/>:small_orange_diamond:Allowed chars: `0-9 and .` | required
 `comment` | string | User comments associated with the voucher(s), 64 characters max. If the comment field is omitted from the updated record, the original comment (if any) will be truncated to length zero. <br>:small_orange_diamond:Example value: `"24 hours free access, compliments of the hotel"` <br/>:small_orange_diamond:Allowed chars: `any` | optional 
@@ -219,5 +219,5 @@ action | description
 ----- | -----
 `restore` | Undelete (i.e., remove the deleted status) of all vouchers in the "vouchers" array.
 `renew` | Undelete all vouchers in the "vouchers" array, reset their creation dates to `now`, and either set the date of first use to `now` if there are any users, or clear that field entirely if there aren't.
-`reset` | Undelete all vouchers in the "vouchers" array, clear any existing users, reset the creation date to `now`, and clear the date of first use.
+`reset` | Undelete all vouchers in the "vouchers" array, clear any existing users, reset the creation dates to `now`, and clear the date of first use.
 `delete` | Mark all vouchers in the `"vouchers"` array as deleted.
