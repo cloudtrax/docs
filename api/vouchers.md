@@ -88,9 +88,9 @@ field | type | description | example value
 
 <a name="list-specific-vouchers"></a>
 ### list specific vouchers for a given network
-`GET /voucher/network/<network-id>`
+`GET /voucher/network/<network-id>/voucher?code=<voucher code>`
 
-List the vouchers for the given network specified in the array of voucher codes in the Request body. The array is named "vouchers". The output, behavior, and description of returned fields is otherwise identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
+Retrieve the information for a single voucher in a network. The array is named "vouchers". The output, behavior, and description of returned fields is identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
 
 ##### example request
 
