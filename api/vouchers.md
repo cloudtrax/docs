@@ -90,19 +90,31 @@ field | type | description | example value
 ### list specific vouchers for a given network
 `GET /voucher/network/<network-id>?code=<voucher code>`
 
-Retrieve the information for a single voucher in a network. The array is named "vouchers". The output, behavior, and description of returned fields is identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
+Retrieve the information for a single voucher in a network. The voucher code included as a query parameter must be URL encoded. The response is a single voucher. The output, behavior, and description of returned fields is identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
 
 ##### example request
 
 ````
-GET https://api.cloudtrax.com/voucher/network/123456
+GET https://api.cloudtrax.com/voucher/network/123456?code=Room%201
 ````
 
-##### example input
-
+##### example output
 ```` json
 {
-    "vouchers" : [ "Room 1", "Room 2", "Room 3", "Room 5" ]
+    "code": "f673d28",
+    "type": 2,
+    "created": "2016-05-23T23:05:17Z",
+    "duration": 1,
+    "users": [],
+    "max_users": 2,
+    "down_limit": 1,
+    "up_limit": 1,
+    "comment": "howard's voucher test #1",
+    "cancelled": false,
+    "purge_days": 90,
+    "tx_ids": [],
+    "remaining": 0,
+    "status": "unused"
 }
 ````
 
