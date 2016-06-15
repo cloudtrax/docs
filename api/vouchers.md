@@ -88,7 +88,7 @@ field | type | description | example value
 
 <a name="list-specific-vouchers"></a>
 ### list specific vouchers for a given network
-`GET /voucher/network/<network-id>/voucher?code=<voucher code>`
+`GET /voucher/network/<network-id>?code=<voucher code>`
 
 Retrieve the information for a single voucher in a network. The array is named "vouchers". The output, behavior, and description of returned fields is identical to that of the endpoint for listing all vouchers for the given network [described above](#list-vouchers).
 
@@ -163,7 +163,7 @@ The number 0 in the `max_users` field has a special meaning to the system, indic
 
 <a name="update-individual"></a>
 ### update individual voucher settings
-`PUT /voucher/network/<network-id>/update`
+`PUT /voucher/network/<network-id>`
 
 The accompanying JSON body is an array of one or more vouchers, identified by their `code` fields, along with their updated contents. The topmost array object is named "vouchers". All fields are required except for `"comment"` (see the note below). The order of fields is not significant.
 
