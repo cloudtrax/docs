@@ -6,15 +6,16 @@ functionality | method | endpoint
 --- | --- | ---
 [list switches](#list-switches) | GET | `/switch/network/<network-id>/list`
 [create switch](#create-switch) | POST | `/switch/network/<network-id>`
-[update switch](#update-switch) | PUT | `/switch/<node-id>`
-[get node](#get-node) | GET | `/node/<node-id>`
-[delete node](#delete-node) | DELETE | `/node/<node-id>`
-[reboot node](#reboot-node) | GET | `/node/<node-id>/reboot`
-[get allowed channels for node](#get-allowed-channels-for-node) | GET | `/node/<node-id>/allowed-channels`
-[reset encryption key for node](#reset-encryption-key-for-node) | GET | `/node/<node-id>/reset_encrypt_key`
-[enable pairing for node](#enable-pairing-for-node) | GET | `/node/<node-id>/enable_pairing`
-[expedite upgrade for node](#expedite-upgrade-for-node) | GET | `/node/<node-id>/expedite_upgrade`
-[does an AP with address MAC already exist?](#does-ap-mac-already-exist) | GET |  `/node/does_mac_exist?mac=<mac>`
+[update switch](#update-switch) | PUT | `/switch/<switch-id>`
+[get switch](#get-node) | GET | `/switch/<switch-id>`
+[delete switch](#delete-switch) | DELETE | `/switch/<switch-id>`
+
+[reboot switch](#reboot-node) | GET | `/node/<node-id>/reboot`
+[reset switch](#get-allowed-channels-for-node) | GET | `/node/<node-id>/allowed-channels`
+[enable pairing for switch](#enable-pairing-for-node) | GET | `/node/<node-id>/enable_pairing`
+[expedite upgrade for switch](#expedite-upgrade-for-node) | GET | `/node/<node-id>/expedite_upgrade`
+[update switch-related network settings](#does-ap-mac-already-exist) | GET |  `/node/does_mac_exist?mac=<mac>`
+[list allowed firmware](#list-allowed-firmware)
 
 
  <a name="list-switches"></a>
@@ -22,10 +23,14 @@ functionality | method | endpoint
 
 `GET /switch/network/<network-id>/list`
 
-Retrieve all switch-related information on switches belonging to the given network.
+Retrieve all switch-related information on switches in the given network.
 
 ##### example request
 `GET https://api.cloudtrax.com/switch/network/12345/list`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. On success, the API returns a JSON package with a list of the switches.
 
 ##### example output
 
@@ -150,17 +155,17 @@ Retrieve all switch-related information on switches belonging to the given netwo
 ### create switch
 `POST /switch/network/<network-id>`
 
-Create a new switch entry in the specified network, with characteristics defined by the JSON package that comprises the body of the HTTP Request. 
+Create a new switch entry in the specified network, with characteristics defined by the JSON package comprising the body of the HTTP Request. 
 
-A  new switch needs to contain, at minimum, a MAC ("mac") and a "name". [@@@ HKATZ: LIFTED VERBATIM FROM THE node DOCUMENTATION. IS THIS TRUE FOR SWITCHES AS WELL?? @@@]
+[@@@ redmine docs says "If the MAC already exists, the following will happen", without specifying the following. @@@]
 
-<a name="errors"> </a>
-##### error handling
-[@@@ THE node DOCS SAY THE FOLLOWING. 
-An error will be returned if the node you're creating has the same MAC as an existing node in the specified network.
 
 ##### example request
 `POST https://api.cloudtrax.com/switch/network/12345`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. On success, the API returns a JSON package containing the id of the created switch.
 
 ##### example input
 
@@ -174,13 +179,6 @@ An error will be returned if the node you're creating has the same MAC as an exi
 }
 ````
 
-[@@@ HKATZ: ANDREAS' DOC SAYS:]
-Output:
-The API either returns http statuscode 200 on success or an http error and json describing the [[dashboard:API_errors|errors]] in case of a failure.
-
-On success, the API returns the id of the newly created switch.
-[@@@ HKATZ: FIND MATCHING FORMAT FOR THIS OUTSIDE THE NODE DOCS]
-
 ##### example output
 ````json
 {
@@ -192,14 +190,12 @@ On success, the API returns the id of the newly created switch.
 ### update switch
 `PUT /switch/<switch-id>`
 
-Change the settings of an existing switch.
+Change the settings for an existing switch.
 
 ##### example request
 `PUT https://api.cloudtrax.com/switch/12345`
 
 ##### example input
-
-[@@@ HKATZ: NO EXPLANATORY TEXT ACCOMPANYING THIS SNIPPET. DO WE NEED? ]
 
 ````json
 {
@@ -228,6 +224,328 @@ Change the settings of an existing switch.
 }
 ````
 
+The API tries to create ranges for both tagged and untagged vlans. In this example the API changes tagged vlans to "1-4,8-10,12,991-994,4000-4094".
+
+Allowed values for `poe.priority`:
+
+* "low"
+* "medium"
+* high"
+* critical"
+
+Allowed values for `poe.limit_type`: 
+
+* "auto"
+* "manual"
+
+
+ <a name="get-switch"></a>
+### get switch
+`GET /switch/<switch-id>`
+
+Retrieve a switch. 
+
+##### example request
+
+`GET https://api.cloudtrax.com/switch/123456`
+
+##### example output
+
+
+````json
+{
+    "firmware": {
+        "active_partition": 2,
+        "flags": [],
+        "version_partition_1": "IMG-0.00.04",
+        "version_partition_2": "IMG-0.00.03" 
+    },
+    "id": 66,
+    "poe": {
+        "available_power_w": 64,
+        "total_power_w": 150
+    },
+    "ports": [
+        {
+            "enable": false,
+            "id": "trunk8",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk6",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk5",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk4",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk2",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "F1",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "sfp",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk1",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "6",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "8",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk7",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "5",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "3",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "4",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": false,
+            "id": "trunk3",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "trunk",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "7",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "F2",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "sfp",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "2",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "10",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "eth",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "9",
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "eth",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        },
+        {
+            "enable": true,
+            "id": "1",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low",
+                "status": "disabled" 
+            },
+            "status": "down",
+            "tagged_vlans": "991-994",
+            "type": "poe",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        }
+    ],
+    "summary_info": {
+        "active_ports": 2,
+        "cloud_status": "up",
+        "description": "Copy of a switch that already exists",
+        "firmware_version": "v0.00.03",
+        "gateway_ip": "10.0.0.1",
+        "ip": "10.0.1.64",
+        "last_checkin": "2016-07-06T23:11:48Z",
+        "mac": "88:DC:96:10:FE:4A",
+        "management_vlan": 1,
+        "model": "OMS8",
+        "name": "CP_JVS-PDX-OMS8",
+        "total_ports": 12,
+        "uptime_seconds": 16562,
+        "connection_keeper_status": "disconnected" 
+    }
+}
+````
+
+port `status`, one of:
+
+* "up"
+* "down"
+
+poe `status`, one of:
+
+* "disabled"
+* "searching"
+* "delivering power"
+* "test mode"
+* "fault"
+* "other fault"
+* "requesting power"
+
+ <a name="delete-switch"></a>
+### delete switch
+`DELETE /switch/<switch-id>`
+
+Delete an existing switch.
+
+##### example request
+`DELETE https://api.cloudtrax.com/switch/123456`
+
 ##### example output
 
 Note the use of error code 1009 to indicate success.
@@ -240,65 +558,6 @@ Note the use of error code 1009 to indicate success.
 	"values": {
 
 	}
-}
-````
-
- <a name="delete-node"></a>
-### delete node
-`DELETE /node/<node-id>`
-
-Delete an existing node.
-
-##### example request
-`DELETE https://api.cloudtrax.com/node/123456`
-
-##### example output
-
-Note the use of error code 1009 to indicate success.
-
-````json
-{
-	"code": 1009,
-	"message": "Success.",
-	"context": "update_node",
-	"values": {
-
-	}
-}
-````
- <a name="get-node"></a>
-### get node
-`GET /node/<node-id>`
-
-Retrieve a node. 
-
-##### example request
-
-`GET https://api.cloudtrax.com/node/549365`
-
-##### example output
-
-You might note, given the number of unset fields in the JSON below, that this node has been added to the network programmatically via [create node](#create-node), but not yet physically.
-
-````json
-{
-	"mac": "ac:86:74:aa:aa:aa",
-	"name": "TEST NODE #2",
-	"ip": "",
-	"description": "added for TEST #2",
-	"role": "orphan",
-	"firmware_version": "",
-	"mesh_version": "",
-	"last_checkin": "0000-00-00T00:00:00Z",
-	"uptime": "",
-	"hardware": "",
-	"memfree": 0,
-	"load": 0,
-	"spare": false,
-	"flags": "",
-	"latitude": 49.00112200000000229,
-	"longitude": -123.0011219999999952,
-	"down": false
 }
 ````
 
