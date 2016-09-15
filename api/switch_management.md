@@ -1,12 +1,12 @@
-# Node Management endpoints
+# Switch Management endpoints
 
-Create, list, update, delete, and test for characteristics of nodes.
+Create, list, update, delete, and test for characteristics of switches.
 
 functionality | method | endpoint
 --- | --- | ---
-[list nodes](#list-nodes) | GET | `/node/network/<network-id>/list`
-[create node](#create-node) | POST | `/node/network/<network-id>`
-[update node](#update-node) | PUT | `/node/<node-id>`
+[list switches](#list-switches) | GET | `/switch/network/<network-id>/list`
+[create switch](#create-switch) | POST | `/switch/network/<network-id>`
+[update switch](#update-switch) | PUT | `/switch/<node-id>`
 [get node](#get-node) | GET | `/node/<node-id>`
 [delete node](#delete-node) | DELETE | `/node/<node-id>`
 [reboot node](#reboot-node) | GET | `/node/<node-id>/reboot`
@@ -17,168 +17,214 @@ functionality | method | endpoint
 [does an AP with address MAC already exist?](#does-ap-mac-already-exist) | GET |  `/node/does_mac_exist?mac=<mac>`
 
 
- <a name="list-nodes"></a>
-### list nodes
+ <a name="list-switches"></a>
+### list switches
 
-`GET /node/network/<network-id>/list`
+`GET /switch/network/<network-id>/list`
 
-Retrieve all nodes belonging to the given network. The returned JSON is a dictionary, where each key is a node id, and detailed information for the node is contained in its corresponding value object. That information will differ slightly, depending on whether the node is a gateway (an Access Point connected directly to the Internet) or a repeater.
+Retrieve all switch-related information on switches belonging to the given network.
 
 ##### example request
-`GET https://api.cloudtrax.com/node/network/12345/list`
+`GET https://api.cloudtrax.com/switch/network/12345/list`
 
 ##### example output
 
-The example shows a two-node network with nodes 529813 and 525849. The former is a repeater, while the latter is a gateway.
-
 ````json
 {
-	"nodes": {
-		"529813": {
-			"mac": "ac:86:74:3b:7a:82",
-			"name": "Front office",
-			"ip": "6.59.122.128",
-			"description": "deleted & re-added",
-			"role": "repeater",
-			"firmware_version": "6.0.0",
-			"firmware_version_full": 60000005, 
-			"firmware_version_id": "56b1193bbbb0dd6ce3db169349d00cc412e771fc", 
-			"firmware_version_release": "beta 5", 
-			"custom_sh_errors": [ 
-			"error1" 
-			], 
-			"custom_sh_names": [ 
-			"ng6-0-wifi-upgrade" 
-			],
-			"mesh_version": "batman-adv",
-			"last_checkin": "2015-05-19T16:20:59Z",
-			"uptime": "2h 22m",
-			"hardware": "OM5P_AN",
-			"memfree": 34840,
-			"load": 0.1000000000000000056,
-			"spare": false,
-			"flags": "0x0000",
-			"latitude": 49.53025200000000098,
-			"longitude": -123.0024159999999984,
-			"down": true,
-			"selected_gateway": {
-				"name": "Back office",
-				"ip": "6.59.122.192",
-				"mac": "ac:86:74:3b:7a:c0",
-				"hops": 1,
-				"latency": 0.9699999999999999734
-			},
-			"channels": {
-				"2_4GHz": 5,
-				"5GHz": 44
-			},
-			"ht_modes": {
-				"2_4GHz": "HT20",
-				"5GHz": "HT40+"
-			},
-			"neighbors": [
-				{
-					"nid": 525849,
-					"rssi": {
-						"2_4GHz": -47,
-						"5GHz": -57
-					}
-				}
-			],
-			"gateway_path": [
-				525849
-			]
-		},
-		"525849": {
-			"mac": "ac:86:74:33:7a:c0",
-			"name": "Back office",
-			"ip": "6.59.122.192",
-			"description": "main AP",
-			"role": "gateway",
-			"firmware_version": "fw-ng-r575",
-			"mesh_version": "batman-adv",
-			"last_checkin": "2015-06-17T13:35:43Z",
-			"uptime": "21d 15h 23m",
-			"hardware": "OM5P_AN",
-			"memfree": 29004,
-			"load": 0.02999999999999999889,
-			"spare": false,
-			"flags": "0x0000",
-			"latitude": 49.53026900000000069,
-			"longitude": -123.002387999999998,
-			"down": false,
-			"lan_info": {
-				"lan_ip": "192.168.0.9",
-				"wan_ip": "24.211.105.169"
-			},
-			"channels": {
-				"2_4GHz": 5,
-				"5GHz": 44
-			},
-			"ht_modes": {
-				"2_4GHz": "HT20",
-				"5GHz": "HT40+"
-			}
-		}
-	}
+    "switches": [
+        {
+            "id": 18,
+            "poe": {
+                "available_power_w": 0,
+                "total_power_w": 0
+            },
+            "summary_info": {
+                "active_ports": 1,
+                "cloud_status": "up",
+                "description": "",
+                "firmware_version": "v0.00.04",
+                "gateway_ip": "10.0.0.1",
+                "ip": "10.0.1.131",
+                "last_checkin": "2016-07-06T23:15:37Z",
+                "mac": "88:DC:96:1E:04:49",
+                "model": "OMS24",
+                "name": "switch john",
+                "total_ports": 28,
+                "uptime_seconds": 16109,
+                "connection_keeper_status": "disconnected" 
+            }
+        },
+        {
+            "id": 19,
+            "poe": {
+                "available_power_w": 22,
+                "total_power_w": 740
+            },
+            "summary_info": {
+                "active_ports": 3,
+                "cloud_status": "up",
+                "description": "",
+                "firmware_version": "v0.00.03",
+                "gateway_ip": "10.0.0.1",
+                "ip": "10.0.1.67",
+                "last_checkin": "2016-07-06T23:14:41Z",
+                "mac": "88:DC:96:16:B4:E3",
+                "model": "OMS48",
+                "name": "switch john1",
+                "total_ports": 52,
+                "uptime_seconds": 7836,
+                "connection_keeper_status": "disconnected" 
+            }
+        },
+        {
+            "id": 23,
+            "poe": {
+                "available_power_w": 39,
+                "total_power_w": 150
+            },
+            "summary_info": {
+                "active_ports": 2,
+                "cloud_status": "down",
+                "description": "",
+                "firmware_version": "v0.00.03",
+                "gateway_ip": "10.0.0.1",
+                "ip": "10.0.1.64",
+                "last_checkin": "2016-07-06T22:49:22Z",
+                "mac": "AC:86:74:00:00:02",
+                "model": "OMS8",
+                "name": "andreas test",
+                "total_ports": 12,
+                "uptime_seconds": 12420,
+                "connection_keeper_status": "disconnected" 
+            }
+        },
+        {
+            "id": 63,
+            "poe": {
+                "available_power_w": 0,
+                "total_power_w": 0
+            },
+            "summary_info": {
+                "active_ports": 0,
+                "cloud_status": "unknown",
+                "description": "",
+                "firmware_version": "",
+                "gateway_ip": "",
+                "ip": "",
+                "last_checkin": "",
+                "mac": "AC:86:74:00:00:99",
+                "model": "OMS8",
+                "name": "andreas test",
+                "total_ports": 0,
+                "uptime_seconds": 0,
+                "connection_keeper_status": "disconnected" 
+            }
+        },
+        {
+            "id": 66,
+            "poe": {
+                "available_power_w": 64,
+                "total_power_w": 150
+            },
+            "summary_info": {
+                "active_ports": 2,
+                "cloud_status": "up",
+                "description": "Copy of a switch that already exists",
+                "firmware_version": "v0.00.03",
+                "gateway_ip": "10.0.0.1",
+                "ip": "10.0.1.64",
+                "last_checkin": "2016-07-06T23:11:48Z",
+                "mac": "88:DC:96:10:FE:4A",
+                "model": "OMS8",
+                "name": "CP_JVS-PDX-OMS8",
+                "total_ports": 12,
+                "uptime_seconds": 16562,
+                "connection_keeper_status": "disconnected" 
+            }
+        }
+    ]
 }
 ````
 
- <a name="create-node"></a>
-### create node
-`POST /node/network/<network-id>`
+ <a name="create-switch"></a>
+### create switch
+`POST /switch/network/<network-id>`
 
-Create a new node in the specified network, with characteristics defined by the JSON package that comprises the body of the HTTP Request. The node-id assigned to the node by CloudTrax will be returned in the case of a successful request.
+Create a new switch entry in the specified network, with characteristics defined by the JSON package that comprises the body of the HTTP Request. 
 
-There's a special case if you have "master" access where this endpoint can be used to transfer an existing node from one of your networks to another. To do so, construct the URL using the `network-id` of the destination network, but set the MAC (the "mac" field) of the "new" node to the MAC of the existing node you're moving from its original network. You also need to set "confirm_transfer" to true. This special case makes error handling slightly trickier; see [below](#errors).
-
-A  new node needs to contain, at minimum, a MAC ("mac") and a "name".
+A  new switch needs to contain, at minimum, a MAC ("mac") and a "name". [@@@ HKATZ: LIFTED VERBATIM FROM THE node DOCUMENTATION. IS THIS TRUE FOR SWITCHES AS WELL?? @@@]
 
 <a name="errors"> </a>
 ##### error handling
-* an error will be returned if the node you're creating has the same MAC as an existing node in the specified network.
-* if you've "master" access and  the node has the same MAC as an existing node in *another* of your networks and "confirm_transfer" is true, the existing node will be transferred to the network specified in the URL.
-* otherwise an error will be returned.
+[@@@ THE node DOCS SAY THE FOLLOWING. 
+An error will be returned if the node you're creating has the same MAC as an existing node in the specified network.
 
 ##### example request
-`POST https://api.cloudtrax.com/node/network/12345`
+`POST https://api.cloudtrax.com/switch/network/12345`
 
 ##### example input
 
 ````json
 {
-    "mac": "ac:86:74:aa:cc:ee",
-    "name": "new test node #1",
-    "description": "added for test",
-    "latitude": "49.00112233",
-    "longitude": "-123.00112233",
-    "confirm_transfer": "true"
+    "mac": "ac:86:74:00:00:01",
+    "name": "garage",
+    "description" : "some description",
+    "model" : "model",
+    "confirm_transfer":true
 }
 ````
+
+[@@@ HKATZ: ANDREAS' DOC SAYS:]
+Output:
+The API either returns http statuscode 200 on success or an http error and json describing the [[dashboard:API_errors|errors]] in case of a failure.
+
+On success, the API returns the id of the newly created switch.
+[@@@ HKATZ: FIND MATCHING FORMAT FOR THIS OUTSIDE THE NODE DOCS]
 
 ##### example output
 ````json
 {
-  "node_id" : 548430
+ 	"switch_id" : 123456
 }
 ````
 
- <a name="update-node"></a>
-### update node
-`PUT /node/<node-id>`
+ <a name="update-switch"></a>
+### update switch
+`PUT /switch/<switch-id>`
 
-Update an existing node, with characteristics defined by the JSON package in the body of the HTTP Request. Only those fields specified in the JSON package will be updated; all other node state will remain unchanged.
+Change the settings of an existing switch.
 
 ##### example request
-`PUT https://api.cloudtrax.com/node/548430`
+`PUT https://api.cloudtrax.com/switch/12345`
 
 ##### example input
 
-Change a single field ("description") for node 54830
+[@@@ HKATZ: NO EXPLANATORY TEXT ACCOMPANYING THIS SNIPPET. DO WE NEED? ]
 
 ````json
 {
-	"description": "UPDATE: changing description only"
+    "firmware": {
+        "active_partition": 1
+    },
+    "ports": [
+        {
+            "enable": true,
+            "id": "9",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low" 
+            },
+            "tagged_vlans": "1,2,4,3,9,8,8,10,10,4000-4094,12,991-994",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        }
+    ],
+    "summary_info": {
+        "description": "",
+        "name": "switch john" 
+    }
 }
 ````
 
