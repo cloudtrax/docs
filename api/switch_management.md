@@ -163,7 +163,7 @@ Create a new switch entry for the specified network, with characteristics define
 
 The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. On success, the API returns a JSON package containing the id of the created switch.
 
-##### special error handling
+##### MAC and special error handling
 If you have "master" access, the MAC field ("mac") can be used to transfer the switch to a different network. This makes handling MAC-related errors slightly more complicated. To wit:
 
 * an error will be returned if the node you're creating has the same MAC as an existing switch in the specified network.
