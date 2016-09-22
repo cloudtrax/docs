@@ -6,24 +6,23 @@ functionality | method | endpoint
 --- | --- | ---
 [list switches](#list-switches) | GET | `/switch/network/<network-id>/list`
 [create switch](#create-switch) | POST | `/switch/network/<network-id>`
+[get switch](#get-switch) | GET | `/switch/<switch-id>`
 [update switch](#update-switch) | PUT | `/switch/<switch-id>`
-[get switch](#get-node) | GET | `/switch/<switch-id>`
 [delete switch](#delete-switch) | DELETE | `/switch/<switch-id>`
-
-[reboot switch](#reboot-node) | GET | `/node/<node-id>/reboot`
-[reset switch](#get-allowed-channels-for-node) | GET | `/node/<node-id>/allowed-channels`
-[enable pairing for switch](#enable-pairing-for-node) | GET | `/node/<node-id>/enable_pairing`
-[expedite upgrade for switch](#expedite-upgrade-for-node) | GET | `/node/<node-id>/expedite_upgrade`
-[update switch-related network settings](#does-ap-mac-already-exist) | GET |  `/node/does_mac_exist?mac=<mac>`
-[list allowed firmware](#list-allowed-firmware)
-
+[reboot switch](#reboot-switch) | GET | `/switch/<switch-id>/reboot`
+[reset port](#reset-port) | GET | `/switch/<switch-id>/reset_port/<port-number>`
+[enable pairing for switch](#enable-pairing-for-switch) | GET | `/switch/<switch-id>/enable_pairing`
+[expedite upgrade for switch](#expedite-upgrade-for-switch) | GET | `/switch/<switch-id>/expedite_upgrade`
+[list switch-related network settings](#list-switch-related-settings) | GET |  `/switch/network/<network-id>/settings`
+[update switch-related network settings](#update-switch-related-settings) | PUT | `/switch/network/<network-id>/settings`
+[list allowed firmware](#list-allowed-firmware) | GET | `/switch/network/<network-id>/allowed_firmware`
 
  <a name="list-switches"></a>
 ### list switches
 
 `GET /switch/network/<network-id>/list`
 
-Retrieve all switch-related information on switches in the given network.
+Retrieve a list of all switches belonging to the given network, with detailed information.
 
 ##### example request
 `GET https://api.cloudtrax.com/switch/network/12345/list`
@@ -155,10 +154,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 ### create switch
 `POST /switch/network/<network-id>`
 
-Create a new switch entry in the specified network, with characteristics defined by the JSON package comprising the body of the HTTP Request. 
-
-[@@@ redmine docs says "If the MAC already exists, the following will happen", without specifying the following. @@@]
-
+Create a new switch entry for the specified network, with characteristics defined by the JSON package in the body of the HTTP Request. 
 
 ##### example request
 `POST https://api.cloudtrax.com/switch/network/12345`
@@ -186,60 +182,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 }
 ````
 
- <a name="update-switch"></a>
-### update switch
-`PUT /switch/<switch-id>`
-
-Change the settings for an existing switch.
-
-##### example request
-`PUT https://api.cloudtrax.com/switch/12345`
-
-##### example input
-
-````json
-{
-    "firmware": {
-        "active_partition": 1
-    },
-    "ports": [
-        {
-            "enable": true,
-            "id": "9",
-            "poe": {
-                "enable": true,
-                "power_limit_type": "manual",
-                "power_limit_user_w": 30,
-                "priority": "low" 
-            },
-            "tagged_vlans": "1,2,4,3,9,8,8,10,10,4000-4094,12,991-994",
-            "untagged_vlans": "1",
-            "vlan_id": 1
-        }
-    ],
-    "summary_info": {
-        "description": "",
-        "name": "switch john" 
-    }
-}
-````
-
-The API tries to create ranges for both tagged and untagged vlans. In this example the API changes tagged vlans to "1-4,8-10,12,991-994,4000-4094".
-
-Allowed values for `poe.priority`:
-
-* "low"
-* "medium"
-* high"
-* critical"
-
-Allowed values for `poe.limit_type`: 
-
-* "auto"
-* "manual"
-
-
- <a name="get-switch"></a>
+<a name="get-switch"></a>
 ### get switch
 `GET /switch/<switch-id>`
 
@@ -522,22 +465,76 @@ Retrieve a switch.
 }
 ````
 
-port `status`, one of:
+Allowed values for `ports[n].status`:
 
-* "up"
-* "down"
+* `"up"`
+* `"down"`
 
-poe `status`, one of:
+Allowed values for `poe.status`:
 
-* "disabled"
-* "searching"
-* "delivering power"
-* "test mode"
-* "fault"
-* "other fault"
-* "requesting power"
+* `"disabled"`
+* `"searching"`
+* `"delivering power"`
+* `"test mode"`
+* `"fault"`
+* `"other fault"`
+* `"requesting power"`
 
- <a name="delete-switch"></a>
+
+<a name="update-switch"></a>
+### update switch
+`PUT /switch/<switch-id>`
+
+Change the settings for an existing switch.
+
+##### example request
+`PUT https://api.cloudtrax.com/switch/12345`
+
+##### example input
+
+````json
+{
+    "firmware": {
+        "active_partition": 1
+    },
+    "ports": [
+        {
+            "enable": true,
+            "id": "9",
+            "poe": {
+                "enable": true,
+                "power_limit_type": "manual",
+                "power_limit_user_w": 30,
+                "priority": "low" 
+            },
+            "tagged_vlans": "1,2,4,3,9,8,8,10,10,4000-4094,12,991-994",
+            "untagged_vlans": "1",
+            "vlan_id": 1
+        }
+    ],
+    "summary_info": {
+        "description": "",
+        "name": "switch john" 
+    }
+}
+````
+
+The API tries to create ranges for both tagged and untagged vlans. In this example the API changes tagged vlans to "1-4,8-10,12,991-994,4000-4094".
+
+Allowed values for `poe.priority`:
+
+* `"low"`
+* `"medium"`
+* `"high"`
+* `"critical"`
+
+Allowed values for `poe.limit_type`: 
+
+* `"auto"`
+* `"manual"`
+
+
+<a name="delete-switch"></a>
 ### delete switch
 `DELETE /switch/<switch-id>`
 
@@ -546,171 +543,246 @@ Delete an existing switch.
 ##### example request
 `DELETE https://api.cloudtrax.com/switch/123456`
 
-##### example output
+ <a name="reboot-switch"></a>
+### reboot switch
+`GET /switch/<switch-id>/reboot`
 
-Note the use of error code 1009 to indicate success.
-
-````json
-{
-	"code": 1009,
-	"message": "Success.",
-	"context": "update_node",
-	"values": {
-
-	}
-}
-````
-
- <a name="reboot-node"></a>
-### reboot node
-`GET /node/<node-id>/reboot`
-
-Reboot an Access Point.
+Reboot a switch.
 
 ##### example request
-`GET https://api.cloudtrax.com/node/123456/reboot`
+`GET https://api.cloudtrax.com/switch/123456/reboot`
 
 ##### output
 
-*API in flux at this point.*
+The API returns either an HTTP status code 200 on success or 4xx in the case of a failure.
 
- <a name="get-allowed-channels-for-node"></a>
-### get allowed channels for node
-`GET /node/<node-id>/allowed-channels`
+ <a name="reset-port"></a>
+### reset port
+`GET /switch/<switch-id>/reset_port/<port-number>`
 
-Returns all allowed channels for a node for a particular country, defaulting to the country code for the node that's stored in the database. You can specify a different country with the query-string "country" parameter, using one of the two-letter country codes specified by [ISO 3166](http://www.iso.org/iso/home/standards/country_codes.htm).
+Reset a port.
 
 ##### example request
-`GET https://api.cloudtrax.com/node/12345/allowed_channels`
+`GET https://api.cloudtrax.com/switch/123456/reset_port/1`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure.
+
+ <a name="enable-pairing-for-switch"></a>
+### enable pairing for switch
+`GET /switch/<switch-id>/enable_pairing`
+
+##### example request
+`GET https://api.cloudtrax.com/switch/123456/enable_pairing`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. 
+
+ <a name="expedite-upgrade-for-switch"></a>
+### expedite upgrade for switch
+`GET /switch/<switch-id>/expedite_upgrade`
+
+If upgrades are not disabled, this flag forces an update outside the normally scheduled maintenance window.
+
+##### example request
+`GET https://api.cloudtrax.com/switch/123456/expedite_upgrade`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. 
+
+<a name="list-switch-related-settings"></a>
+### list switch-related network settings
+`GET /switch/network/<network_id>/settings`
+
+##### example request
+`GET https://api.cloudtrax.com/switch/network/123456/settings`
+
+##### output
+
+The API either returns HTTP status code 200 (success) if the request is successful, along with a JSON package of the settings, otherwise an error explaining what prevented the operation in the case of failure. 
 
 ##### example output
 ````json
 {
-    "channels": {
-        "2_4GHz": [
-            {
-                "channel": 10,
-                "ht_modes": [
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 9,
-                "ht_modes": [
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 8,
-                "ht_modes": [
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 7,
-                "ht_modes": [
-                    "HT40+",
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 6,
-                "ht_modes": [
-                    "HT40+",
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 5,
-                "ht_modes": [
-                    "HT40+",
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 4,
-                "ht_modes": [
-                    "HT40+",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 3,
-                "ht_modes": [
-                    "HT40+",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 11,
-                "ht_modes": [
-                    "HT40-",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 2,
-                "ht_modes": [
-                    "HT40+",
-                    "HT20" 
-                ]
-            },
-            {
-                "channel": 1,
-                "ht_modes": [
-                    "HT40+",
-                    "HT20" 
-                ]
-            }
-        ]
+  "disable_upgrade": false,
+  "enable_snmp": true,
+  "community":"blabla",
+  "firmware": [
+    {
+      "OMS24": {
+        "build": "IMG-0.00.03",
+        "tag": "v3" 
+      }
+    },
+    {
+      "OMS8": {
+        "build": "IMG-0.00.02",
+        "tag": "phase1" 
+      }
+    },
+    {
+      "OMS48": {
+        "build": "IMG-0.00.02",
+        "tag": "phase1" 
+      }
+    }
+  ]
+}
+````
+
+###### Top level properties
+field | description
+--- | ---
+`disable_upgrade` | indicates whether the switches on this network will automatically upgrade their firmware.
+`enable_snmp` | indicates whether or not this network allows snmp communities.
+`community` | the name assigned to this community.
+`firmware` | lists the firmware currently running on each switch model on this network.
+
+###### Firmware
+This section is organized as a map of model name to properties.
+
+field | description
+----- | -----
+`tag` | the firmware tag running on the relevant model on this network.
+`build` | the firmware build running on the relevant model on this network.
+
+##### output
+On success the API responds with a status code 200. In the case of an error, the API responds with an explanation in JSON.
+
+Note that when a community is updated, its id is changed. This reflects the way communities are handled at the switch level: the original community is deleted and a new one created in its place. Consequently the original id is no longer valid.
+
+<a name="update-switch-related-settings"></a>
+### update switch-related network settings
+`PUT /switch/network/<network_id>/settings`
+
+##### example request
+`PUT https://api.cloudtrax.com/switch/network/123456/settings`
+
+##### example input
+
+````json
+{
+  "disable_upgrade": false,
+  "enable_snmp": true,
+  "communities": [
+    {
+      "name": "work_comm",
+      "id": 11,
+      "action": "update",
+      "access": "write" 
+    }
+  ],
+  "firmware": 
+    {
+      "OMS24":
+        {
+          "tag": "v3" 
+        },
+      "OMS8":
+        {
+          "tag": "v4" 
+        }
     }
 }
 ````
 
- <a name="reset-encryption-key-for-node"></a>
-### reset encryption key for node
-`GET /node/<node-id>/reset_encrypt_key`
+###### JSON detail
+fields | type | description | required
+----- | ----- | ----- | -----
+`disable_upgrade` | bool | If true, this network's switches will not automatically upgrade their firmware. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | optional
+`enable_snmp` | bool | This network allows the use of snmp communities. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | required
+`community` | string | Desired name of this community.<br>:small_orange_diamond:Example value: `"comm1"` <br/>:small_orange_diamond:Allowed chars: `A-Z, a-z, 0-9` | required
+`firmware` | string | Indicates any firmware changes being made on this network, described by a single JSON map with model names as keys.
+`tag` | string | Which firmware should run on the associated model of switch. <br>:small_orange_diamond:Example value: `"phase1"` <br/>:small_orange_diamond:Allowed chars: `a-z, 0-9` | required
 
-Resets the encryption key used by an Access Point. This should be done when a Access Point need to be re-paired.
-
-##### example request
-`GET https://api.cloudtrax.com/node/123456/reset_encrypt_key`
-
- <a name="enable-pairing-for-node"></a>
-### enable pairing for node
-`GET /node/<node-id>/enable_pairing`
-
-Newly added Access Points need to be paired with the network. Normally CloudTrax does this automatically, but in case an Access Point has been "re-flashed", it might be necessary to call this endpoint.
+<a name="list_allowed-firmware"></a>
+### list allowed firmware
+`GET /switch/network/<network_id>/allowed_firmware`
 
 ##### example request
-`GET https://api.cloudtrax.com/node/123456/enable_pairing`
+`GET https://api.cloudtrax.com/switch/network/123456/allowed_firmware`
 
- <a name="expedite-upgrade-for-node"></a>
-### expedite upgrade for node
-`GET /node/<node-id>/expedite_upgrade`
+##### output
 
-Assuming that firmware upgrades are enabled for a network, CloudTrax will attempt to upgrade any Access Points needing firmware upgrades during the specified maintenance window. Setting the `expedite_upgrade` flag asks CloudTrax to attempt the upgrade as soon as possible, disregarding the settings for the maintenance window.
-
-<a name="does-ap-mac-already-exist"></a>
-### does an AP with address MAC already exist?
-`GET /node/does_mac_exist?mac=<mac>`
-
-Call this endpoint as a double-check when a user is entering the MAC of an Access Point into the system, prior to the node actually being physically attached and checked in.
-
-##### example request
-
-`GET https://api.cloudtrax.com/node/does_mac_exist?mac=ac:86:74:aa:aa:aa`
+The API returns a list of allowed firmware for the network, organized by model name.
 
 ##### example output
 ````json
-{ 
-	"node_exists" : false 
+{
+  "allowed_firmware": {
+    "OMS24": [
+      {
+        "tag": "phase1",
+        "build": "IMG-0.00.02" 
+      },
+      {
+        "tag": "v3",
+        "build": "IMG-0.00.03" 
+      },
+      {
+        "tag": "v4",
+        "build": "IMG-0.00.04" 
+      },
+      {
+        "tag": "v6",
+        "build": "IMG-0.00.06" 
+      },
+      {
+        "tag": "v7",
+        "build": "IMG-0.00.07" 
+      }
+    ],
+    "OMS8": [
+      {
+        "tag": "phase1",
+        "build": "IMG-0.00.02" 
+      },
+      {
+        "tag": "v3",
+        "build": "IMG-0.00.03" 
+      },
+      {
+        "tag": "v4",
+        "build": "IMG-0.00.04" 
+      },
+      {
+        "tag": "v5",
+        "build": "IMG-0.00.05" 
+      },
+      {
+        "tag": "v6",
+        "build": "IMG-0.00.06" 
+      },
+      {
+        "tag": "v7",
+        "build": "IMG-0.00.07" 
+      }
+    ],
+    "OMS48": [
+      {
+        "tag": "phase1",
+        "build": "IMG-0.00.02" 
+      },
+      {
+        "tag": "v3",
+        "build": "IMG-0.00.03" 
+      },
+      {
+        "tag": "v4",
+        "build": "IMG-0.00.04" 
+      },
+      {
+        "tag": "v6",
+        "build": "IMG-0.00.06" 
+      },
+      {
+        "tag": "v7",
+        "build": "IMG-0.00.07" 
+      }
+    ]
+  }
 }
 ````
-
