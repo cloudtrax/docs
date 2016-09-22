@@ -29,7 +29,7 @@ Retrieve a list of all switches belonging to the given network, with detailed in
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. On success, the API returns a JSON package with a list of the switches.
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. On success, the API returns a JSON package with a list of the switches.
 
 ##### example output
 
@@ -161,7 +161,15 @@ Create a new switch entry for the specified network, with characteristics define
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. On success, the API returns a JSON package containing the id of the created switch.
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. On success, the API returns a JSON package containing the id of the created switch.
+
+##### special error handling
+If you have "master" access, the MAC field ("mac") can be used to transfer the switch to a different network. This makes handling MAC-related errors slightly more complicated. To wit:
+
+* an error will be returned if the node you're creating has the same MAC as an existing switch in the specified network.
+* if you have "master" access and  the node has the same MAC as an existing switch in *another* of your networks and "confirm_transfer" is true, the existing switch will be transferred to the network specified in the URL.
+* otherwise an error will be returned.
+
 
 ##### example input
 
@@ -543,6 +551,10 @@ Delete an existing switch.
 ##### example request
 `DELETE https://api.cloudtrax.com/switch/123456`
 
+##### output
+
+The API returns either an HTTP status code 200 on success or an HTTP error and JSON describing the error(s) in the case of a failure.
+
  <a name="reboot-switch"></a>
 ### reboot switch
 `GET /switch/<switch-id>/reboot`
@@ -567,7 +579,7 @@ Reset a port.
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure.
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
 
  <a name="enable-pairing-for-switch"></a>
 ### enable pairing for switch
@@ -578,7 +590,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. 
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. 
 
  <a name="expedite-upgrade-for-switch"></a>
 ### expedite upgrade for switch
@@ -591,7 +603,7 @@ If upgrades are not disabled, this flag forces an update outside the normally sc
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error in case of failure. 
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. 
 
 <a name="list-switch-related-settings"></a>
 ### list switch-related network settings
