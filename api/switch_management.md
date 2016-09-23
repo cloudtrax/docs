@@ -166,8 +166,8 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 ##### MAC and special error handling
 If you have "master" access, the MAC field ("mac") can be used to transfer the switch to a different network. This makes handling MAC-related errors slightly more complicated. To wit:
 
-* an error will be returned if the node you're creating has the same MAC as an existing switch in the specified network.
-* if you have "master" access and  the node has the same MAC as an existing switch in *another* of your networks and "confirm_transfer" is true, the existing switch will be transferred to the network specified in the URL.
+* an error will be returned if the switch you're creating has the same MAC as an existing switch in the specified network.
+* if you have "master" access and  the switch has the same MAC as an existing switch in *another* of your networks and "confirm_transfer" is true, the existing switch will be transferred to the network specified in the URL.
 * otherwise an error will be returned.
 
 
