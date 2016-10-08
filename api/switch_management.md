@@ -10,7 +10,7 @@ functionality | method | endpoint
 [update switch](#update-switch) | PUT | `/switch/<switch-id>`
 [delete switch](#delete-switch) | DELETE | `/switch/<switch-id>`
 [reboot switch](#reboot-switch) | GET | `/switch/<switch-id>/reboot`
-[reset port](#reset-port) | GET | `/switch/<switch-id>/reset_port/<port-number>`
+[reset port](#reset-port) | GET | `/switch/<switch-id>/port/<port-number>/reset`
 [enable pairing for switch](#enable-pairing-for-switch) | GET | `/switch/<switch-id>/enable_pairing`
 [expedite upgrade for switch](#expedite-upgrade-for-switch) | GET | `/switch/<switch-id>/expedite_upgrade`
 [list switch-related network settings](#list-switch-related-settings) | GET |  `/switch/network/<network-id>/settings`
@@ -55,7 +55,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "name": "switch john",
                 "total_ports": 28,
                 "uptime_seconds": 16109,
-                "connection_keeper_status": "disconnected" 
+                "connection_keeper_status": "disconnected"
             }
         },
         {
@@ -77,7 +77,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "name": "switch john1",
                 "total_ports": 52,
                 "uptime_seconds": 7836,
-                "connection_keeper_status": "disconnected" 
+                "connection_keeper_status": "disconnected"
             }
         },
         {
@@ -99,7 +99,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "name": "andreas test",
                 "total_ports": 12,
                 "uptime_seconds": 12420,
-                "connection_keeper_status": "disconnected" 
+                "connection_keeper_status": "disconnected"
             }
         },
         {
@@ -121,7 +121,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "name": "andreas test",
                 "total_ports": 0,
                 "uptime_seconds": 0,
-                "connection_keeper_status": "disconnected" 
+                "connection_keeper_status": "disconnected"
             }
         },
         {
@@ -143,7 +143,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "name": "CP_JVS-PDX-OMS8",
                 "total_ports": 12,
                 "uptime_seconds": 16562,
-                "connection_keeper_status": "disconnected" 
+                "connection_keeper_status": "disconnected"
             }
         }
     ]
@@ -154,7 +154,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 ### create switch
 `POST /switch/network/<network-id>`
 
-Create a new switch entry for the specified network, with characteristics defined by the JSON package in the body of the HTTP Request. 
+Create a new switch entry for the specified network, with characteristics defined by the JSON package in the body of the HTTP Request.
 
 ##### example request
 `POST https://api.cloudtrax.com/switch/network/12345`
@@ -194,7 +194,7 @@ If you have "master" access, the MAC field ("mac") can be used to transfer the s
 ### get switch
 `GET /switch/<switch-id>`
 
-Retrieve a switch. 
+Retrieve a switch.
 
 ##### example request
 
@@ -209,7 +209,7 @@ Retrieve a switch.
         "active_partition": 2,
         "flags": [],
         "version_partition_1": "IMG-0.00.04",
-        "version_partition_2": "IMG-0.00.03" 
+        "version_partition_2": "IMG-0.00.03"
     },
     "id": 66,
     "poe": {
@@ -288,7 +288,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -304,7 +304,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -329,7 +329,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -345,7 +345,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -361,7 +361,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -386,7 +386,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -411,7 +411,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -445,7 +445,7 @@ Retrieve a switch.
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
                 "priority": "low",
-                "status": "disabled" 
+                "status": "disabled"
             },
             "status": "down",
             "tagged_vlans": "991-994",
@@ -468,7 +468,7 @@ Retrieve a switch.
         "name": "CP_JVS-PDX-OMS8",
         "total_ports": 12,
         "uptime_seconds": 16562,
-        "connection_keeper_status": "disconnected" 
+        "connection_keeper_status": "disconnected"
     }
 }
 ````
@@ -513,7 +513,7 @@ Change the settings for an existing switch.
                 "enable": true,
                 "power_limit_type": "manual",
                 "power_limit_user_w": 30,
-                "priority": "low" 
+                "priority": "low"
             },
             "tagged_vlans": "1,2,4,3,9,8,8,10,10,4000-4094,12,991-994",
             "untagged_vlans": "1",
@@ -522,7 +522,7 @@ Change the settings for an existing switch.
     ],
     "summary_info": {
         "description": "",
-        "name": "switch john" 
+        "name": "switch john"
     }
 }
 ````
@@ -536,7 +536,7 @@ Allowed values for `poe.priority`:
 * `"high"`
 * `"critical"`
 
-Allowed values for `poe.limit_type`: 
+Allowed values for `poe.limit_type`:
 
 * `"auto"`
 * `"manual"`
@@ -570,12 +570,12 @@ The API returns either an HTTP status code 200 on success or 4xx in the case of 
 
  <a name="reset-port"></a>
 ### reset port
-`GET /switch/<switch-id>/reset_port/<port-number>`
+`GET /switch/<switch-id>/port/<port-number>/reset`
 
 Reset a port.
 
 ##### example request
-`GET https://api.cloudtrax.com/switch/123456/reset_port/1`
+`GET https://api.cloudtrax.com/switch/123456/port/1/reset`
 
 ##### output
 
@@ -590,7 +590,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. 
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
 
  <a name="expedite-upgrade-for-switch"></a>
 ### expedite upgrade for switch
@@ -603,7 +603,7 @@ If upgrades are not disabled, this flag forces an update outside the normally sc
 
 ##### output
 
-The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure. 
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
 
 <a name="list-switch-related-settings"></a>
 ### list switch-related network settings
@@ -614,7 +614,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
 
 ##### output
 
-The API either returns HTTP status code 200 (success) if the request is successful, along with a JSON package of the settings, otherwise an error explaining what prevented the operation in the case of failure. 
+The API either returns HTTP status code 200 (success) if the request is successful, along with a JSON package of the settings, otherwise an error explaining what prevented the operation in the case of failure.
 
 ##### example output
 ````json
@@ -626,19 +626,19 @@ The API either returns HTTP status code 200 (success) if the request is successf
     {
       "OMS24": {
         "build": "IMG-0.00.03",
-        "tag": "v3" 
+        "tag": "v3"
       }
     },
     {
       "OMS8": {
         "build": "IMG-0.00.02",
-        "tag": "phase1" 
+        "tag": "phase1"
       }
     },
     {
       "OMS48": {
         "build": "IMG-0.00.02",
-        "tag": "phase1" 
+        "tag": "phase1"
       }
     }
   ]
@@ -684,18 +684,18 @@ Note that when a community is updated, its id is changed. This reflects the way 
       "name": "work_comm",
       "id": 11,
       "action": "update",
-      "access": "write" 
+      "access": "write"
     }
   ],
-  "firmware": 
+  "firmware":
     {
       "OMS24":
         {
-          "tag": "v3" 
+          "tag": "v3"
         },
       "OMS8":
         {
-          "tag": "v4" 
+          "tag": "v4"
         }
     }
 }
@@ -728,71 +728,71 @@ The API returns a list of allowed firmware for the network, organized by model n
     "OMS24": [
       {
         "tag": "phase1",
-        "build": "IMG-0.00.02" 
+        "build": "IMG-0.00.02"
       },
       {
         "tag": "v3",
-        "build": "IMG-0.00.03" 
+        "build": "IMG-0.00.03"
       },
       {
         "tag": "v4",
-        "build": "IMG-0.00.04" 
+        "build": "IMG-0.00.04"
       },
       {
         "tag": "v6",
-        "build": "IMG-0.00.06" 
+        "build": "IMG-0.00.06"
       },
       {
         "tag": "v7",
-        "build": "IMG-0.00.07" 
+        "build": "IMG-0.00.07"
       }
     ],
     "OMS8": [
       {
         "tag": "phase1",
-        "build": "IMG-0.00.02" 
+        "build": "IMG-0.00.02"
       },
       {
         "tag": "v3",
-        "build": "IMG-0.00.03" 
+        "build": "IMG-0.00.03"
       },
       {
         "tag": "v4",
-        "build": "IMG-0.00.04" 
+        "build": "IMG-0.00.04"
       },
       {
         "tag": "v5",
-        "build": "IMG-0.00.05" 
+        "build": "IMG-0.00.05"
       },
       {
         "tag": "v6",
-        "build": "IMG-0.00.06" 
+        "build": "IMG-0.00.06"
       },
       {
         "tag": "v7",
-        "build": "IMG-0.00.07" 
+        "build": "IMG-0.00.07"
       }
     ],
     "OMS48": [
       {
         "tag": "phase1",
-        "build": "IMG-0.00.02" 
+        "build": "IMG-0.00.02"
       },
       {
         "tag": "v3",
-        "build": "IMG-0.00.03" 
+        "build": "IMG-0.00.03"
       },
       {
         "tag": "v4",
-        "build": "IMG-0.00.04" 
+        "build": "IMG-0.00.04"
       },
       {
         "tag": "v6",
-        "build": "IMG-0.00.06" 
+        "build": "IMG-0.00.06"
       },
       {
         "tag": "v7",
-        "build": "IMG-0.00.07" 
+        "build": "IMG-0.00.07"
       }
     ]
   }
