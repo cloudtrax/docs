@@ -46,25 +46,25 @@ The accounting messages can be disabled via the udsplash ssid option "disable_ac
 
 ### Configuration in the cloudtrax dashboard:
 
- * Splash page URL (UAM):
- ** @http://1.2.3.4/test/uam.php@
- * Splash page secret (UAM):
- ** @toosecretstring@
- * Splash page authentication URL (HTTP Auth):
- ** @http://1.2.3.4/test/server.php@
- * Splash page authentication Secret (HTTP Auth):
- ** @verysecretstring@
+```
+Splash page URL (UAM): http://1.2.3.4/test/uam.php
+Splash page secret (UAM): toosecretstring
+Splash page authentication URL (HTTP Auth): http://1.2.3.4/test/server.php 
+Splash page authentication Secret (HTTP Auth): verysecretstring
+```
 
 ### Runtime environment:
 
- * Client MAC:
- ** 02:ba:de:af:fe:01
- * Time (unix timestamp):
- ** 1440596666
+```
+Client MAC: 02:ba:de:af:fe:01
+Time (unix timestamp): 1440596666
+```
 
-### Secret on the server for the signature
+### Sever configuration:
 
-@evenmoresecretstring@
+```
+Secret used for the signature: evenmoresecretstring
+```
 
 ### UAM splashpage process
 
@@ -73,6 +73,7 @@ The user should automatically be redirect to the splash page when its browser is
 ```
 http://1.2.3.4/test/uam.php?res=notyet&...&mac=02-BA-DE-AF-FE-01&...
 ```
+
 The page has to validate its parameters and create a form with hidden fields to store things like the challenge or the client mac address.
 
 When the user has filled the form and pressed, the splash page has to create a new temporary username and password which will later be used to verify that the user of this client went through the splash page. Here we use SHA256_HMAC. Base64 is chosen instead of the normal hex representation to avoid that the generated password gets larger than the limit of 63 characters.
@@ -84,24 +85,20 @@ $password = base64_encode(hash_hmac('sha256', $username, 'evenmoresecretstring',
 
 In this example the splash page would generate:
 
- * Username:
- ** @02-BA-DE-AF-FE-01_1440596666@
- * Password:
- ** @FuDiZi//mEFgleZkUW67L0ZtoaEjEgugLbi3nHCkZHw=@
-
-The rest of the password-challenge-encryption and the redirect back to the splash page is explained in [[UAM_Splash_Authentication]].
-
+```
+Username: 02-BA-DE-AF-FE-01_1440596666
+Password: FuDiZi//mEFgleZkUW67L0ZtoaEjEgugLbi3nHCkZHw=
+```
 
 ### Authentication Process
 
 The AP will try to decode the supplied password and create an authentication request with both username and (re-encrypted) password for the HTTP API server. First the server has to decode the password again.
 
- * username
- ** @02-BA-DE-AF-FE-01_1440596666@
- * password
- ** @FuDiZi//mEFgleZkUW67L0ZtoaEjEgugLbi3nHCkZHw=@
- * mac
- ** @02:BA:DE:AF:FE:01@
+```
+username: 02-BA-DE-AF-FE-01_1440596666
+password: FuDiZi//mEFgleZkUW67L0ZtoaEjEgugLbi3nHCkZHw=
+mac: 02:BA:DE:AF:FE:01
+```
 
 The username has to be split first into a MAC and a timestamp again. The retrieved MAC has to match the MAC address of the authentication request.
 
@@ -143,7 +140,7 @@ A reply as explained in HTTP API documentation has to be sent when everything we
 
 ### Source Code
 
-A complete example can be found under in the code director.
+A complete example can be found under in the code directory.
 
  * Splashpage: uam.php
  * HTTP API server: server.php
