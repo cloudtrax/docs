@@ -30,7 +30,11 @@ functionality | method | endpoint
 Edit details about a user.
 
 ##### Account Permissions
-Account Admin, Group Manager
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -71,7 +75,11 @@ HTTP 200
 Disable a user. User will not be able to login or make any requests to the API after this endpoint has been successfully called. User information and permissions will be retained, but API keys will be removed.
 
 ##### Account Permissions
-Account Admin, Group Manager
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -109,7 +117,11 @@ HTTP 200
 Enable a user. User will be able to login and make requests to the API after this endpoint has been successfully called. User information and permissions will be restored, but new API keys will have to be generated.
 
 ##### Account Permissions
-Account Admin, Group Manager
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -147,7 +159,11 @@ HTTP 200
 Delete a user. All user information (including permissions and API keys) will be permanently removed.
 
 ##### Account Permissions
-Account Admin, Group Manager
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -186,7 +202,11 @@ HTTP 200
 Get a user's information. This is information that is likely only of interest to Account Admins and Group Managers and not Network Users. For example, "notes" about a user may not be something administrators want to share. Or, "permissions" are only relevant to administrators, because a Network User cannot change their own.
 
 ##### Account Permissions
-Account Admin, Group Manager
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -248,12 +268,16 @@ HTTP 200
 
 Create an API key for the specified user or the user making the request (if the `<id>` is not specified). API keys have identical API permissions to a logged in user, but do not require entering the user's email and password. They should still be kept secret, even though the user's password is never accessible.
 
-Each user may have up to 10 keys generated via this endpoint at once.
+Limit 10 keys generated via this endpoint per user at once.
 
 The "key" property must be stored after creation, because it is stored securely and cannot be retrieved again.
 
 ##### Account Permissions
-Account Admin, Group Manager, Network User
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | X
 
 ##### Resource Permissions
 N/A
@@ -300,7 +324,11 @@ Get a list of API keys for the specified user that were generated via the [Creat
 The "key" is not returned, because it is stored securely. If you lose the "key", you must generated a new API key.
 
 ##### Account Permissions
-Account Admin
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | 
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -347,7 +375,11 @@ HTTP 200
 Delete an API key (generated via the [Create user API key](#post-user-id-key) endpoint) for the specified user or the user making the request (if the `<id>` following `/user/` is not specified).
 
 ##### Account Permissions
-Account Admin
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | 
+Network User | 
 
 ##### Resource Permissions
 N/A
@@ -379,3 +411,366 @@ HTTP 200
 20004
 20038
 20043
+
+<a name="post-user"></a>
+### Create a user
+`POST /user`
+
+Create a user in the same account as the requester.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+POST https://api-v2.cloudtrax.com/user
+````
+
+```` json
+{
+	"email":"foo@bar.com",
+	"name":"foo",
+	"role_id":1, /* account role ID */
+	"notes":"foo needs bar"
+}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"user_id":2,
+	"account_id":123,
+	"token":"abc", /* used to verify the user */
+	"email":"foo@bar.com",
+	"name":"foo",
+	"role_id":1 /* account role ID */
+}
+````
+
+#### Error codes
+
+30002
+20000
+20010
+20012
+20014
+20015
+20029
+20036
+
+<a name="get-user-list"></a>
+### List users
+`GET /user/list`
+
+Get a list of users on the requester's account.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+GET https://api-v2.cloudtrax.com/user/list
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"users":[
+		{
+			"user_id":2,
+			"email":"fizz@buzz.com",
+			"name":"fizz",
+			"verified":true,
+			"enabled":true,
+			"notes":"fizzbuzz",
+			"role_id":7,
+			"created":"2017-06-08T00:00:00Z",
+			"highest_network_role_id":4 /* only applicable to users with assigned roles, i.e., not Account Admins */
+		}
+	]
+}
+````
+
+#### Error codes
+
+30002
+
+<a name="put-user-id-password"></a>
+### Edit a user password
+`PUT /user/<id>/password`
+
+Update the requester's password.
+
+##### Account Permissions
+Only the requester may access this endpoint.
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+PUT https://api-v2.cloudtrax.com/user/123/password
+````
+
+```` json
+{
+	"password_current":"L33T",
+	"password_new":"$P34K"
+}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{}
+````
+
+#### Error codes
+
+20003
+20004
+20029
+20030
+20038
+20045
+
+<a name="post-user-id-password_set"></a>
+### Create a user password reset token
+`POST /user/<id>/password_set`
+
+Create a token for resetting a password. This is meant for administrators to be able to reset a user's password without having to see the password; rather they can just deliver the token to the user and have the user set their own password.
+
+Limit 10 tokens per user at once.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+POST https://api-v2.cloudtrax.com/user/123/password_set
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"user_id":2,
+	"token":"abc"
+}
+````
+
+#### Error codes
+
+30002
+20004
+20029
+20033
+20038
+20045
+
+<a name="get-user-id-network-id"></a>
+### Get a user network permission
+`GET /user/<id>/network/<id>`
+
+Get the role ID for the given network for the requester.
+
+##### Account Permissions
+Only the requester may access this endpoint.
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+GET https://api-v2.cloudtrax.com/user/123/network/456
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"role_id":4
+}
+````
+
+#### Error codes
+
+12047
+20029
+
+<a name="get-user-id-account"></a>
+### Get a user account permission
+`GET /user/<id>/account`
+
+Get the account role ID for the given network for the requester.
+
+##### Account Permissions
+Only the requester may access this endpoint.
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+GET https://api-v2.cloudtrax.com/user/123/account
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"account_id":1,
+	"role_id":2
+}
+````
+
+#### Error codes
+
+30002
+20004
+20038
+20043
+
+<a name="get-user-id-service_agreement"></a>
+### Get a user service agreement status
+`GET /user/<id>/service_agreement`
+
+Get the status of the requester's acceptance of the service agreement.
+
+##### Account Permissions
+Only the requester may access this endpoint.
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+GET https://api-v2.cloudtrax.com/user/123/service_agreement
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{
+	"valid":true
+}
+````
+
+#### Error codes
+
+20029
+
+<a name="put-user-id-service_agreement"></a>
+### Edit a user service agreement status
+`PUT /user/<id>/service_agreement`
+
+Accept the service agreement for the requester.
+
+##### Account Permissions
+Only the requester may access this endpoint.
+
+##### Resource Permissions
+N/A
+
+##### Example request
+
+````
+PUT https://api-v2.cloudtrax.com/user/123/service_agreement
+````
+
+```` json
+{}
+````
+
+##### Example response
+
+````
+HTTP 200
+````
+
+```` json
+{}
+````
+
+#### Error codes
+
+20029
+
