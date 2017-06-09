@@ -22,9 +22,9 @@ functionality | method | endpoint
 [Get a user account permission](#get-user-id-account) | GET | `/user/<id>/account`
 [Get a user service agreement status](#get-user-id-service_agreement) | GET | `/user/<id>/service_agreement`
 [Edit a user service agreement status](#put-user-id-service_agreement) | PUT | `/user/<id>/service_agreement`
-[Create/Edit a permission for a user on a network](#put-network-id-user-id) | PUT | `/network/<id>/user/<id>`
+[Create a permission for a user on a network](#put-network-id-user-id) | PUT | `/network/<id>/user/<id>`
 [Delete a permission for a user on a network](#delete-network-id-user-id) | DELETE | `/network/<id>/user/<id>`
-[Create/Edit a permission for a user on a network group](#put-networkgroup-id-user-id) | PUT | `/networkgroup/<id>/user/<id>`
+[Create a permission for a user on a network group](#put-networkgroup-id-user-id) | PUT | `/networkgroup/<id>/user/<id>`
 [Delete a permission for a user on a network group](#delete-networkgroup-id-user-id) | DELETE | `/networkgroup/<id>/user/<id>`
 
 <a name="put-user-id"></a>
@@ -669,3 +669,177 @@ PUT https://api-v2.cloudtrax.com/user/123/service_agreement
 
 20029
 
+<a name="put-network-id-user-id"></a>
+### Create a permission for a user on a network
+`PUT /network/<id>/user/<id>`
+
+Create a permission for the specified user on the specified network.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+Role | Permitted
+-|-
+Network Editor | X
+Network Viewer | 
+Voucher Editor | 
+
+##### Example request
+
+````
+PUT https://api-v2.cloudtrax.com/network/1/user/123
+````
+
+```` json
+{
+	"role_id":4
+}
+````
+
+##### Example response
+
+```` json
+{
+}
+````
+
+#### Error codes
+
+12047
+20000
+20016
+20018
+20027
+
+<a name="delete-network-id-user-id"></a>
+### Delete a permission for a user on a network
+`DELETE /network/<id>/user/<id>`
+
+Delete the specified user's permission the specified network.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+Role | Permitted
+-|-
+Network Editor | X
+Network Viewer | 
+Voucher Editor | 
+
+##### Example request
+
+````
+DELETE https://api-v2.cloudtrax.com/network/1/user/123
+````
+
+##### Example response
+
+```` json
+{
+}
+````
+
+#### Error codes
+
+30002
+20019
+20020
+40006
+
+<a name="put-networkgroup-id-user-id"></a>
+### Create a permission for a user on a network group
+`PUT /networkgroup/<id>/user/<id>`
+
+Create a permission for the specified user on the specified network group.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+Role | Permitted
+-|-
+Network Editor | X
+Network Viewer | 
+Voucher Editor | 
+
+##### Example request
+
+````
+PUT https://api-v2.cloudtrax.com/networkgroup/1/user/123
+````
+
+```` json
+{
+	"role_id":4
+}
+````
+
+##### Example response
+
+```` json
+{
+}
+````
+
+#### Error codes
+
+30002
+20000
+20016
+20017
+20027
+40006
+
+<a name="delete-networkgroup-id-user-id"></a>
+### Delete a permission for a user on a network group
+`DELETE /networkgroup/<id>/user/<id>`
+
+Delete the specified user's permission the specified network group.
+
+##### Account Permissions
+Role | Permitted
+-|-
+Account Admin | X
+Group Manager | X
+Network User | 
+
+##### Resource Permissions
+Role | Permitted
+-|-
+Network Editor | X
+Network Viewer | 
+Voucher Editor | 
+
+##### Example request
+
+````
+DELETE https://api-v2.cloudtrax.com/networkgroup/1/user/123
+````
+
+##### Example response
+
+```` json
+{
+}
+````
+
+#### Error codes
+
+30002
+20019
+20020
+40006
