@@ -1,4 +1,4 @@
-# User endpoints
+# User Management endpoints
 
 This set of endpoints is for managing users in the new CloudTrax user system.
 
@@ -22,6 +22,10 @@ functionality | method | endpoint
 [Get a user account permission](#get-user-id-account) | GET | `/user/<id>/account`
 [Get a user service agreement status](#get-user-id-service_agreement) | GET | `/user/<id>/service_agreement`
 [Edit a user service agreement status](#put-user-id-service_agreement) | PUT | `/user/<id>/service_agreement`
+[Create/Edit a permission for a user on a network](#put-network-id-user-id) | PUT | `/network/<id>/user/<id>`
+[Delete a permission for a user on a network](#delete-network-id-user-id) | DELETE | `/network/<id>/user/<id>`
+[Create/Edit a permission for a user on a network group](#put-networkgroup-id-user-id) | PUT | `/networkgroup/<id>/user/<id>`
+[Delete a permission for a user on a network group](#delete-networkgroup-id-user-id) | DELETE | `/networkgroup/<id>/user/<id>`
 
 <a name="put-user-id"></a>
 ### Edit a user
@@ -54,12 +58,9 @@ PUT https://api-v2.cloudtrax.com/user/123
 
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -90,18 +91,11 @@ N/A
 PUT https://api-v2.cloudtrax.com/user/123/disable
 ````
 
-```` json
-{}
-````
-
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -132,18 +126,11 @@ N/A
 PUT https://api-v2.cloudtrax.com/user/123/enable
 ````
 
-```` json
-{}
-````
-
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -174,18 +161,11 @@ N/A
 DELETE https://api-v2.cloudtrax.com/user/123
 ````
 
-```` json
-{}
-````
-
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -217,15 +197,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/123
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -289,15 +261,7 @@ POST https://api-v2.cloudtrax.com/user/123/key
 POST https://api-v2.cloudtrax.com/user/key
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -339,15 +303,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/123/key/list
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -391,18 +347,11 @@ DELETE https://api-v2.cloudtrax.com/user/123/key/456
 DELETE https://api-v2.cloudtrax.com/user/key/456
 ````
 
-```` json
-{}
-````
-
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -444,10 +393,6 @@ POST https://api-v2.cloudtrax.com/user
 ````
 
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -493,15 +438,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/list
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -552,12 +489,9 @@ PUT https://api-v2.cloudtrax.com/user/123/password
 
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
@@ -593,15 +527,7 @@ N/A
 POST https://api-v2.cloudtrax.com/user/123/password_set
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -637,15 +563,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/123/network/456
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -676,15 +594,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/123/account
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -718,15 +628,7 @@ N/A
 GET https://api-v2.cloudtrax.com/user/123/service_agreement
 ````
 
-```` json
-{}
-````
-
 ##### Example response
-
-````
-HTTP 200
-````
 
 ```` json
 {
@@ -756,18 +658,11 @@ N/A
 PUT https://api-v2.cloudtrax.com/user/123/service_agreement
 ````
 
-```` json
-{}
-````
-
 ##### Example response
 
-````
-HTTP 200
-````
-
 ```` json
-{}
+{
+}
 ````
 
 #### Error codes
