@@ -3,12 +3,15 @@
 functionality | method | endpoint
 --- | --- | ---
 [create account](#create_account) | PUT |
+[edit account](#edit_account) | PUT | `/account/<id>`
 [remove account](#remove_account) | DELETE |
+[edit account owner](#edit_account_owner) | PUT | `/account/<id>/user/<id>/owner`
 [log in and authenticate](#login) | POST | `/account/login`
 [create embed credentials](#embed) | GET | `/account/credential/<net-id>/embed`
 [delete embed credentials](#un-embed) | DELETE | `/account/credential/<net-id>/embed`
 [service agreement status](#service-agreement-status) | GET | `/account/service_agreement`
 [agree to service agreement](#service-agreement-agree) | PUT | `/account/service_agreement`
+[get audit logs](#get-audit-logs) | GET | `/account/<id>/auditlogs`
 
 
 <a name="create_account"></a>
@@ -16,10 +19,65 @@ functionality | method | endpoint
 
 *create account* is currently a restricted API and is not documented here at this time.
 
+<a name="edit_account"></a>
+### edit account
+`PUT /account/<id>`
+
+Edit account information.
+
+##### example request
+
+PUT https://api-v2.cloudtrax.com/account/123
+
+##### example input
+```` JSON
+{
+	"name" : "new account name"
+}
+````
+
+##### output
+
+HTTP 200
+
+##### example output
+
+```` JSON
+{
+}
+````
+
 <a name="remove_account"></a>
 ### remove account
 
 *remove account* is currently a restricted API and is not documented here at this time.
+
+<a name="edit_account_owner"></a>
+### edit account owner
+`PUT /account/<id>/user/<id>/owner`
+
+Edit the account owner.
+
+##### example request
+
+PUT https://api-v2.cloudtrax.com/account/123/user/2/owner
+
+##### example input
+```` JSON
+{
+}
+````
+
+##### output
+
+HTTP 200
+
+##### example output
+
+```` JSON
+{
+}
+````
 
 <a name="login"></a>
 ### log in
@@ -153,3 +211,54 @@ Code 1009 is returned on success.
 	}
 }
 ````
+
+<a name="get-audit-logs"></a>
+### get audit logs
+`GET /account/<id>/auditlogs`
+
+Get a list of audit events. Audit events are a select set of fields that have changed for the specified account.
+
+##### example request
+
+GET https://api-v2.cloudtrax.com/account/123/auditlogs
+
+##### example input
+```` JSON
+{
+}
+````
+
+##### output
+
+HTTP 200
+
+##### example output
+
+```` JSON
+{
+	"log_events":[
+		{
+			"event_id":"abc",
+			"date":"2017-06-09T00:00:00Z",
+			"remote_address":"192.168.1.1",
+			"account_id":123,
+			"user_id":1,
+			"user_email":"foo@bar.com",
+			"support":false, /* audit event spawned by a support person, not a normal user */
+			"network_id":456,
+			"network_name":"foo wifi",
+			"user_action":"create",
+			"target_type":"network",
+			"target_id":"456",
+			"fields":[
+				{
+					"field":"ssid.1.wifi_name",
+					"old_value":"old foo wifi",
+					"new_value":"new foo wifi"
+				}
+			]
+		}
+	]
+}
+````
+
