@@ -22,7 +22,7 @@ Create a new network and associate it with the user sending the `create` request
 
 Characteristics of the new network are defined by the JSON package that comprises the body of the HTTP request.  At a minimum, the following four fields are required. The password must be at least 8 characters long:
 
-*	`name`
+* `name`
 * `password`
 * `timezone`
 * `country`
@@ -31,6 +31,7 @@ Characteristics of the new network are defined by the JSON package that comprise
 
 ````
 POST https://api.cloudtrax.com/network
+POST https://api-v2.cloudtrax.com/network/networkgroup/<id>
 ````
 
 ##### input example
@@ -129,7 +130,8 @@ GET /network/list
 ##### example request
 
 ````
-GET https://api.cloudtrax.com/network
+GET https://api.cloudtrax.com/network/list
+GET https://api-v2.cloudtrax.com/network/list
 ````
 
 ##### output
@@ -144,6 +146,10 @@ The API returns the list of network name/id pairs, or an empty list if no networ
 		{
 			"name": "hk_network",
 			"id": 135587,
+			"network_id": 135587, /* api-v2. new property name. same as "id" */
+			"networkgroup_id": 1, /* api-v2 */
+			"networkgroup_name": "Network Group #1", /* api-v2 */
+			"role_id": "Network Group #1", /* api-v2. role ID for the requester */
 			"latitude": 49.44026050000000083,
 			"longitude": -123.6724020000000053,
 			"down_repeater": 1,
