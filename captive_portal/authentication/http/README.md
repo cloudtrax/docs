@@ -180,19 +180,19 @@ param-name | param-value | requirement
 
 ###### example: ######
 ````
-    "[CODE]" "REJECT"
-    "[RA]" "7b40dfe92d85298b11c32d9a4e4d79c8"
-    "[BLOCKED_MSG]" "Unknown Client"
+    "CODE" "REJECT"
+    "RA" "7b40dfe92d85298b11c32d9a4e4d79c8"
+    "BLOCKED_MSG" "Unknown Client"
 ````
 
 param-name | param-value | requirement
 ---------------- | --------------- | -----------------------
 `"CODE"` | `"ACCEPT"` for an already authenticated client; `"REJECT"` otherwise | must include
 `"RA"`     | the computed  [Request Authenticator](#ra)  to be returned to the AP.  | must include
-`"SECONDS"` | number of seconds this login will remain valid | must include (iff `"ACCEPT"`)
-`"DOWNLOAD"` | maximum throughput in kbits/sec from node to device | must include (iff `"ACCEPT"`)
-`"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (iff `"ACCEPT"`)
-`"BLOCKED_MSG"` | a human-readable message why the pre-authentication request was rejected | should include (iff `"REJECT"`)
+`"SECONDS"` | number of seconds this login will remain valid | must include (if `"ACCEPT"`)
+`"DOWNLOAD"` | maximum throughput in kbits/sec from node to device | must include (if `"ACCEPT"`)
+`"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (if `"ACCEPT"`)
+`"BLOCKED_MSG"` | a human-readable message why the pre-authentication request was rejected | should include (if `"REJECT"`)
 
 ---
 
@@ -232,10 +232,10 @@ param-name | param-value | requirement
 ---------------- | --------------- | -----------------------
 `"CODE"` | `"ACCEPT"` for an already authenticated client; `"REJECT"` otherwise | must include
 `"RA"`     | the computed  [Request Authenticator](#ra)  to be returned to the AP.  | must include
-`"SECONDS"` | number of seconds this login will remain valid | must  include(iff `"ACCEPT"`)
-`"DOWNLOAD"` | maximum throughput in kbits/sec from node to device | must include (iff `"ACCEPT"`)
-`"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (iff `"ACCEPT"`)
-`"BLOCKED_MSG"` | a human-readable message why the login was rejected | should include (iff `"REJECT"`)
+`"SECONDS"` | number of seconds this login will remain valid | must  include(if `"ACCEPT"`)
+`"DOWNLOAD"` | maximum throughput in kbits/sec from node to device | must include (if `"ACCEPT"`)
+`"UPLOAD"` | maximum throughput in kbits/sec from device to node | must include (if `"ACCEPT"`)
+`"BLOCKED_MSG"` | a human-readable message why the login was rejected | should include (if `"REJECT"`)
 
 
 ---
