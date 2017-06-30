@@ -122,17 +122,21 @@ On entry here, this secret is shared between CloudTrax and the backend Authentic
 <a name="ra"></a>
 ## Request Authenticator ##
 All Authorization Requests contain an `ra` parameter. "ra" stands for **Request Authenticator**, a unique 128-bit (16-byte) string, which is used to help protect against so-called Man-in-the-Middle attacks. The Request Authenticator that is passed by CloudTrax to the Authentication Server needs to be transformed to a new RA by the algorithm discussed below and returned as part of the HTTP Response so that CloudTrax can determine that the Response is in accord with the original Request.
-The RA of the Response packet is produced by calculating the `md5` hash of the concatenated string consisting of the Authentication Response's `CODE` value, followed by the original RA and finally by the  **secret** shared between CloudTrax and the Authentication Server, which was provided to CloudTrax during [Configuration](#config). In pseudocode, it would look something like this:
+
+The RA of the Response packet is produced by calculating the `md5` hash of the concatenated string consisting of the Authentication Response's `CODE` value, followed by the original RA and finally by the  **secret** shared between CloudTrax and the Authentication Server, which was provided to CloudTrax during [Configuration](#config). Keep in mind the RA must be decoded from the hex string provided, into a binary format. In pseudocode, it would look something like this:
 
 ````
-responseAuthenticator = md5(codeValue, requestAuthenticator, secret)
+oldRequestAuthenticator = hexToBinaryFunction(oldRequestAuthenticatorHexString)
+responseAuthenticator = md5(codeValue, oldRA, secret)
 ````
 
 In PHP, it would look like this:
 
 ````php
+$ra = hex2bin($dict['RA']);
 $response_ra = hash('md5', $code . $ra . $secret);
 ````
+See [PHP example code](code/php/example_server.php) for full details.
 
 ----
 
