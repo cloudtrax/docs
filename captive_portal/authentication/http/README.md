@@ -127,7 +127,7 @@ The RA of the Response packet is produced by calculating the `md5` hash of the c
 
 ````
 oldRequestAuthenticator = hexToBinaryFunction(oldRequestAuthenticatorHexString)
-responseAuthenticator = md5(codeValue, oldRA, secret)
+responseAuthenticator = md5(codeValue, oldRequestAuthenticator, secret)
 ````
 
 In PHP, it would look like this:
