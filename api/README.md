@@ -2,6 +2,8 @@
 
 *This is preliminary documentation. It applies only to networks running under CloudTrax 4.*<br/>
 
+*Note that there are no access charges associated with use of the CloudTrax API for users with fewer than 100 devices. For pricing on more than 100 devices, contact sales@openmesh.com. *<br/>
+
 ### Contents of this document
 
 * [Overview](#overview)
@@ -249,7 +251,7 @@ As described above, you must have the relevant key and secret for your account a
  * The name of the account and/or network(s) for which you need keys
  * A short description of why you require API access and how you plan to use the API.
 
-Note that currently there are no access charges associated with use of the CloudTrax API. Open Mesh may at some point institute charges and/or enforce rate limiting for some uses of the API. In order to help constrain resource demands, we ask that you please attempt to design any systems utilizing the API to limit frequency of access to the API.
+Note that currently there are no access charges associated with use of the CloudTrax API for users with fewer than 100 devices. For more than 100 devices, contact sales@openmesh.com for pricing. Open Mesh may enforce rate limiting for some uses of the API. In order to help constrain resource demands, we ask that you please attempt to design any systems utilizing the API to limit frequency of access to the API.
 
 
 <a name="authorization-header"></a>
