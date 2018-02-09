@@ -18,7 +18,8 @@
 * [API functions](#api-operations)
     * [status](#status)
     * [login](#login)
-    * [acct](#acct) 
+    * [acct](#acct)
+    * [logout](#logout) 
 
 ---
 
@@ -277,5 +278,9 @@ param-name | param-value | requirement
 `"CODE"` | `"OK"` | must include
 `"RA"`    |  the computed  [Request Authenticator](#ra)  to be returned to the AP.  | must include
 
+<a name="logout"></a>
+#### Logout Request `(type=logout)` ####
 
+The logout message informs the HTTP API server that a user has logged out, and transfers final accounting information. It is sent when a node stops a session for a device.
 
+The format is the same as for accounting messages, with the exception that "type" is "logout" in the request.
