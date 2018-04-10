@@ -1,0 +1,43 @@
+<html>
+
+<!-- 
+	- Replace key/secret with your own key/secret
+	- Check your browser's developer console to see time output
+	- Change endpoint to test other API functionality.
+-->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+<script type="text/javascript">
+function generateAuth(key, timestamp, nonce) {
+  return "key=" + key + ",timestamp=" + timestamp + ",nonce=" + nonce;
+}
+
+function generateSignature(auth, endpoint, secret) {
+  signature = CryptoJS.HmacSHA256(auth + endpoint, secret).toString()
+  return signature;
+}
+
+var key="xxxx"
+var secret="xxxx"
+var endpoint ="/time";
+var timestamp = Math.floor(Date.now() / 1000);
+var nonce = "1" //currently, nonce is not strictly enforced
+var auth = generateAuth(key, timestamp, nonce)
+var sig = generateSignature(auth, endpoint, secret)
+
+
+var xmlHttp = new XMLHttpRequest(); 
+xmlHttp.onreadystatechange = function() { 
+if (xmlHttp.readyState == 4 && xmlHttp.status == 200) 
+	var res = xmlHttp.responseText;
+	console.log(res)
+} 
+xmlHttp.open("GET", "https://api-v2.cloudtrax.com" + endpoint, true); // true for asynchronous 
+xmlHttp.setRequestHeader("Authorization", auth); 
+xmlHttp.setRequestHeader("Signature", sig); 
+xmlHttp.send(null);
+
+console.log(auth)
+console.log(sig)
+</script>
+</html>
