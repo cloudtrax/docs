@@ -7,6 +7,19 @@ functionality | method | endpoint
 [list power strips](#list-powerstrips) | GET | `/powerstrip/network/<network-id>/list`
 [create power strip](#create-powerstrip) | POST | `/powerstrip/network/<network-id>`
 [get power strip](#get-powerstrip) | GET | `/powerstrip/<powerstrip-id>`
+[update power strip](#update-powerstrip) | PUT | `/powerstrip/<powerstrip-id>`
+[delete power strip](#delete-powerstrip) | DELETE | `/powerstrip/<powerstrip-id>`
+[get power strip usage](#get-powerstrip-usage) | GET | `/powerstrip/<powerstrip-id>/usage`
+[checkin power strip](#checkin-powerstrip) | GET | `/powerstrip/<powerstrip-id>/checkin`
+[reboot power strip](#reboot-powerstrip) | GET | `/powerstrip/<powerstrip-id>/reboot`
+[pair power strip](#pair-powerstrip) | GET | `/powerstrip/<powerstrip-id>/enable_pairing`
+[reset port](#reset-port) | GET | `/powerstrip/<powerstrip-id>/port/<port-number>/reset`
+[list power-strip-related network settings](#list-powerstrip-related-settings) | GET |  `/powerstrip/network/<network-id>/settings`
+[update power-strip-related network settings](#update-powerstrip-related-settings) | PUT | `/powerstrip/network/<network-id>/settings`
+[expedite upgrade for network power strip](#expedite-upgrade-for-powerstrip) | GET | `/powerstrip/network/<networkid-id>/expedite_upgrade`
+[list allowed firmware](#list-allowed-firmware) | GET | `/powerstrip/network/<network-id>/firmware_versions`
+
+
 
 
  <a name="list-powerstrips"></a>
@@ -274,6 +287,176 @@ Retrieve a power strip.
       "hostname_2": "amazon.com",
       "hostname_3": "datto.com",
       "hostname_4": "facebook.com"
+    }
+  ]
+}
+````
+
+<a name="delete-powerstrip"></a>
+### delete power strip
+`DELETE /powerstrip/<powerstrip-id>`
+
+Delete an existing power strip.
+
+##### example request
+`DELETE https://api-v3.cloudtrax.com/powerstrip/123456`
+
+##### output
+
+The API returns either an HTTP status code 200 on success or an HTTP error and JSON describing the error(s) in the case of a failure.
+
+<a name="get-powerstrip-usage"></a>
+### get power strip usage
+`GET /powerstrip/<powerstrip-id>/usage?period=<period>`
+
+Retrieve a power strip usage data.
+
+##### query-string arguments
+argument | allowable values | required | note
+---- | ---- | ---- | -----
+`period` | `2hours`, `day`, `week`, `month` | optional | default is `day`
+
+##### example request
+
+`GET https://api-v3.cloudtrax.com/powerstrip/123456/usage?period=day`
+
+##### example output
+
+
+````json
+{
+  "usage": [
+    {
+      "time": "2018-04-29T23:00:00Z",
+      "ports": {
+        "1": {
+          "active_power_w": 8,
+          "voltage_v": 118,
+          "current_a": 0.1
+        },
+        "2": {
+          "active_power_w": 0,
+          "voltage_v": 118,
+          "current_a": 0
+        },
+        "3": {
+          "active_power_w": 0,
+          "voltage_v": 118,
+          "current_a": 0
+        },
+        "4": {
+          "active_power_w": 0,
+          "voltage_v": 118,
+          "current_a": 0
+        },
+        "5": {
+          "active_power_w": 0,
+          "voltage_v": 118,
+          "current_a": 0
+        },
+        "6": {
+          "active_power_w": 0,
+          "voltage_v": 118,
+          "current_a": 0
+        }
+      },
+      "memory_available": 0,
+      "role": ""
+    },
+    ...
+  ]
+}
+````
+
+ <a name="checkin-powerstrip"></a>
+### checkin power strip
+`GET /powerstrip/<powerstrip-id>/checkin`
+
+Check in a power strip to the cloud.
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/123456/checkin`
+
+##### output
+
+The API returns either an HTTP status code 200 on success or 4xx in the case of a failure.
+
+ <a name="reboot-powerstrip"></a>
+### reboot power strip
+`GET /powerstrip/<powerstrip-id>/reboot`
+
+Reboot a power strip.
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/123456/reboot`
+
+##### output
+
+The API returns either an HTTP status code 200 on success or 4xx in the case of a failure.
+
+ <a name="pair-powerstrip"></a>
+### pair power strip
+`GET /powerstrip/<powerstrip-id>/checkin`
+
+Pair a power strip to the cloud.
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/123456/enable_pairing`
+
+##### output
+
+The API returns either an HTTP status code 200 on success or 4xx in the case of a failure.
+
+ <a name="reset-port"></a>
+### reset port
+`GET /powerstrip/<powerstrip-id>/port/<port-number>/reset`
+
+Reset a port.
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/123456/port/1/reset`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
+
+ <a name="expedite-upgrade-for-powerstrip"></a>
+### expedite upgrade for switch
+`GET /powerstrip/network/<network-id>/expedite_upgrade`
+
+If upgrades are not disabled, this flag forces an update for all power strips on the network outside the normally scheduled maintenance window.
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/network/123456/expedite_upgrade`
+
+##### output
+
+The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
+
+<a name="list_allowed-firmware"></a>
+### list allowed firmware
+`GET /powerstrip/network/<network_id>/firmware_versions`
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/network/123456/firmware_versions`
+
+##### output
+
+The API returns a list of allowed firmware for the network.
+
+##### example output
+````json
+{
+  "firmware_versions": [
+    {
+      "tag_id": "1",
+      "tag": "stable",
+      "build": ""
+    },
+    {
+      "tag_id": "6",
+      "tag": "beta",
+      "build": ""
     }
   ]
 }
