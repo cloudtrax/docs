@@ -292,6 +292,99 @@ Retrieve a power strip.
 }
 ````
 
+<a name="update-powerstrip"></a>
+### update power strip
+`PUT /powerstrip/<powerstrip-id>`
+
+Change the settings for an existing power strip.
+
+##### example request
+`PUT https://api-v3.cloudtrax.com/powerstrip/12345`
+
+##### example input
+
+````json
+{
+  "name": "Pat's Desk MP60",
+  "description": "",
+  "enable_pairing": false,
+  "enable_power_switch": false,
+  "enable_connection_check": false,
+  "enable_connection_check_during_maintenance": false,
+  "connection_check_max_retries": 0,
+  "connection_check_time_between_retries": 60,
+  "enable_mesh": false,
+  "ports": [
+    {
+      "port_id": 1,
+      "label": "Device A",
+      "enable": true,
+      "connection_check_name": "test"
+    },
+    {
+      "port_id": 2,
+      "label": "2",
+      "enable": true,
+      "connection_check_name": "Default List"
+    },
+    {
+      "port_id": 3,
+      "label": "Laptop Hub",
+      "enable": true,
+      "connection_check_name": null
+    },
+    {
+      "port_id": 4,
+      "label": "Monitor ",
+      "enable": true,
+      "connection_check_name": null
+    },
+    {
+      "port_id": 5,
+      "label": "More",
+      "enable": true,
+      "connection_check_name": null
+    },
+    {
+      "port_id": 6,
+      "label": "6",
+      "enable": true,
+      "connection_check_name": null
+    }
+  ],
+  "schedule": [
+    {
+      "port_ids": [
+        3,
+        4
+      ],
+      "days_of_week": [
+        "fri"
+      ],
+      "hour": 18,
+      "minute": 0,
+      "action": "port_disable"
+    }
+  ],
+  "connection_checks": [
+    {
+      "connection_check_name": "  test",
+      "hostname_1": "nist.gov",
+      "hostname_2": null,
+      "hostname_3": null,
+      "hostname_4": null
+    },
+    {
+      "connection_check_name": "Default List",
+      "hostname_1": "google.com",
+      "hostname_2": "amazon.com",
+      "hostname_3": "datto.com",
+      "hostname_4": "facebook.com"
+    }
+  ]
+}
+````
+
 <a name="delete-powerstrip"></a>
 ### delete power strip
 `DELETE /powerstrip/<powerstrip-id>`
@@ -419,6 +512,64 @@ Reset a port.
 ##### output
 
 The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
+
+<a name="list-powerstrip-related-settings"></a>
+### list power-strip-related network settings
+`GET /powerstrip/network/<network_id>/settings`
+
+##### example request
+`GET https://api-v3.cloudtrax.com/powerstrip/network/123456/settings`
+
+##### output
+
+The API either returns HTTP status code 200 (success) if the request is successful, along with a JSON package of the settings, otherwise an error explaining what prevented the operation in the case of failure.
+
+##### example output
+````json
+{
+  "enable_power_switch": false,
+  "enable_mesh": false,
+  "enable_upgrade": false,
+  "firmware_tag": "stable"
+}
+````
+
+###### Top level properties
+field | description
+--- | ---
+`enable_power_switch` | indicates whether the power switches on the power strips will function.
+`enable_mesh` | indicates whether the power strips on this network will mesh.
+`enable_upgrade` | indicates whether the power strips on this network will automatically upgrade their firmware.
+`firmware_tag` | lists the firmware currently running on each switch model on this network.
+
+##### output
+On success the API responds with a status code 200. In the case of an error, the API responds with an explanation in JSON.
+
+<a name="update-powerstrip-related-settings"></a>
+### update power-strip-related network settings
+`PUT /powerstrip/network/<network_id>/settings`
+
+##### example request
+`PUT https://api-v3.cloudtrax.com/powerstrip/network/123456/settings`
+
+##### example input
+
+````json
+{
+  "enable_power_switch": false,
+  "enable_mesh": false,
+  "enable_upgrade": false,
+  "firmware_tag": "stable"
+}
+````
+
+###### JSON detail
+fields | type | description | required
+----- | ----- | ----- | -----
+`enable_power_switch` | bool | If true, this network's power strips power switches will do something when pressed. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | optional
+`enable_mesh` | bool | If true, this network's power strips will mesh. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | optional
+`enable_upgrade` | bool | If true, this network's switches will automatically upgrade their firmware.<br>:small_orange_diamond:Example value: `"comm1"` <br/>:small_orange_diamond:Allowed entries: `true/false` | optional
+`firmware_tag` | string | Which firmware should run on the associated model of switch. <br>:small_orange_diamond:Example value: `"phase1"` <br/>:small_orange_diamond:Allowed chars: `a-z, 0-9` | optional
 
  <a name="expedite-upgrade-for-powerstrip"></a>
 ### expedite upgrade for switch
