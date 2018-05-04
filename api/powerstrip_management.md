@@ -25,7 +25,7 @@ functionality | method | endpoint
  <a name="list-powerstrips"></a>
 ### list power strips
 
-`GET /powerstrips/network/<network-id>/list`
+`GET /powerstrip/network/<network-id>/list`
 
 Retrieve a list of all power strips belonging to the given network, with detailed information.
 
