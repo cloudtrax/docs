@@ -2031,7 +2031,7 @@ If upgrades are not disabled, this flag forces an update outside the normally sc
 The API either returns HTTP status code 200 (success) or an HTTP error and JSON describing the error(s) in the case of failure.
 
 <a name="list-switch-related-settings"></a>
-### list switch-related network settings [DEPRECATED]
+### list switch-related network settings
 `GET /switch/network/<network_id>/settings`
 
 ##### example request
@@ -2086,7 +2086,7 @@ field | description
 On success the API responds with a status code 200. In the case of an error, the API responds with an explanation in JSON.
 
 <a name="update-switch-related-settings"></a>
-### update switch-related network settings [DEPRECATED]
+### update switch-related network settings
 `PUT /switch/network/<network_id>/settings`
 
 ##### example request
