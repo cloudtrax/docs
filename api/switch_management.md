@@ -13,8 +13,8 @@ functionality | method | endpoint
 [reset port](#reset-port) | GET | `/switch/<switch-id>/port/<port-number>/reset`
 [enable pairing for switch](#enable-pairing-for-switch) | GET | `/switch/<switch-id>/enable_pairing`
 [expedite upgrade for switch](#expedite-upgrade-for-switch) | GET | `/switch/<switch-id>/expedite_upgrade`
-~~[list switch-related network settings](#list-switch-related-settings)~~ | ~~GET~~ | ~~`/switch/network/<network-id>/settings~~
-~~[update switch-related network settings](#update-switch-related-settings)~~ | ~~PUT~~ | ~~`/switch/network/<network-id>/settings`~~
+[list switch-related network settings](#list-switch-related-settings) | GET | `/switch/network/<network-id>/settings
+[update switch-related network settings](#update-switch-related-settings) | PUT | `/switch/network/<network-id>/settings`
 [list allowed firmware](#list-allowed-firmware) | GET | `/switch/network/<network-id>/allowed_firmware`
 [get switch snmp traps](#get-switch-snmp-traps) | GET | `/switch/<switch-id>/snmp_traps`
 [update switch snmp traps](#update-switch-snmp-traps) | PUT | `/switch/<switch-id>/snmp_traps`
@@ -2045,8 +2045,6 @@ The API either returns HTTP status code 200 (success) if the request is successf
 ````json
 {
   "disable_upgrade": false,
-  "enable_snmp": true,
-  "community":"blabla",
   "firmware": [
     {
       "OMS24": {
@@ -2074,8 +2072,6 @@ The API either returns HTTP status code 200 (success) if the request is successf
 field | description
 --- | ---
 `disable_upgrade` | indicates whether the switches on this network will automatically upgrade their firmware.
-`enable_snmp` | indicates whether or not this network allows snmp communities.
-`community` | the name assigned to this community.
 `firmware` | lists the firmware currently running on each switch model on this network.
 
 ###### Firmware
@@ -2089,8 +2085,6 @@ field | description
 ##### output
 On success the API responds with a status code 200. In the case of an error, the API responds with an explanation in JSON.
 
-Note that when a community is updated, its id is changed. This reflects the way communities are handled at the switch level: the original community is deleted and a new one created in its place. Consequently the original id is no longer valid.
-
 <a name="update-switch-related-settings"></a>
 ### update switch-related network settings [DEPRECATED]
 `PUT /switch/network/<network_id>/settings`
@@ -2103,15 +2097,6 @@ Note that when a community is updated, its id is changed. This reflects the way 
 ````json
 {
   "disable_upgrade": false,
-  "enable_snmp": true,
-  "communities": [
-    {
-      "name": "work_comm",
-      "id": 11,
-      "action": "update",
-      "access": "write"
-    }
-  ],
   "firmware":
     {
       "OMS24":
@@ -2130,8 +2115,6 @@ Note that when a community is updated, its id is changed. This reflects the way 
 fields | type | description | required
 ----- | ----- | ----- | -----
 `disable_upgrade` | bool | If true, this network's switches will not automatically upgrade their firmware. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | optional
-`enable_snmp` | bool | This network allows the use of snmp communities. <br/>:small_orange_diamond:Example value: `true` <br/>:small_orange_diamond:Allowed entries: `true/false` | required
-`community` | string | Desired name of this community.<br>:small_orange_diamond:Example value: `"comm1"` <br/>:small_orange_diamond:Allowed chars: `A-Z, a-z, 0-9` | required
 `firmware` | string | Indicates any firmware changes being made on this network, described by a single JSON map with model names as keys.
 `tag` | string | Which firmware should run on the associated model of switch. <br>:small_orange_diamond:Example value: `"phase1"` <br/>:small_orange_diamond:Allowed chars: `a-z, 0-9` | required
 
