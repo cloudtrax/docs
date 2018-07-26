@@ -30,10 +30,14 @@ The API is comprised of the following endpoint collections:
 endpoints | description
 ---- | -----
 [Account Management](account_management.md) | Create new user accounts, log in users with username and password, provide embedded web access to CloudTrax visuals, and manage service agreements
+[User Management](user_management.md) | Manage users with the new CloudTrax user system
 [Client Management](client_management.md) | Block and edit clients 
 [History](history.md) | View traffic statistics in a given domain over a time span
+[Network Group Management](networkgroup_management.md) | Create, list and delete network groups
 [Network Management](network_management.md) | Create, list, and delete networks
 [Node Management](node_management.md) | Create, list, update, delete, and test for characteristics of Access Points (also called nodes)
+[Switch Management](switch_management.md) | Create, list, update, delete, and test for characteristics of Switches
+[Powerstrip Management](powerstrip_management.md) | Create, list, update, delete, and test for characteristics of Powerstrips
 [Site Survey](site_survey.md) | Scan Access Points in a network for neighboring Access Points
 [Time](time.md) | Synchronize time against the API server
 [Vouchers](vouchers.md) | Create, list, and update vouchers allowing per-user access to your networks
