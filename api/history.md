@@ -47,7 +47,10 @@ argument | allowable values | required | note
 ##### example output
 Output for the above query. For this endpoint, the sample array is partitioned into "rows" of smaller "time slices" (only two out of 24 being shown here). Each row is a snapshot of both upload and download data sampled over the time span of the sample.
 
+The "clients" object contains client counts for each SSID. The "all" field contains the total unique clients across the entire access point.
+
 In this and the other API calls below, "bup" and "bdown" stand for bytes up and bytes down, respectively (total bytes uploaded and downloaded during the time slice), while "rup" and "rdown" stand for rate up and rate down, respectively (ie, upload and download throughput during the same time span).
+
 
 ````json
 {
