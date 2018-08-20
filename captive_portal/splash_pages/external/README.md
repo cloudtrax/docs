@@ -52,7 +52,7 @@ parameter | description
 `uamip` | Internal address of the AP. Used by the splash page server to build a URL to the AP to return an encoded password to it. See [Redirecting the encoded password](#build-redir-url).
 `uamport` |  AP port. Used together with `uamip` above to build a URL to the AP.
 `mac` | MAC address of the client device .
-`called` | Address of eth0 on the AP. Used internally.
+`called` | MAC address of eth0 on the AP. This is the same MAC address that shows up in CloudTrax.
 `ssid` | SSID network name.
 `nasid` | ID of the Network Access Server, if one has been specified.
 `userurl` | url-encoded web page requested by the user, eg "http%3A%2F%2Fwww.google.com%2F".
