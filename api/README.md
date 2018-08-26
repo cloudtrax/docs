@@ -190,7 +190,7 @@ Errors are returned in a consistent fashion throughout the API. A non-200 HTTP s
 }
 ````
 
-<a name="error-elements></a>
+<a name="error-elements"></a>
 #### Error elements
 `"errors"` is an array of one or more specific error elements. Each element has the following fields:
 
