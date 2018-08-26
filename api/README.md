@@ -248,12 +248,7 @@ Whichever type of key you have, the authentication process described below is id
 <a name="getting_keys"></a>
 #### Retrieving API Keys
 
-As described above, you must have the relevant key and secret for your account and/or network(s) in order to use the API as described in this document. To apply for access keys for your account or network, please send an email request to <a href='mailto:api@cloudtrax.com'>api@cloudtrax.com</a>. Your request should state:
-
- * Your name and company name
- * Your telephone number and email address
- * The name of the account and/or network(s) for which you need keys
- * A short description of why you require API access and how you plan to use the API.
+As described above, you must have the relevant key and secret for your account and/or network(s) in order to use the API as described in this document. To generate the needed key and secret, see the CloudTrax Help Center article "<a href="https://help.cloudtrax.com/hc/en-us/articles/115000830750-Generating-an-API-Key">Generating an API Key</a>".
 
 Note that currently there are no access charges associated with use of the CloudTrax API for users with fewer than 100 devices. For more than 100 devices, contact sales@openmesh.com for pricing. Open Mesh may enforce rate limiting for some uses of the API. In order to help constrain resource demands, we ask that you please attempt to design any systems utilizing the API to limit frequency of access to the API.
 
