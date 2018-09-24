@@ -45,7 +45,7 @@ The protocol details three types of interaction between an **Access Point** ("AP
 <a name="tech-details"></a>
 ### HTTP Request and Response ###
 
-The HTTP API uses standard **HTTP Requests** to communicate between the Access Point and the Authentication Server. The base HTTP URL of the Authentication Server is specified in the CloudTrax [Configuration](#config). Query string parameters are added to this URL by the Access Point when making requests to report or request specific information from Authentication Server.
+The HTTP API uses standard **HTTP Requests** to communicate between the Access Point and the Authentication Server. HTTPS is not currently supported. The base HTTP URL of the Authentication Server is specified in the CloudTrax [Configuration](#config). Query string parameters are added to this URL by the Access Point when making requests to report or request specific information from Authentication Server.
 
 A query-string contains one or more name-value pairs of the form `param-name=param-value`. All HTTP Requests issued by this protocol use the HTTP GET method. All query-string parameters must be url-encoded. (Refer to [RFC 3986](http://www.rfc-editor.org/rfc/rfc3986.txt) for details.)
 
