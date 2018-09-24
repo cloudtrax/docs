@@ -112,7 +112,7 @@ Here's the rest of the Configuration panel you'll need to update when configurin
 
 
 ##### URL #####
-The full URL that is used in the authentication API call is formed by appending the query-string appropriate to that request to the URL specified above. For a Login Request for example, we have:
+The full URL that is used in the authentication API call is formed by appending the query-string appropriate to that request to the URL specified above. The URL must point to a standard HTTP server. HTTPS is not currently supported. For a Login Request for example, we have:
 
 Configured URL: `http://exampleauthserver.com/auth.php` <br/>
 Full URL:`GET http://exampleauthserver.com/auth.php?type=login&username=TEST.USER&password=87BC4E314689b55d89B&ra=949689087314689b55d89b1980aeff3f&mac=02:BA:DE:AF:FE:01&node=02:BA:DE:AF:FE:01`
