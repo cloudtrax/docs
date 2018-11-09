@@ -1,5 +1,10 @@
 # Password decoding
 
+## Important Note
+The value "Block duration of XX minutes" within CloudTrax specifies how often the password challenge is cycled. We suggest setting this to at least 10 minutes, otherwise you may experience passwords that are decrypted incorrectly.
+
+## Password decoding details
+
 The password that's passed to the Authentication Server is encoded and needs to be reconstructed by the Authentication server in order to verify the user's credentials. The encoding process on the CloudTrax end uses the Request Authenticator that's passed as part of the Login Request, as well as the shared secret, to encode the password. The Authentication Server likewise needs to use these values in order to decode it.
 
 The encoded password is a string containing a sequence of hexadecimal digit pairs whose string-length will be an integer multiple of 32 bytes. The first part of the decoding process needs to convert those hex pairs back to the ASCII characters they represent; this new string will be half the length of the old.
