@@ -120,6 +120,9 @@ Full URL:`GET http://exampleauthserver.com/auth.php?type=login&username=TEST.USE
 ##### secret #####
 On entry here, this secret is shared between CloudTrax and the backend Authentication Server. Both sides maintain identical copies; it is *never* transmitted in either direction between them during handshaking, encoded or otherwise.
 
+##### Failed authentication block #####
+The value "Block duration of XX minutes" specifies how often the password challenge is cycled. We suggest setting this to at least 10 minutes, otherwise you may experience passwords that are decrypted incorrectly.
+
 <a name="ra"></a>
 ## Request Authenticator ##
 All Authorization Requests contain an `ra` parameter. "ra" stands for **Request Authenticator**, a unique 128-bit (16-byte) string, which is used to help protect against so-called Man-in-the-Middle attacks. The Request Authenticator that is passed by CloudTrax to the Authentication Server needs to be transformed to a new RA by the algorithm discussed below and returned as part of the HTTP Response so that CloudTrax can determine that the Response is in accord with the original Request.
