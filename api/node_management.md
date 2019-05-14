@@ -150,8 +150,8 @@ A  new node needs to contain, at minimum, a MAC ("mac") and a "name".
     "mac": "ac:86:74:aa:cc:ee",
     "name": "new test node #1",
     "description": "added for test",
-    "latitude": "49.00112233",
-    "longitude": "-123.00112233",
+    "latitude": 49.00112233,
+    "longitude": -123.00112233,
     "confirm_transfer": "true"
 }
 ````
