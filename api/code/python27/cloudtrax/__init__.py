@@ -78,8 +78,8 @@ if __name__ == "__main__":
     # ----------------------------
       
     #data = {
-    #    'name': 'Howards-test-network-#10',
-    #    'password': 'my-beloved-dead-dog-rufus',
+    #    'name': 'test-network-#10',
+    #    'password': 'some_password',
     #    'timezone': 'America/Los_Angeles',
     #    'country_code': 'US'
     #}

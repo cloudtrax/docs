@@ -93,7 +93,7 @@ POST https://api.cloudtrax.com/account/login
 ```` JSON
 {
 	"username" : "joe_blow",
-	"password" : "my-beloved-dead-dog-rufus"
+	"password" : "some_password"
 }
 ````
 

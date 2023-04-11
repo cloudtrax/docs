@@ -123,8 +123,8 @@ call_api_server(Method::GET, "/network/list", NULL);
 // ----------------------------
 
 $data = array(
-            'name' => 'Howards-test-network-#10',
-            'password' => 'my-beloved-dead-dog-rufus',
+            'name' => 'test-network-#10',
+            'password' => 'some_password',
             'timezone' => 'America/Los_Angeles',
             'country_code' => 'US'
         );

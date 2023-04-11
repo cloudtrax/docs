@@ -38,7 +38,7 @@ POST https://api-v2.cloudtrax.com/network/networkgroup/<id>
 ```` json
 {
     "name" : "my-test-network-#2",
-    "password" : "pw345678",
+    "password" : "some_password",
     "email" : "support@open-mesh.com",
     "location" : "Portland",
     "timezone" : "America/Los_Angeles",
