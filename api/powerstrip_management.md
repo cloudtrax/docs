@@ -29,6 +29,15 @@ functionality | method | endpoint
 
 Retrieve a list of all power strips belonging to the given network, with detailed information.
 
+##### Lifecycle
+Lifecycle information about devices can be found when retrieving a device or a list of devices. We currently return this information for devices that can be added to Datto Network Manager. Learn more at [Datto Networking: End of Life policy](https://networkinghelp.datto.com/help/Content/kb/Networking/General%20Information/KB370000000038.htm).
+
+The lifecycle property has the following possible values:
+
+- **null**: Indicates that the device model does not have end-of-sale and end-of-life dates.
+- **Object with null values**: Indicates that the device model is ambiguous and the customer needs to visit the Datto Networking Article to determine the end-of-sale and/or end-of-life dates.
+- **Object with Date values**: Indicates the device model's end-of-sale and/or end-of-life dates, where the date is a string type in RFC 3339 format. Available properties: *end_of_life*, *end_of_sale*.
+
 ##### example request
 `GET https://api-v3.cloudtrax.com/powerstrip/network/12345/list`
 
@@ -56,6 +65,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
       "cloud_status": "up",
       "role": "repeater",
       "mesh_ip": "1.1.1.1",
+      "lifecycle": {
+        "end_of_sale": null,
+        "end_of_life": null,
+      },
       "surge_protection_active": true,
       "voltage_v": 116,
       "frequency_hz": 60,
@@ -77,6 +90,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
       "cloud_status": "down",
       "role": "repeater",
       "mesh_ip": "",
+      "lifecycle": {
+        "end_of_sale": "2021-04-30T00:00:00Z",
+        "end_of_life": "2026-04-30T00:00:00Z",
+      },      
       "surge_protection_active": false,
       "voltage_v": 0,
       "frequency_hz": 0,
@@ -148,6 +165,7 @@ Retrieve a power strip.
   "enable_connection_check_during_maintenance": false,
   "connection_check_max_retries": 0,
   "connection_check_time_between_retries": 60,
+  "lifecycle": null,
   "enable_mesh": false,
   "last_modified": "2018-04-30T20:29:17Z",
   "ip": "",

@@ -24,6 +24,15 @@ functionality | method | endpoint
 
 Retrieve all nodes belonging to the given network. The returned JSON is a dictionary, where each key is a node id, and detailed information for the node is contained in its corresponding value object. That information will differ slightly, depending on whether the node is a gateway (an Access Point connected directly to the Internet) or a repeater.
 
+##### Lifecycle
+Lifecycle information about devices can be found when retrieving a device or a list of devices. We currently return this information for devices that can be added to Datto Network Manager. Learn more at [Datto Networking: End of Life policy](https://networkinghelp.datto.com/help/Content/kb/Networking/General%20Information/KB370000000038.htm).
+
+The lifecycle property has the following possible values:
+
+- **null**: Indicates that the device model does not have end-of-sale and end-of-life dates.
+- **Object with null values**: Indicates that the device model is ambiguous and the customer needs to visit the Datto Networking Article to determine the end-of-sale and/or end-of-life dates.
+- **Object with Date values**: Indicates the device model's end-of-sale and/or end-of-life dates, where the date is a string type in RFC 3339 format. Available properties: *end_of_life*, *end_of_sale*.
+
 ##### example request
 `GET https://api.cloudtrax.com/node/network/12345/list`
 
@@ -45,10 +54,10 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"firmware_version_id": "56b1193bbbb0dd6ce3db169349d00cc412e771fc", 
 			"firmware_version_release": "beta 5", 
 			"custom_sh_errors": [ 
-			"error1" 
+			  "error1" 
 			], 
 			"custom_sh_names": [ 
-			"ng6-0-wifi-upgrade" 
+			  "ng6-0-wifi-upgrade" 
 			],
 			"mesh_version": "batman-adv",
 			"last_checkin": "2015-05-19T16:20:59Z",
@@ -61,6 +70,7 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"latitude": 49.53025200000000098,
 			"longitude": -123.0024159999999984,
 			"down": true,
+			"lifecycle": null,
 			"selected_gateway": {
 				"name": "Back office",
 				"ip": "6.59.122.192",
@@ -107,6 +117,10 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"latitude": 49.53026900000000069,
 			"longitude": -123.002387999999998,
 			"down": false,
+			"lifecycle": {
+				"end_of_sale": "2021-05-31T00:00:00Z",
+				"end_of_life": "2026-05-31T00:00:00Z",
+			},
 			"lan_info": {
 				"lan_ip": "192.168.0.9",
 				"wan_ip": "24.211.105.169"
@@ -242,6 +256,10 @@ You might note, given the number of unset fields in the JSON below, that this no
 	"description": "added for TEST #2",
 	"role": "orphan",
 	"firmware_version": "",
+	"lifecycle": {
+		"end_of_sale": "2021-05-31T00:00:00Z",
+		"end_of_life": "2026-05-31T00:00:00Z",
+	},
 	"mesh_version": "",
 	"last_checkin": "0000-00-00T00:00:00Z",
 	"uptime": "",

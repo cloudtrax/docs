@@ -33,6 +33,15 @@ functionality | method | endpoint
 
 Retrieve a list of all switches belonging to the given network, with detailed information.
 
+##### Lifecycle
+Lifecycle information about devices can be found when retrieving a device or a list of devices. We currently return this information for devices that can be added to Datto Network Manager. Learn more at [Datto Networking: End of Life policy](https://networkinghelp.datto.com/help/Content/kb/Networking/General%20Information/KB370000000038.htm).
+
+The lifecycle property has the following possible values:
+
+- **null**: Indicates that the device model does not have end-of-sale and end-of-life dates.
+- **Object with null values**: Indicates that the device model is ambiguous and the customer needs to visit the Datto Networking Article to determine the end-of-sale and/or end-of-life dates.
+- **Object with Date values**: Indicates the device model's end-of-sale and/or end-of-life dates, where the date is a string type in RFC 3339 format. Available properties: *end_of_life*, *end_of_sale*.
+
 ##### example request
 `GET https://api.cloudtrax.com/switch/network/12345/list`
 
@@ -62,6 +71,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "mac": "88:DC:96:1E:04:49",
                 "model": "OMS24",
                 "name": "switch john",
+                "lifecycle": {
+                  "end_of_sale": "2021-04-30T00:00:00Z",
+                  "end_of_life": "2026-04-30T00:00:00Z",
+                },
                 "total_ports": 28,
                 "uptime_seconds": 16109,
                 "connection_keeper_status": "disconnected"
@@ -84,6 +97,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "mac": "88:DC:96:16:B4:E3",
                 "model": "OMS48",
                 "name": "switch john1",
+                "lifecycle": {
+                  "end_of_sale": "2021-04-30T00:00:00Z",
+                  "end_of_life": "2026-04-30T00:00:00Z",
+                },
                 "total_ports": 52,
                 "uptime_seconds": 7836,
                 "connection_keeper_status": "disconnected"
@@ -106,6 +123,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "mac": "AC:86:74:00:00:02",
                 "model": "OMS8",
                 "name": "andreas test",
+                "lifecycle": {
+                  "end_of_sale": null,
+                  "end_of_life": null,
+                },
                 "total_ports": 12,
                 "uptime_seconds": 12420,
                 "connection_keeper_status": "disconnected"
@@ -127,6 +148,10 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "last_checkin": "",
                 "mac": "AC:86:74:00:00:99",
                 "model": "OMS8",
+                "lifecycle": {
+                  "end_of_sale": null,
+                  "end_of_life": null,
+                },
                 "name": "andreas test",
                 "total_ports": 0,
                 "uptime_seconds": 0,
@@ -150,6 +175,7 @@ The API either returns HTTP status code 200 (success) or an HTTP error and JSON 
                 "mac": "88:DC:96:10:FE:4A",
                 "model": "OMS8",
                 "name": "CP_JVS-PDX-OMS8",
+                "lifecycle": null,
                 "total_ports": 12,
                 "uptime_seconds": 16562,
                 "connection_keeper_status": "disconnected"
@@ -231,6 +257,7 @@ Retrieve a switch.
         "firmware_version":"v01.03.19",
         "ip":"10.20.20.108",
         "gateway_ip":"10.20.20.1",
+        "lifecycle": null,
         "uptime_seconds":4935777,
         "management_vlan":1,
         "cloud_status":"pairing",
