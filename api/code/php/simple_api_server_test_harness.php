@@ -93,13 +93,15 @@ function call_api_server($method, $endpoint, $data) {
         
     $path = $endpoint;
     // if present, concatenate encoded json to $endpoint for Signature:
-    if ($data != NULL) {
+    if ($data !== NULL) {
     	$json = json_encode($data);
         $path .= $json;
+    } else {
+        $json = NULL;
     }
 
     $authorization = "key=" . $key . ",timestamp=" . $time . ",nonce=" . $nonce;
-    $signature =  hash_hmac('sha256', $authorization . $path . $body, $secret);
+    $signature =  hash_hmac('sha256', $authorization . $path . $json, $secret);
     $headers = build_headers($authorization, $signature);
     
     print_debug_info($method, $endpoint, $headers);
