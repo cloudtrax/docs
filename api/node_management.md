@@ -33,6 +33,26 @@ The lifecycle property has the following possible values:
 - **Object with null values**: Indicates that the device model is ambiguous and the customer needs to visit the Datto Networking Article to determine the end-of-sale and/or end-of-life dates.
 - **Object with Date values**: Indicates the device model's end-of-sale and/or end-of-life dates, where the date is a string type in RFC 3339 format. Available properties: *end_of_life*, *end_of_sale*.
 
+##### Subscription
+
+Subscription information is provided when retrieving a list of devices or information for a specific device (except of summary).
+
+The `subscription` property has the following possible values:
+
+- **null**: Indicates that the device does not have any subscription information.
+
+- **Object**
+In case when an object is returned, it always contains the following fields:
+
+Field name | Type | Can be null? | Description
+--- | --- | --- | ---
+is_active | boolean | No | Subscription status for a particular device
+start_date | string | No | Start date of subscription, Format: Y-m-d\TH:i:s\Z, e.g. “2023-05-05T00:00:00Z”
+end_date | string | Yes | End date of subscription. Format: Y-m-d\TH:i:s\Z, e.g. “2026-05-05T00:00:00Z”
+term | string | No | Indicates the term of renewal of subscription. Can be either “monthly” for evergreen subscriptions or “yearly” for fixed term subscriptions
+term_length | integer | No | Indicates the number of months the devices has subscription for. E.g. 36 for a fixed term subscription or 1 (one) for an evergreen subscription.
+is_evergreen | boolean | No | Indicates if the subscription if evergreen, or in other words, never-ending, renewing every month and not having an end date
+
 ##### example request
 `GET https://api.cloudtrax.com/node/network/12345/list`
 
@@ -71,6 +91,14 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"longitude": -123.0024159999999984,
 			"down": true,
 			"lifecycle": null,
+			"subscription": {
+				"is_active": false,
+				"start_date": "2021-01-01T00:00:00Z",
+				"end_date": null,
+				"term": "monthly",
+				"term_length": 1,
+				"is_evergreen": true
+			},
 			"selected_gateway": {
 				"name": "Back office",
 				"ip": "6.59.122.192",
@@ -120,6 +148,14 @@ The example shows a two-node network with nodes 529813 and 525849. The former is
 			"lifecycle": {
 				"end_of_sale": "2021-05-31T00:00:00Z",
 				"end_of_life": "2026-05-31T00:00:00Z",
+			},
+			"subscription": {
+				"is_active": true,
+				"start_date": "2024-03-01T00:00:00Z",
+				"end_date": "2025-03-01T14:50:12Z",
+				"term": "yearly",
+				"term_length": 12,
+				"is_evergreen": false
 			},
 			"lan_info": {
 				"lan_ip": "192.168.0.9",
@@ -260,6 +296,7 @@ You might note, given the number of unset fields in the JSON below, that this no
 		"end_of_sale": "2021-05-31T00:00:00Z",
 		"end_of_life": "2026-05-31T00:00:00Z",
 	},
+	"subscription": null,
 	"mesh_version": "",
 	"last_checkin": "0000-00-00T00:00:00Z",
 	"uptime": "",
