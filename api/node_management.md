@@ -282,32 +282,98 @@ Retrieve a node.
 
 ##### example output
 
-You might note, given the number of unset fields in the JSON below, that this node has been added to the network programmatically via [create node](#create-node), but not yet physically.
-
 ````json
 {
-	"mac": "ac:86:74:aa:aa:aa",
-	"name": "TEST NODE #2",
-	"ip": "",
-	"description": "added for TEST #2",
-	"role": "orphan",
-	"firmware_version": "",
-	"lifecycle": {
-		"end_of_sale": "2021-05-31T00:00:00Z",
-		"end_of_life": "2026-05-31T00:00:00Z",
+	"active_clients": 0,
+	"alerts": {
+		"enabled": True
 	},
-	"subscription": null,
-	"mesh_version": "",
-	"last_checkin": "0000-00-00T00:00:00Z",
-	"uptime": "",
-	"hardware": "",
-	"memfree": 0,
-	"load": 0,
-	"spare": false,
-	"flags": "",
-	"latitude": 49.00112200000000229,
-	"longitude": -123.0011219999999952,
-	"down": false
+	"allow_dfs": True,
+	"anonymous_ip": False,
+	"antenna_type": None,
+	"autotx_tx_powers": None,
+	"channel_overrides": {
+		"2_4GHz": 2,
+		"5GHz": 36
+	},
+	"channel_utilization": {
+		"2_4GHz": [],
+		"5GHz": []
+	},
+	"channels": {},
+	"config_seqno": 73,
+	"connection_keeper_status": "disconnected",
+	"country_code": "US",
+	"current_seqno": 72,
+	"current_seqno_used_since": "2025-03-03T22:47:09Z",
+	"custom_sh_approved": True,
+	"description": "",
+	"disable_led": False,
+	"down": True,
+	"enable_dfs": False,
+	"enable_dhcp": False,
+	"enable_troubleshooting_until": None,
+	"expedite_upgrade": False,
+	"firmware_flags": [],
+	"firmware_version": "7.0.22-cdb46dd42ccbc8f108b94c1d8",
+	"firmware_version_full": 70000022,
+	"firmware_version_id": "cdb46dd42ccbc8f108b94c1d8ee4d9e13f88a81b",
+	"firmware_version_release": "",
+	"firmware_version_semantic": {
+		"build": "cdb46dd42ccbc8f108b94c1d8ee4d9e13f88a81b",
+		"major": 7,
+		"minor": 0,
+		"patch": 22
+	},
+	"flags": "0x0000",
+	"hardware": "A42",
+	"hardware_revision": "",
+	"has_scanning_support": False,
+	"ht_mode_overrides": {
+		"2_4GHz": "HT20",
+		"5GHz": "HT20"
+	},
+	"ht_mode_overrides_autorf": {
+		"2_4GHz": "HT20",
+		"5GHz": "HT20"
+	},
+	"ht_modes": {
+		"2_4GHz": "?",
+		"5GHz": "?"
+	},
+	"ip": "10.20.40.104",
+	"is_triband": False,
+	"lan_info": {
+		"lan_ip": "192.168.10.20",
+		"wan_ip": "1.2.3.4"
+	},
+	"last_checkin": "2025-03-03T22:47:37Z",
+	"latitude": 45.522700,
+	"lifecycle": {
+		"end_of_life": "2026-05-31T00:00:00Z",
+		"end_of_sale": "2021-05-31T00:00:00Z"
+	},
+	"lldp_negotiation_delay": False,
+	"load": 1.06,
+	"locate_mode": False,
+	"longitude": -122.67862,
+	"mac": "ac:86:74:aa:aa:aa",
+	"memfree": 162916,
+	"mesh_version": "batman-adv",
+	"name": "AP42_upstairs",
+	"network_first_add": "2025-01-28T01:55:35Z",
+	"outdoor": False,
+	"role": "gateway",
+	"serial_no": "A1234567890",
+	"spare": False,
+	"subscription": None,
+	"supported_country": True,
+	"supports_dfs": True,
+	"underpowered": False,
+	"upgrade_status": "none",
+	"uptime": "2m",
+	"uptime_seconds": 155,
+	"warranty_first_checkin": "2018-10-24T18:33:19Z"
 }
 ````
 
