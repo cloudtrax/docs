@@ -35,6 +35,7 @@ endpoints | description
 [History](history.md) | View traffic statistics in a given domain over a time span
 [Network Group Management](networkgroup_management.md) | Create, list and delete network groups
 [Network Management](network_management.md) | Create, list, and delete networks
+[All Networks](all_networks.md) | View device inventories, online and offline counts and check-in history across all of an account's networks, and manage devices not yet added to a network
 [Node Management](node_management.md) | Create, list, update, delete, and test for characteristics of Access Points (also called nodes)
 [Switch Management](switch_management.md) | Create, list, update, delete, and test for characteristics of Switches
 [Powerstrip Management](powerstrip_management.md) | Create, list, update, delete, and test for characteristics of Powerstrips
@@ -310,6 +311,7 @@ endpoints | description
 ---- | -----
 [Account Management](account_management.md) | Create new user accounts, log in users with username and password, provide embedded web access to CloudTrax visuals, and manage service agreements
 [Network Management](network_management.md) | Create, list, and delete networks
+[All Networks](all_networks.md) | View device inventories, online and offline counts and check-in history across all of an account's networks, and manage devices not yet added to a network
 [Node Management](node_management.md) | Create, list, update, delete, and test for characteristics of nodes
  [History](history.md) | View traffic statistics in a given domain over a time span
 [Site Survey](site_survey.md) | Scan nodes in a network for neighboring Access Points
